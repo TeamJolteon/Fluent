@@ -2,7 +2,7 @@ import Header from '../../components/header.js';
 
 export default function Articles(props) {
   return (
-    <div>Article</div>
+    <div>Articles</div>
   )
 }
 
