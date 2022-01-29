@@ -2,7 +2,7 @@ import Header from '../../components/header.js';
 
 export default function Articles(props) {
   return (
-    <div></div>
+    <div>Article</div>
   )
 }
 
@@ -13,3 +13,5 @@ export async function getServerSideProps(context) {
     }
   }
 }
+
+// setup on testing
