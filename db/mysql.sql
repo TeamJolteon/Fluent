@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS volt;
 CREATE DATABASE IF NOT EXISTS volt;
 
 USE volt;
@@ -13,11 +14,11 @@ USE volt;
 DROP TABLE IF EXISTS `Users`;
 
 CREATE TABLE `Users` (
-  `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `email` VARCHAR(50) NOT NULL DEFAULT 'NULL',
-  `default language` VARCHAR(50) NULL DEFAULT NULL,
-  `isLoggedIn` Boolean NULL DEFAULT NULL,
-  `password` VARCHAR(25) NULL DEFAULT NULL,
+  `id` INTEGER AUTO_INCREMENT,
+  `email` VARCHAR(50),
+  `default language` VARCHAR(50),
+  `isLoggedIn` Boolean,
+  `password` VARCHAR(25),
   PRIMARY KEY (`id`)
 );
 -- ---
@@ -27,16 +28,16 @@ CREATE TABLE `Users` (
 DROP TABLE IF EXISTS `vocab`;
 
 CREATE TABLE `vocab` (
-  `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `user_id` INTEGER NOT NULL,
-  `article_id` INTEGER NOT NULL,
-  `interval` INTEGER NULL DEFAULT NULL,
-  `currentInterval` INTEGER NULL DEFAULT NULL,
-  `repetition` INTEGER NULL DEFAULT NULL,
-  `efactor` INTEGER NULL DEFAULT NULL,
-  `word` VARCHAR(50) NULL DEFAULT NULL,
-  `language` VARCHAR(50) NULL DEFAULT NULL ,
-  `definition` VARCHAR(500) NULL DEFAULT NULL,
+  `id` INTEGER AUTO_INCREMENT,
+  `user_id` INTEGER,
+  `article_id` INTEGER,
+  `interval` INTEGER,
+  `currentInterval` INTEGER,
+  `repetition` INTEGER,
+  `efactor` INTEGER,
+  `word` VARCHAR(50),
+  `language` VARCHAR(50) ,
+  `definition` VARCHAR(500),
   PRIMARY KEY (`id`)
 );
 -- ---
@@ -46,10 +47,10 @@ CREATE TABLE `vocab` (
 DROP TABLE IF EXISTS `sentences`;
 
 CREATE TABLE `sentences` (
-  `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `sentence` VARCHAR(1000) NULL DEFAULT NULL,
-  `vocab_id` INTEGER NOT NULL,
-  `article_id` INTEGER NOT NULL,
+  `id` INTEGER AUTO_INCREMENT,
+  `sentence` VARCHAR(1000),
+  `vocab_id` INTEGER,
+  `article_id` INTEGER,
   PRIMARY KEY (`id`)
 );
 -- ---
@@ -59,16 +60,16 @@ CREATE TABLE `sentences` (
 DROP TABLE IF EXISTS `Articles`;
 
 CREATE TABLE `Articles` (
-  `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `url` VARCHAR(100) DEFAULT NULL,
-  `user_id` INTEGER NOT NULL,
-  `title` VARCHAR(50) DEFAULT NULL,
-  `date_written` DATE NULL DEFAULT NULL,
-  `date_uploaded` DATE NULL DEFAULT NULL,
-  `public` Boolean NULL DEFAULT NULL,
-  `publication` VARCHAR(50) NULL DEFAULT NULL,
-  `text` TEXT NULL DEFAULT NULL,
-  `userUploaded` Boolean NULL DEFAULT NULL,
+  `id` INTEGER AUTO_INCREMENT,
+  `url` VARCHAR(100),
+  `user_id` INTEGER,
+  `title` VARCHAR(50),
+  `date_written` DATE,
+  `date_uploaded` DATE,
+  `public` Boolean,
+  `publication` VARCHAR(50),
+  `text` TEXT,
+  `userUploaded` Boolean,
   PRIMARY KEY (`id`)
 );
 -- ---
