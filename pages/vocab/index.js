@@ -1,4 +1,5 @@
 import Header from '../../components/header.js';
+import axios from 'axios';
 
 export default function Vocab(props) {
   return (
