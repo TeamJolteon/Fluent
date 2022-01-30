@@ -1,7 +1,8 @@
 const axios = require('axios').default;
 const { v4: uuidv4 } = require('uuid');
+const azureToken = require('../../config.js');
 
-var subscriptionKey = "9c2fe9cdf27c439b9d414b06520d3d86";
+var subscriptionKey = azureToken;
 var endpoint = "https://api.cognitive.microsofttranslator.com";
 
 // Add your location, also known as region. The default is global.
