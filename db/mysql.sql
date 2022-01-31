@@ -90,11 +90,11 @@ ALTER TABLE `Articles` ADD FOREIGN KEY (user_id) REFERENCES `Users` (`id`);
 -- ---
 -- Test Data
 -- ---
--- INSERT INTO `Users` (`id`,`email*`,`default language`,`isLoggedIn (bool)`,`password (?)`) VALUES
--- ('','','','','');
+INSERT INTO `Users` (`email`,`default language`,`isLoggedIn`,`password`) VALUES
+('hello@here.com','english',1,'1234');
 -- INSERT INTO `vocab` (`id`,`user_id`,`article_id`,`interval`,`currentInterval`,`repetition `,`efactor (difficultyVal)`,`wordInEnglish`,`language`,`definition`,`audio?`) VALUES
 -- ('','','','','','','','','','','');
 -- INSERT INTO `sentences` (`id`,`sentence`,`vocab_id`,`article_id`) VALUES
 -- ('','','','');
--- INSERT INTO `Articles` (`id`,`url`,`user_id`,`title`,`upvotes`,`author`,`date written`,`date uploaded`,`public (boolean)`,`articleId from API`,`publication`,`text`,`userUploaded (boolean)`) VALUES
--- ('','','','','','','','','','','','','');
+INSERT INTO `Articles` (`url`,`title`,`date_written`,`date_uploaded`,`public`,`publication`,`text`,`userUploaded`) VALUES
+('testUrl','testTitle','2022-01-31','2022-01-31',0,'NYT','text',1);

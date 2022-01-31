@@ -1,0 +1,50 @@
+// const db = require('../index.js');
+
+import mysql from 'serverless-mysql';
+
+const db = mysql({
+  config: {
+    host: 'localhost',
+    port: 3306,
+    database: 'volt',
+    user: 'root',
+    password: ''
+  }
+});
+
+
+// get all public / private articles, and get all user articles
+
+export default async function getAllArticles({query, values}){
+  try {
+    // var query = 'select * from Articles';
+
+    console.log('we got here 1');
+    const results = await db.query(query, values);
+    console.log('we got here 2');
+
+    await db.end();
+    return results;
+  } catch (error) {
+    return { error };
+  }
+}
+
+// var getUserArticles = async function({ query, values}) {
+//   try {
+//     const query = 'select * from articles where username = ?';
+//     const results = await db.query(query, values);
+//     await db.end();
+//     return results;
+//   } catch (error) {
+//     return { error }
+//   }
+// }
+
+// module.exports = {
+//   getAllArticles: getArticles,
+//   getUserArticles: getUserArticles
+// }
+
+
+
