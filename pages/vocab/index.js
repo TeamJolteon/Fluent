@@ -2,7 +2,7 @@ import Header from '../../components/header.js';
 
 export default function Vocab(props) {
   return (
-    <div></div>
+    <div>{props.product}</div>
   )
 }
 
