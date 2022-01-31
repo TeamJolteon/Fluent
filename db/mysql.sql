@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS `Users`;
 CREATE TABLE `Users` (
   `id` INTEGER AUTO_INCREMENT,
   `email` VARCHAR(50),
-  `default language` VARCHAR(50),
+  `default_language` VARCHAR(50),
   `isLoggedIn` Boolean,
   `password` VARCHAR(25),
   PRIMARY KEY (`id`)
@@ -92,9 +92,18 @@ ALTER TABLE `Articles` ADD FOREIGN KEY (user_id) REFERENCES `Users` (`id`);
 -- ---
 INSERT INTO `Users` (`email`,`default language`,`isLoggedIn`,`password`) VALUES
 ('hello@here.com','english',1,'1234');
+
+INSERT INTO `Users` (`email`,`default_language`,`isLoggedIn`,`password`) VALUES
+('test@mail.com','english',0,'password');
 -- INSERT INTO `vocab` (`id`,`user_id`,`article_id`,`interval`,`currentInterval`,`repetition `,`efactor (difficultyVal)`,`wordInEnglish`,`language`,`definition`,`audio?`) VALUES
 -- ('','','','','','','','','','','');
 -- INSERT INTO `sentences` (`id`,`sentence`,`vocab_id`,`article_id`) VALUES
 -- ('','','','');
 INSERT INTO `Articles` (`url`,`title`,`date_written`,`date_uploaded`,`public`,`publication`,`text`,`userUploaded`) VALUES
 ('testUrl','testTitle','2022-01-31','2022-01-31',0,'NYT','text',1);
+INSERT INTO `Articles` (`url`,`title`,`date_written`,`date_uploaded`,`public`,`publication`,`text`,`userUploaded`) VALUES
+('testUrl','title','2022-01-31','2022-01-31',0,'NYT','text',0);
+
+
+-- To run this mySQL file type the following command in your terminal: mysql -u root < db/mysql.sql
+
