@@ -1,0 +1,41 @@
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  line-height: 1;
+}
+
+.logo {
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.sections {
+  display: flex;
+}
+
+.sections li {
+  cursor: pointer;
+  font-size: 16px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.sections li + li {
+  margin-left: 40px;
+}
+
+.sign {
+  cursor: pointer;
+  font-size: 16px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
