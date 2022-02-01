@@ -2,20 +2,22 @@
 import VocabList from './VocabList';
 import styled from 'styled-components';
 import Search from './Search';
-import Sort from './Sort';
 
 const Title = styled.h1`
   display: flex;
   justify-content: center;
 `;
+const Body = styled.div`
+  font-family: 'Roboto', sans-serif;
+  color: #444;
+`;
 
 export default function VLmain() {
   return (
-    <div>
+    <Body>
       <Title>Your Words</Title>
-      <Sort />
       <Search />
       <VocabList />
-    </div>
+    </Body>
   );
 }

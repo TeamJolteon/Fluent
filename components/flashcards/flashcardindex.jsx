@@ -1,5 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
+import VolumeUpIcon from '@material-ui/icons/VolumeUp';
+import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
+import AZURE from '../../config';
+
+const Button = styled.button`
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  margin-right: 5px;
+  padding: 10px;
+  font-size: 1rem;
+`;
+
+const Card = styled.div `
+  border: 10px solid rgba(0, 0, 0, .25);
+  padding: 15px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  height: 300px;
+  line-height: 50px;
+  color: #444;
+  font-family: "Roboto", sans-serif;
+`;
+const Title = styled.h1`
+  display: flex;
+  justify-content: center;
+  color: #444;
+  font-family: "Roboto", sans-serif;
+`;
+const Lang = styled.div`
+  font-size: 3em;
+  margin-top: 30px;
+`
+const English = styled.div `
+  margin: 15px;
+  font-size: 1.5em;
+`;
+
+const Grade = styled.div`
+  margin-top: 1rem;
+`;
+const PronuciationButton = styled.button`
+`;
 
 export default function FlashcardIndex (props) {
   const [reveal, setReveal] = useState(false);
@@ -22,6 +67,21 @@ export default function FlashcardIndex (props) {
   //   })
   // },[])
 
+  function synthesizeSpeech() {
+    const speechConfig = sdk.SpeechConfig.fromSubscription(AZURE, 'westus');
+    const synthesizer = new sdk.SpeechSynthesizer(speechConfig);
+    synthesizer.speakTextAsync(
+      flashcardData[FL].word,
+      (result) => {
+        synthesizer.close();
+        return result.audioData;
+      },
+      (error) => {
+        console.log(error);
+        synthesizer.close();
+      }
+    );
+  }
   const superMemo = (interval, repetition, efactor, grade) => {
     var nextInterval;
     var nextRepetition;
@@ -96,18 +156,25 @@ export default function FlashcardIndex (props) {
   }
 
   return (
-    <div className="flashcard">
-      <div className="flashcard-word">{flashcardData[FL].word}</div>
-      <div className="flashcard-translation" onClick={() => {reveal? setReveal(false): setReveal(true)}}>{reveal? flashcardData[FL].translation:"Reveal Translation"}</div>
-      <div className="flashcard-repeat" onClick={repeatOnClick}>{repeat?"Complete! Retry?":null}</div>
-      <div className="flashcard-grade">
-        <div id="flashcard0" onClick={gradeOnclick}>Sorry</div>
-        <div id="flashcard1" onClick={gradeOnclick}>Not Really</div>
-        <div id="flashcard2" onClick={gradeOnclick}>Barely</div>
-        <div id="flashcard3" onClick={gradeOnclick}>Fair</div>
-        <div id="flashcard4" onClick={gradeOnclick}>Almost</div>
-        <div id="flashcard5" onClick={gradeOnclick}>Perfect</div>
-      </div>
+    <div>
+    <Title>Practice</Title>
+    <div className="flashcard-repeat" onClick={repeatOnClick}>{repeat?"Complete! Retry?":null}</div>
+    <Card>
+      <Lang className="flashcard-word">{flashcardData[FL].word}</Lang>
+
+      <English onClick={() => {reveal? setReveal(false): setReveal(true)}}>{reveal? flashcardData[FL].translation:"Reveal Translation"}</English>
+      <PronuciationButton onClick={() => synthesizeSpeech()}>
+                    <VolumeUpIcon />
+                  </PronuciationButton>
+      <Grade>
+        <Button id="flashcard0" onClick={gradeOnclick}>No Idea</Button>
+        <Button id="flashcard1" onClick={gradeOnclick}>Not Even Close</Button>
+        <Button id="flashcard2" onClick={gradeOnclick}>Pretty Close</Button>
+        <Button id="flashcard3" onClick={gradeOnclick}>Close</Button>
+        <Button id="flashcard4" onClick={gradeOnclick}>Almost Got It</Button>
+        <Button id="flashcard5" onClick={gradeOnclick}>Perfect</Button>
+      </Grade>
+    </Card>
     </div>
   )
 }
