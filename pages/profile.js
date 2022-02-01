@@ -15,13 +15,11 @@ export default function Profile(props) {
 
   if (loading) return <p>Loading...</p>;
 
-  if (!session) return <p>You are not authenciated</p>;
-
   return (
     <div>
       <Header loggedin={true} />
       <div className={styles.container}>Welcome: {props.email}</div>
-      <p>You are authenticated</p>
+      <p className={styles.container}>You are authenticated</p>
     </div>
   );
 }

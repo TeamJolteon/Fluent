@@ -55,9 +55,9 @@ export default NextAuth({
     },
     redirect: async (url, baseUrl) => {
       if (url === '/profile') {
-        return Promise.resolve('/homescreen');
+        return Promise.resolve('/profile');
       }
-      return Promise.resolve('/homescreen');
+      return Promise.resolve('/profile');
     },
   },
 });

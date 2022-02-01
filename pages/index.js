@@ -4,6 +4,9 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Header from '../components/header.js';
 import { signIn, signOut, useSession } from 'next-auth/client';
+import { useRouter } from 'next/router';
+import {useState} from 'react';
+
 
 
 export default function Home(props) {
@@ -45,43 +48,6 @@ export default function Home(props) {
     return <p>Loading...</p>;
   }
 
-  // return (
-  //   <div className={styles.container}>
-  //     <Head>
-  //       <title>NextAuth Google Authentication</title>
-  //       <link rel="icon" href="/favicon.ico" />
-  //     </Head>
-
-  //     <h1>Google Authentication with NextAuth </h1>
-
-  //     {!currentSession && (
-  //       <>
-  //         <button className={styles.primaryButton} onClick={() => signIn("google", {callbackUrl: "http://localhost:3000/homescreen"})}>
-  //           Sign In With Google
-  //         </button>
-  //       </>
-  //     )}
-
-  //     {currentSession && (
-  //       <>
-  //         <h4>You are logged as: {currentSession.user.name}</h4>
-  //         <div className={styles.boxCenter}>
-  //           <h4>Email: {currentSession.user.email}</h4>
-  //           <br />
-  //           {currentSession.user.image && (
-  //             <span>
-  //               <img src={currentSession.user.image} alt={currentSession.user.name} />
-  //             </span>
-  //           )}
-  //         </div>
-  //         <br />
-  //         <br />
-  //         <button className={styles.primaryButton} onClick={() => signOut()}>
-  //           Sign Out
-  //         </button>
-  //       </>
-  //     )}
-  //     )
   return (
     <div>
       <Header />
@@ -92,12 +58,9 @@ export default function Home(props) {
             <div onClick={() => { setSignin(true); }} className={signin ? `${styles.option} ${styles.active}` : `${styles.option}`}>Sign In</div>
             <div onClick={() => { setSignin(false); }} className={signin ? `${styles.option}`: `${styles.option} ${styles.active}`}>Sign Up</div>
           </div>
-          <div className={styles.google}>Sign In With Google</div>
           {!currentSession && (
         <>
-          <button className={styles.primaryButton} onClick={() => signIn("google", {callbackUrl: "http://localhost:3000/homescreen"})}>
-            Sign In With Google
-          </button>
+          <div className={styles.google} onClick={() => signIn("google", {callbackUrl: "http://localhost:3000/profile"})}>Sign In With Google</div>
         </>
       )}
           <div className={styles.or}>or</div>
