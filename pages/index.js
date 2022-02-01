@@ -25,8 +25,8 @@ export default function Home(props) {
 
       {!session && (
         <>
-          <button className={styles.primaryButton} onClick={() => signIn()}>
-            Sign In
+          <button className={styles.primaryButton} onClick={() => signIn("google", {callbackUrl: "http://localhost:3000/homescreen"})}>
+            Sign In With Google
           </button>
         </>
       )}

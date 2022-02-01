@@ -10,6 +10,11 @@ export default NextAuth({
         'https://accounts.google.com/o/oauth2/v2/auth?prompt=consent&access_type=offline&response_type=code',
     }),
   ],
+  theme: {
+    colorScheme: "auto", // "auto" | "dark" | "light"
+    brandColor: "", // Hex color code
+    logo: "" // Absolute URL to image
+  },
   jwt: {
     encryption: true,
   },
@@ -21,11 +26,11 @@ export default NextAuth({
       }
       return token;
     },
-    redirect: async (url, _baseUrl) => {
+    redirect: async (url, baseUrl) => {
       if (url === '/profile') {
-        return Promise.resolve('/');
+        return Promise.resolve('/homescreen');
       }
-      return Promise.resolve('/');
+      return Promise.resolve('/homescreen');
     },
   },
 });

@@ -7,5 +7,5 @@ export default function Profile() {
 
   if (!session) return <p>You are not authenciated</p>;
 
-  return <p>You are authenciated</p>;
+  return <p>You are authenticated</p>;
 }
