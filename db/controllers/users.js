@@ -1,5 +1,6 @@
+import db from '../../db/index.js';
 // post request to add a new user
-
+// need to test all of these.
 const createUser = async ({email, password, default_language}) => {
   try {
     var queryString = 'INSERT INTO users (email, password, default_language, isLoggedIn) VALUES (?, ?, ?, true)';

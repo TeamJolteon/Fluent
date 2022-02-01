@@ -123,9 +123,9 @@ INSERT INTO `sentences` (`sentence`,`vocab_id`,`article_id`) VALUES
 ('hello thi is a sentence','2','2');
 
 INSERT INTO `translations` (`language`,`word_id`,`translation`) VALUES
-('swedish','1','^&^**&');
+('Swedish','1','Hej');
 INSERT INTO `translations` (`language`,`word_id`,`translation`) VALUES
-('swedish','2','^&^**&');
+('Japanese','2','シマウマ');
 
 
 
