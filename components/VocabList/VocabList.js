@@ -1,12 +1,13 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/display-name */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
 import AZURE from '../../config';
 import fakeData from './fakeListData';
+import axios from 'axios';
 
 const SpeakerImg = styled.div``;
 const Phrases = styled.div`
@@ -67,9 +68,10 @@ const PhraseData = styled.div`
 export default function VocabList() {
   const [sorted, setSorted] = useState('A-Z');
   const [currentLang, setCurrentLang] = useState('Swedish');
-  const [data, setData] = useState(fakeData);
+  const [listData, setListData] = useState([]);
+  const [articleData, setArticleData] = useState([]);
   const [Ind, setListInd] = useState(0);
-
+  // console.log('FROM VLSIT: ', props.list);
   function synthesizeSpeech(str) {
     const speechConfig = sdk.SpeechConfig.fromSubscription(AZURE, 'westus');
     const synthesizer = new sdk.SpeechSynthesizer(speechConfig);
@@ -85,17 +87,45 @@ export default function VocabList() {
       }
     );
   }
-  const sortList = () => {
-    let wordsArray = [];
-  };
-  sortList();
+  useEffect(() => {
+    const getList = async () => {
+      try {
+        const res = await axios.get(
+          '/api/vocabAPI/getVocabListAlphabetically',
+          {
+            params: {
+              language: currentLang,
+            },
+          }
+        );
+        setListData(res.data);
+        console.log('response: ', res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getList();
+  }, [currentLang]);
+  useEffect(() => {
+    const getArticles = async () => {
+      try {
+        const res = await axios.get('/api/articlesAPI/getAllArticles');
+        setArticleData(res.data);
+        console.log('responseArticles: ', res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getArticles();
+  }, []);
+
   return (
     <div>
       Sort By:
       <select>
         <option onChange={() => setSorted('A-Z')}>A-Z</option>
         <option onChange={() => setSorted('Z-A')}>Z-A</option>
-        <option onChange={() => setSorted('EasyFirst')}>Difficulty 📈</option>
+        <option onChange={() => setSorted('EasyFirst')}>Diffiulty 📈</option>
         <option onChange={() => setSorted('HardFirst')}>Difficulty 📉</option>
       </select>
       <Phrases>
@@ -103,24 +133,35 @@ export default function VocabList() {
           <PhraseRow>
             <PhraseHeaders>{currentLang}</PhraseHeaders>
             <PhraseHeaders>English</PhraseHeaders>
-            <PhraseHeaders>Pronuciation</PhraseHeaders>
+            <PhraseHeaders>Pronunciation</PhraseHeaders>
             <PhraseHeaders>Status</PhraseHeaders>
             <PhraseHeaders>Source</PhraseHeaders>
           </PhraseRow>
-          {fakeData.map((word) => {
+          {listData.map((word) => {
             return (
               <PhraseRow>
+                <PhraseData>{word.translation}</PhraseData>
                 <PhraseData>{word.word}</PhraseData>
-                <PhraseData>{word.english}</PhraseData>
                 <PhraseData>
                   <PronuciationButton
-                    onClick={() => synthesizeSpeech(word.english)}
+                    onClick={() => synthesizeSpeech(word.word)}
                   >
                     <VolumeUpIcon />
                   </PronuciationButton>
                 </PhraseData>
-                <PhraseData>{word.status}</PhraseData>
-                <PhraseData>link</PhraseData>
+                {word.efactor === 5 ? (
+                  <PhraseData>Got It</PhraseData>
+                ) : word.efactor < 3 ? (
+                  <PhraseData>Not Yet</PhraseData>
+                ) : (
+                  <PhraseData>Almost</PhraseData>
+                )}
+
+                {articleData.map((article) =>
+                  word.article_id === article.id ? (
+                    <PhraseData>{article.url}</PhraseData>
+                  ) : null
+                )}
               </PhraseRow>
             );
           })}

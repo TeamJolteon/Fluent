@@ -2,18 +2,10 @@ import Header from '../../components/header.js';
 import axios from 'axios';
 import VocabList from '../../components/VocabList/VLmain.js';
 
-export default function Vocab(props) {
+export default function Vocab() {
   return (
     <div>
       <VocabList />
     </div>
   );
-}
-
-export async function getServerSideProps(context) {
-  return {
-    props: {
-      product: 'coffee',
-    },
-  };
 }

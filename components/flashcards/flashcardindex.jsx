@@ -144,12 +144,9 @@ export default function FlashcardIndex (props) {
                     <VolumeUpIcon />
                   </PronuciationButton>
       <Grade>
-        <Button id="flashcard0" onClick={gradeOnclick}>No Idea</Button>
-        <Button id="flashcard1" onClick={gradeOnclick}>Not Even Close</Button>
-        <Button id="flashcard2" onClick={gradeOnclick}>Pretty Close</Button>
-        <Button id="flashcard3" onClick={gradeOnclick}>Close</Button>
-        <Button id="flashcard4" onClick={gradeOnclick}>Almost Got It</Button>
-        <Button id="flashcard5" onClick={gradeOnclick}>Perfect</Button>
+        <Button id="flashcard0" onClick={gradeOnclick}>Not Yet</Button>
+        <Button id="flashcard3" onClick={gradeOnclick}>Almost</Button>
+        <Button id="flashcard5" onClick={gradeOnclick}>Got it</Button>
       </Grade>
     </Card>
     </div>
