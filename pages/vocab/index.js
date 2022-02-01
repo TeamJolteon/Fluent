@@ -3,6 +3,7 @@ import axios from 'axios';
 
 export default function Vocab(props) {
   return (
+
     <div></div>
   )
 }

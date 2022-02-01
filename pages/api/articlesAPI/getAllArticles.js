@@ -1,4 +1,5 @@
-import getAllArticles from '../../db/controllers/articles.js';
+// import getAllArticles from '../../db/controllers/articles.js';
+const { getAllArticles } = require('/db/controllers/articles.js');
 
  const handler = async (req, res) => {
   try {
@@ -10,3 +11,6 @@ import getAllArticles from '../../db/controllers/articles.js';
 };
 
 export default handler;
+
+
+//localhost:3000/api/articlesAPI/getAllArticles
