@@ -11,9 +11,20 @@ export default function UrlForm() {
               <input type='text'/>
             </label>
           </div>
+          <div>
+          <form>
+            <label>
+              Share With Community?
+              <select>
+                <option>Yes</option>
+                <option>No</option>
+              </select>
+            </label>
+          </form>
+        </div>
+        <input type="submit"/>
         </form>
       </div>
-      <button>Submit</button>
     </div>
   )
 };

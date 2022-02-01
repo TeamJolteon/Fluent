@@ -25,6 +25,17 @@ export default function TextForm() {
           </div>
         </form>
       </div>
+      <div>
+          <form>
+            <label>
+              Share With Community?
+              <select>
+                <option>Yes</option>
+                <option>No</option>
+              </select>
+            </label>
+          </form>
+        </div>
       <button>Submit</button>
     </div>
   )
