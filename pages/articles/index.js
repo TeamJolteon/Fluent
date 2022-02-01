@@ -12,12 +12,14 @@ import ArticleModal from '../../components/articlesPage/articleModal.js';
 export default function Articles(props) {
   const [showAdd, setShowAdd] = useState(false);
   const [showArticle, setShowArticle] = useState(false);
+
   const handleAddOpen = () => setShowAdd(true);
   const handleAddClose = () => setShowAdd(false);
 
   const handleArticleOpen = () => setShowArticle(true);
   const handleArticleClose = () => setShowArticle(false);
-    axios
+
+  axios
     .get('/api/articlesAPI/getAllArticles')
     .then((response) => {
       console.log('response: ', response.data);
