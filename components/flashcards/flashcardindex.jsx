@@ -5,7 +5,18 @@ export default function FlashcardIndex (props) {
   const [reveal, setReveal] = useState(false);
   const [flashcardData, setFlashcardData] = useState(props.data);
   const [FL, setFlashcardIndex] = useState(0); //FL means flashcard index;
-  const [repeat, setRepeat] = useState(false)
+  const [repeat, setRepeat] = useState(false);
+
+  // //test without context;
+  // useEffect(() => {
+  //   axios.get('/api/vocabAPI/getVocalListCurrentInterval')
+  //   .then((res) => {
+  //     setFlashcardData(flashcardData);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   })
+  // },[])
 
   const superMemo = (interval, repetition, efactor, grade) => {
     var nextInterval;
@@ -42,7 +53,7 @@ export default function FlashcardIndex (props) {
   };
 
   const gradeOnclick = (e) => {
-    if (FL + 1 >= flashcardData.length) {
+    if (FL + 1 > flashcardData.length) {
       setRepeat(true);
       return;
     };
