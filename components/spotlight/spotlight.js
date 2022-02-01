@@ -77,7 +77,7 @@ export default function SpotlightComponent() {
                     setHighlightedWords(word);
                   }}
                 >
-                  {word}
+                  {word}{' '}
                 </Words>
               </>
             );
