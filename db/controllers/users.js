@@ -33,3 +33,21 @@ const signOut = async ({ email }) => {
   }
 }
 
+const deleteUser = async ({ email }) => {
+  try {
+    var queryString = 'DELETE * FROM users WHERE email = ?';
+    var params = [email];
+    const results = await db.promise().query(queryString, params);
+    return results[0];
+  } catch (error) {
+    return error;
+  }
+}
+
+module.exports = {
+  deleteUser,
+  signOut,
+  updateUserLanguage,
+  createUser
+}
+
