@@ -125,6 +125,11 @@ INSERT INTO `sentences` (`sentence`,`vocab_id`,`article_id`) VALUES
 INSERT INTO `translations` (`language`,`word_id`,`translation`) VALUES
 ('Swedish','1','Hej');
 INSERT INTO `translations` (`language`,`word_id`,`translation`) VALUES
+('Japanese','1','シマウマ');
+
+INSERT INTO `translations` (`language`,`word_id`,`translation`) VALUES
+('Swedish','2','Hej');
+INSERT INTO `translations` (`language`,`word_id`,`translation`) VALUES
 ('Japanese','2','シマウマ');
 
 
