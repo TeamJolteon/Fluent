@@ -2,6 +2,7 @@ import Header from '../../components/header.js';
 import SpotlightComponent from '../../components/spotlight/spotlight.js';
 import axios from 'axios';
 import SelectorNav from '../../components/articlesPage/collectionsNav.js';
+import ArticlesFeed from '../../components/articlesPage/ArticlesFeed.js';
 
 export default function Articles(props) {
   axios
@@ -16,8 +17,8 @@ export default function Articles(props) {
   return (
     <div>
       <div>Articles</div>
-       <SelectorNav/>
-      <SpotlightComponent />
+      <SelectorNav/>
+      <ArticlesFeed/>
     </div>
   )
 }
