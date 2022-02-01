@@ -1,13 +1,18 @@
 import { getSession } from 'next-auth/client';
 import styles from '../styles/Home.module.css';
 import { signIn, signOut, useSession } from 'next-auth/client';
+import Link from 'next/link';
 
 export default function Homescreen({ user }) {
-
   const [session, loadingSession] = useSession();
 
   return (
     <div className={styles.container}>
+      <span>
+      <Link href='/flashcards'>
+        <a>Flashcards</a>
+      </Link>
+      </span>
       <h1>Dashboard(Protected Route)</h1>
       <p>
         Welcome to dashboard: <b>{user.name}</b>
