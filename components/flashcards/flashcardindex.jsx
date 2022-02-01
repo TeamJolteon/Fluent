@@ -7,11 +7,15 @@ export default function FlashcardIndex (props) {
   const [FL, setFlashcardIndex] = useState(0); //FL means flashcard index;
   const [repeat, setRepeat] = useState(false);
 
-  // //test without context;
+  //test without context;
   // useEffect(() => {
-  //   axios.get('/api/vocabAPI/getVocalListCurrentInterval')
+  //   axios.get('/api/vocabAPI/getVocalListCurrentInterval', {
+  //     params: {
+  //       language: "Swedish"
+  //     }
+  //   })
   //   .then((res) => {
-  //     setFlashcardData(flashcardData);
+  //     setFlashcardData(res.data);
   //   })
   //   .catch((err) => {
   //     console.log(err);
@@ -54,17 +58,20 @@ export default function FlashcardIndex (props) {
 
   const gradeOnclick = (e) => {
     if (FL + 1 > flashcardData.length) {
-      setRepeat(true);
       return;
-    };
+    }
     var grade = e.target.id[9];
     var data = superMemo(flashcardData[FL].currentInterval, flashcardData[FL].repetition, flashcardData[FL].efactor, grade);
     data.word = flashcardData[FL].word;
     data.word = flashcardData[FL].word_id;
-    axios.put('api', data)
+    axios.put('/api/vocabAPI/getVocalListCurrentInterval', data)
     .then((res) => {
-      console.log("success!")
-      setFlashcardIndex(FL + 1);
+      console.log("success!");
+      if (FL + 1 >= flashcardData.length) {
+        setRepeat(true);
+      } else {
+        setFlashcardIndex(FL + 1);
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -73,10 +80,15 @@ export default function FlashcardIndex (props) {
 
   const repeatOnClick = (e) => {
     // var id = setFlashcardData.user_id
-    axios.get('/api/vocabAPI/getgetVocalListCurrentInterval')
+    axios.get('/api/vocabAPI/getVocalListCurrentInterval', {
+      params: {
+        language: "Swedish"
+      }
+    })
     .then((res) => {
       setFlashcardData(res.data);
       setRepeat(false);
+      setFlashcardIndex(0);
     })
     .catch((err) => {
       console.log(err);
