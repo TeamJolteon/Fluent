@@ -8,6 +8,8 @@ import axios from 'axios';
 import SelectorNav from '../../components/articlesPage/collectionsNav.js';
 import AddArticleModal from '../../components/articlesPage/addArticleModal.js';
 import ArticleModal from '../../components/articlesPage/articleModal.js';
+import SpotlightComponent from '../../components/spotlight/spotlight.js';
+import ArticlesFeed from '../../components/articlesPage/ArticlesFeed.js';
 
 export default function Articles(props) {
   const [showAdd, setShowAdd] = useState(false);
@@ -19,16 +21,6 @@ export default function Articles(props) {
   const handleArticleOpen = () => setShowArticle(true);
   const handleArticleClose = () => setShowArticle(false);
 
-  axios
-    .get('/api/articlesAPI/getAllArticles')
-    .then((response) => {
-      console.log('response: ', response.data);
-import SpotlightComponent from '../../components/spotlight/spotlight.js';
-import axios from 'axios';
-import SelectorNav from '../../components/articlesPage/collectionsNav.js';
-import ArticlesFeed from '../../components/articlesPage/ArticlesFeed.js';
-
-export default function Articles(props) {
   axios
   .get('/api/articlesAPI/getAllArticles')
   .then((response) => {
