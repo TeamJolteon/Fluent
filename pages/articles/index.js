@@ -28,7 +28,6 @@ export default function Articles(props) {
     });
   return (
     <div>
-      <div>Articles</div>
       <SelectorNav/>
       <AddArticleModal show={showAdd} handleClose={handleAddClose}/>
       <ArticleModal show={showArticle} handleClose={handleArticleClose}/>
