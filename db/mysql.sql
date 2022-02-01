@@ -36,10 +36,18 @@ CREATE TABLE `vocab` (
   `repetition` INTEGER DEFAULT 0,
   `efactor` float DEFAULT 2.5,
   `word` VARCHAR(50),
-  `language` VARCHAR(50) ,
   `definition` VARCHAR(500),
   PRIMARY KEY (`id`)
 );
+
+CREATE TABLE `translations` (
+  `id` INTEGER AUTO_INCREMENT,
+  `word_id` INTEGER NOT NULL,
+  `language` VARCHAR(50),
+  `translation` VARCHAR(100),
+  PRIMARY KEY (`id`)
+);
+
 -- ---
 -- Table 'sentences'
 --
@@ -77,6 +85,7 @@ CREATE TABLE `articles` (
 -- ---
 ALTER TABLE `vocab` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
 ALTER TABLE `vocab` ADD FOREIGN KEY (article_id) REFERENCES `articles` (`id`);
+ALTER TABLE `translations` ADD FOREIGN KEY (word_id) REFERENCES `vocab` (`id`);
 ALTER TABLE `sentences` ADD FOREIGN KEY (vocab_id) REFERENCES `vocab` (`id`);
 ALTER TABLE `sentences` ADD FOREIGN KEY (article_id) REFERENCES `articles` (`id`);
 ALTER TABLE `articles` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
@@ -101,15 +110,22 @@ INSERT INTO `articles` (`user_id`,`url`,`title`,`date_written`,`date_uploaded`,`
 INSERT INTO `articles` (`user_id`,`url`,`title`,`date_written`,`date_uploaded`,`public`,`publication`,`text`,`userUploaded`) VALUES
 (1,'testUrl','title','2022-01-31','2022-01-31',0,'NYT','text',0);
 
-INSERT INTO `vocab` (`user_id`,`article_id`,`interval`,`currentInterval`,`repetition`,`efactor`,`word`,`language`,`definition`) VALUES
-(1,1,3,11,35,3.5,'hello','english','yoyo');
+INSERT INTO `vocab` (`user_id`,`article_id`,`interval`,`currentInterval`,`repetition`,`efactor`,`word`,`definition`) VALUES
+(1,1,3,11,35,3.5,'hello','yoyo');
 
-INSERT INTO `vocab` (`user_id`,`article_id`,`interval`,`currentInterval`,`repetition`,`efactor`,`word`,`language`,`definition`) VALUES
-(2,2,3,5,35,3.5,'zebra','english','an animal');
+INSERT INTO `vocab` (`user_id`,`article_id`,`interval`,`currentInterval`,`repetition`,`efactor`,`word`,`definition`) VALUES
+(2,2,3,5,35,3.5,'zebra','an animal');
 
 
--- INSERT INTO `sentences` (`id`,`sentence`,`vocab_id`,`article_id`) VALUES
--- ('','','','');
+INSERT INTO `sentences` (`sentence`,`vocab_id`,`article_id`) VALUES
+('hello thi is a sentence','1','1');
+INSERT INTO `sentences` (`sentence`,`vocab_id`,`article_id`) VALUES
+('hello thi is a sentence','2','2');
+
+INSERT INTO `translations` (`language`,`word_id`,`translation`) VALUES
+('swedish','1','^&^**&');
+INSERT INTO `translations` (`language`,`word_id`,`translation`) VALUES
+('swedish','2','^&^**&');
 
 
 

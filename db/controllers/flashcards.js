@@ -1,9 +1,9 @@
 import db from '../../db/index.js';
 
-const updateVocablist = async ({word, newCurrInterval, newRepetition, nextEfactor, wordID}) => {
+const updateVocablist = async ({ currentInterval, repetition, efactor, id}) => {
   try {
     var queryString = 'UPDATE vocab set currentInterval = ?, repetition = ?, efactor = ? where id = ?';
-    var params = [newCurrInterval, newRepetition, nextEfactor, word, wordID];
+    var params = [currentInterval, repetition, efactor, id];
     const results = await db.promise().query(queryString, params);
     return results[0];
   } catch (error) {
@@ -13,6 +13,7 @@ const updateVocablist = async ({word, newCurrInterval, newRepetition, nextEfacto
 
 const getVocabListAlphabetically = async () => {
   try {
+    //send translations and sentences
     var queryString = 'SELECT * FROM vocab ORDER BY word asc';
     const results = await db.promise().query(queryString);
     return results[0];
@@ -23,6 +24,7 @@ const getVocabListAlphabetically = async () => {
 
 const getVocalListCurrentInterval = async () => {
   //sort by CurrentInterval from lower to higher
+  //send translations and sentences
   try {
     var queryString = 'SELECT * from vocab ORDER BY currentInterval ASC';
     const results = await db.promise().query(queryString);
@@ -33,6 +35,7 @@ const getVocalListCurrentInterval = async () => {
 }
 
 module.exports = {
+  updateVocablist,
   getVocabListAlphabetically,
   getVocalListCurrentInterval
 };
