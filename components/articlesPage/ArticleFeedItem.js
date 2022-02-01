@@ -21,11 +21,11 @@ const articleInfoContainerStyle = {
 
 
 export default function ArticleFeedItem (props) {
-  let url = props.sampleData.url ? props.sampleData.url : '';
-  let title = props.sampleData.title ? props.sampleData.title : '';
-  let author = props.sampleData.author ? props.sampleData.author : '';
-  let dateWritten = props.sampleData.dateWritten ? props.sampleData.dateWritten : '';
-  let dateUploaded = props.sampleData.dateUploaded ? props.sampleData.dateUploaded: '';
+  let url = props.data.url ? props.data.url : '';
+  let title = props.data.title ? props.data.title : '';
+  let author = props.data.author ? props.data.author : '';
+  let dateWritten = props.data.dateWritten ? props.data.dateWritten : '';
+  let dateUploaded = props.data.dateUploaded ? props.data.dateUploaded: '';
 
   return (
     <div
@@ -41,8 +41,8 @@ export default function ArticleFeedItem (props) {
       <div
         className='articleInfoContainer'
         style={articleInfoContainerStyle}>
-          <span>{dateWritten}</span>
-          <span>{dateUploaded}</span>
+          <span>written: {dateWritten}</span>
+          <span>uploaded: {dateUploaded}</span>
       </div>
     </div>
   )
