@@ -14,21 +14,13 @@ export async function getServerSideProps(context) {
     props: {
       data: [
         {
-        userid: 1,
-        word:"Great!",
-        word_id:1,
-        currentInterval: 1,
-        repetition: 0,
-        efactor: 2.5
-        },
-        {
-          userid: 1,
-          word:"What!",
-          word_id:1,
-          currentInterval: 1,
-          repetition: 0,
-          efactor: 2.5
-          }
+          word_id:5,
+          word:"great",
+          translation:"cool",
+          efactor:4,
+          currentInterval:1,
+          repetition:0
+        }
       ]
     }
   }
