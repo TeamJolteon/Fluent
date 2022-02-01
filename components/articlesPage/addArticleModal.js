@@ -4,16 +4,9 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-export default function AddArticleModal() {
-  const [show, setShow] = useState(false);
-  const handleOpen = () => setShow(true);
-  const handleClose = () => setShow(false);
-
-  // const handleClose = () => setShow(false);
-
+export default function AddArticleModal({ show, handleClose }) {
   return (
     <div>
-      <button onClick={handleOpen}>Open</button>
       <Modal
         open={show}
         onClose={handleClose}
