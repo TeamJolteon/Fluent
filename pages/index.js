@@ -27,20 +27,15 @@ export default function Login(props) {
 
   function submitSignup(e) {
     e.preventDefault();
-    console.log('signing up!');
     const info = {
       email: email,
       password: password 
     };
     axios.post('/api/auth/signup', info)
       .then((res) => {
-        console.log('yayyy!');
+        window.location.href = '/articles';
       })
   };
-
-  const logoutHandler = () => {
-    signOut();
-  }
 
   return (
     <div>
@@ -60,7 +55,6 @@ export default function Login(props) {
             {sigin ? <button onClick={(e) => {submitSignin(e); }} type="submit" className={styles.button}>Sign In</button> : <button onClick={(e) => {submitSignup(e); }} type="submit" className={styles.button}>Sign Up</button> }
           </form>
         </div>
-        {session ? <div onClick={logoutHandler} >Logout</div> : null }
       </div>
     </div>
   )

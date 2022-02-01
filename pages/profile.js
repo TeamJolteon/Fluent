@@ -1,3 +1,6 @@
+import Header from '../components/header';
+import styles from '../styles/Profile.module.css';
+
 import { useEffect, useState } from 'react';
 import { getSession, signOut } from 'next-auth/client';
 
@@ -9,8 +12,8 @@ export default function Profile(props) {
 
   return (
     <div>
-      <div>Profile Page {props.product}</div>
-      <div onClick={logoutHandler} >Logout</div>
+      <Header loggedin={true} />
+      <div className={styles.container}>Profile Page (exclusive)</div>
     </div>
   );
 }
