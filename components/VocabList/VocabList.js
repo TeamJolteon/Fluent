@@ -6,7 +6,6 @@ import Image from 'next/image';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
 import AZURE from '../../config';
-import fakeData from './fakeListData';
 import axios from 'axios';
 
 const SpeakerImg = styled.div``;
