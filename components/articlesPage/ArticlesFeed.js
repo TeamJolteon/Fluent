@@ -38,7 +38,7 @@ let sample = [
     author: 'Yo-Yo Ma',
     dateWritten: 'Jan-31-2022',
     dateUploaded: 'Jan-30-2022',
-    public: true,
+    public: false,
     publication: null,
     text: 'Sample Test 1 2 Sample Test 1 2, Sample Testing 3 4, Sample Testing 3 4',
   }
