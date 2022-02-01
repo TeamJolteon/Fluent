@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import axios from 'axios';
 import SelectorNav from '../../components/articlesPage/collectionsNav.js';
 import AddArticleModal from '../../components/articlesPage/addArticleModal.js';
+import ArticleModal from '../../components/articlesPage/articleModal.js';
 
 export default function Articles(props) {
   const [showAdd, setShowAdd] = useState(false);
@@ -30,6 +31,8 @@ export default function Articles(props) {
       <div>Articles</div>
       <SelectorNav/>
       <AddArticleModal show={showAdd} handleClose={handleAddClose}/>
+      <ArticleModal show={showArticle} handleClose={handleArticleClose}/>
+
       <button onClick={handleAddOpen}>Add Article</button>
       <button onClick={handleArticleOpen}>Temp Button</button>
     </div>
