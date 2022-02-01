@@ -8,8 +8,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "axios": "^0.25.0",
     "@material-ui/icons": "^4.11.2",
+    "axios": "^0.25.0",
     "microsoft-cognitiveservices-speech-sdk": "^1.19.0",
     "next": "12.0.9",
     "react": "17.0.2",
