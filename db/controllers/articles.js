@@ -23,6 +23,8 @@ const getUserArticles = async (userID) => {
   }
 }
 
+//POST: add a new article
+
 
 module.exports = {
   getAllArticles: getAllArticles,
