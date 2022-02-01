@@ -13,14 +13,14 @@ export default function Profile(props) {
   return (
     <div>
       <Header loggedin={true} />
-      <div className={styles.container}>Profile Page (exclusive)</div>
+      <div className={styles.container}>Welcome: {props.email}</div>
     </div>
   );
 }
 
 export async function getServerSideProps(context) {
   const session = await getSession({req: context.req});
-
+  console.log(session);
   if (!session) {
     return {
       redirect: {
@@ -32,7 +32,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      product: 'coffee'
+      email: session.user.email
     }
   }
 }
