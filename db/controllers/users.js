@@ -1,5 +1,6 @@
+import db from '../../db/index.js';
 // post request to add a new user
-
+// need to test all of these.
 const createUser = async ({email, password, default_language}) => {
   try {
     var queryString = 'INSERT INTO users (email, password, default_language, isLoggedIn) VALUES (?, ?, ?, true)';
@@ -31,5 +32,23 @@ const signOut = async ({ email }) => {
   } catch (error) {
     return error;
   }
+}
+
+const deleteUser = async ({ email }) => {
+  try {
+    var queryString = 'DELETE * FROM users WHERE email = ?';
+    var params = [email];
+    const results = await db.promise().query(queryString, params);
+    return results[0];
+  } catch (error) {
+    return error;
+  }
+}
+
+module.exports = {
+  deleteUser,
+  signOut,
+  updateUserLanguage,
+  createUser
 }
 
