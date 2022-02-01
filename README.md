@@ -1,21 +1,20 @@
 # Team Jolteon 
 
-# Introduction
+## Overview
+Our team has been tasked with creating a web application for a client who is looking to improve their English.
 
-# Overview
+## Articles
 
-# Articles
+## Vocab List
 
-# Vocab List
+## Flashcards
 
-# Flashcards
-
-# How to Install and Run the Project
+## How to Install and Run the Project
 
 1. Run `npm install` in the commmand line within the directory.
 2. Run `npm run dev`.
 
-# Contributor
+## Contributors
 
 - **Alex Romero**: [![Linkedin: LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white&link=https://www.linkedin.com/in/caleb-kim0510/)](https://www.linkedin.com/in/alex-romero-r/) [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/cariboukim)](https://github.com/ARome9)
 - **Daniel Tawata**: [![Linkedin: LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white&link=https://www.linkedin.com/in/caleb-kim0510/)](https://www.linkedin.com/in/daniel-tawata/) [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/cariboukim)](https://github.com/dtawata)
@@ -27,7 +26,7 @@
 - **Shuwen Liang**: [![Linkedin: LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white&link=https://www.linkedin.com/in/caleb-kim0510/)](https://www.linkedin.com/in/shuwen-liang-855067194/) [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/cariboukim)](https://github.com/midolake)
 - **Tim Nevada**: [![Linkedin: LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white&link=https://www.linkedin.com/in/caleb-kim0510/)](https://www.linkedin.com/in/timothynevada/) [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&link=https://github.com/cariboukim)](https://github.com/timnevada)
 
-# Technologies Used
+## Technologies Used
 
 - Setup and Configuration: ![git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
   ![npm](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)
