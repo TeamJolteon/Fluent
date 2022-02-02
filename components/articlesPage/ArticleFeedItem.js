@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ArticleModal from './articleModal.js';
+
 
 const articleFeedItemContainerStyle = {
   display: 'flex',
@@ -21,7 +23,13 @@ const articleInfoContainerStyle = {
 
 
 export default function ArticleFeedItem (props) {
+
+  const [showArticle, setShowArticle] = useState(false);
+  const handleArticleOpen = () => setShowArticle(true);
+  const handleArticleClose = () => setShowArticle(false);
+
   let url = props.data.url ? props.data.url : '';
+  let text = props.data.text ? props.data.text : '';
   let title = props.data.title ? props.data.title : '';
   let author = props.data.author ? props.data.author : '';
   let dateWritten = props.data.dateWritten ? props.data.dateWritten : '';
@@ -34,7 +42,7 @@ export default function ArticleFeedItem (props) {
       <div
         className='articleTitleContainer'
         style={articleTitleContainerStyle}>
-          <span onClick={console.log('opened')}>{title}</span>
+          <span onClick={handleArticleOpen}>{title}</span>
           <span>{author}</span>
           <a href={url}>Link</a>
       </div>
@@ -44,6 +52,10 @@ export default function ArticleFeedItem (props) {
           <span>written: {dateWritten}</span>
           <span>uploaded: {dateUploaded}</span>
       </div>
+      <ArticleModal
+        show={showArticle}
+        handleClose={handleArticleClose}
+        articleText={text}/>
     </div>
   )
 }
