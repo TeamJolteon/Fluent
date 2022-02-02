@@ -137,11 +137,13 @@ export default function Home(props) {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
+
   if (session) {
     context.res.writeHead(302, { Location: '/userportal' });
     context.res.end();
     return {};
   }
+
   return {
     props: {
       login: false,
