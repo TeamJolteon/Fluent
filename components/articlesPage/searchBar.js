@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import searchBarStyles from '../../styles/ArticleStyles/searchBar.module.css';
 
 export default function SearchBar() {
   const [query, setQuery] = useState('');
@@ -8,7 +9,7 @@ export default function SearchBar() {
     setQuery(e.target.value);
   }
   return (
-    <div>
+    <div className={searchBarStyles.searchBar}>
       <form>
         <input onChange={(e) => { handleSearch(e); }}/>
         <button>Search</button>

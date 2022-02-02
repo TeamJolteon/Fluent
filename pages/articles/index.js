@@ -11,6 +11,8 @@ import ArticleModal from '../../components/articlesPage/articleModal.js';
 import SpotlightComponent from '../../components/spotlight/spotlight.js';
 import ArticlesFeed from '../../components/articlesPage/ArticlesFeed.js';
 import SearchBar from '../../components/articlesPage/searchBar.js';
+import searchBarStyles from '../../styles/ArticleStyles/searchBar.module.css';
+import addArticleButtonStyles from '../../styles/ArticleStyles/addArticleButton.module.css';
 import { getSession } from 'next-auth/client';
 
 export default function Articles(props) {
@@ -35,8 +37,13 @@ export default function Articles(props) {
     <div>
       <Header loggedin={true} />
       <SelectorNav/>
-      <SearchBar/>
+      <div className={searchBarStyles.searchBar}>
+        <SearchBar/>
+      </div>
       <ArticlesFeed />
+      <div className={addArticleButtonStyles.addButton}>
+        <button onClick={handleAddOpen}>Add Article</button>
+      </div>
       <AddArticleModal show={showAdd} handleClose={handleAddClose}/>
     </div>
   );
