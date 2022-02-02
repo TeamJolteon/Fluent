@@ -29,14 +29,21 @@ export async function getServerSideProps(context) {
           id: 1,
           word: 'Tack',
           translation: 'Thank you',
+<<<<<<< HEAD
           efactor: 4,
           currentInterval: 1,
           repetition: 0,
+=======
+          efactor: 1,
+          currentInterval: 1,
+          repetition: 5,
+>>>>>>> cfa900b27a6f4bc749a2fd5e45988e74d2238f2a
         },
         {
           id: 2,
           word: 'Badrum',
           translation: 'Bathroom',
+<<<<<<< HEAD
           efactor: 4,
           currentInterval: 1,
           repetition: 0,
@@ -45,9 +52,19 @@ export async function getServerSideProps(context) {
           id: 3,
           word: 'Vatten',
           translation: 'Water',
+=======
+>>>>>>> cfa900b27a6f4bc749a2fd5e45988e74d2238f2a
           efactor: 4,
           currentInterval: 1,
-          repetition: 0,
+          repetition: 1,
+        },
+        {
+          id: 3,
+          word: 'Vatten',
+          translation: 'Water',
+          efactor: 5,
+          currentInterval: 1,
+          repetition: 10,
         },
       ],
     },
