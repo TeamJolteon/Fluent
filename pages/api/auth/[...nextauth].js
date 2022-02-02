@@ -54,10 +54,7 @@ export default NextAuth({
       return token;
     },
     redirect: async (url, baseUrl) => {
-      if (url === '/profile') {
-        return Promise.resolve('/profile');
-      }
-      return Promise.resolve('/profile');
+      return Promise.resolve('/userportal');
     },
   },
 });
