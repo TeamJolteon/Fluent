@@ -70,7 +70,7 @@ export default function FlashcardIndex (props) {
     const speechConfig = sdk.SpeechConfig.fromSubscription(AZURE, 'westus');
     const synthesizer = new sdk.SpeechSynthesizer(speechConfig);
     synthesizer.speakTextAsync(
-      flashcardData[FL].word,
+      flashcardData[FL].translation,
       (result) => {
         synthesizer.close();
         return result.audioData;
@@ -130,6 +130,7 @@ export default function FlashcardIndex (props) {
         setRepeat(true);
       } else {
         setFlashcardIndex(FL + 1);
+        setReveal(false)
       }
     })
     .catch((err) => {
