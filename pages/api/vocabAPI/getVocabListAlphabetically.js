@@ -3,7 +3,8 @@ const { getVocabListAlphabetically } = require('/db/controllers/flashcards.js');
 const handler = async (req, res) => {
   try {
     var language = req.query.language;
-    var results = await getVocabListAlphabetically(language);
+    var userID = req.query.userID;
+    var results = await getVocabListAlphabetically(language, userID);
     res.status(200).send(results);
   } catch (error) {
     res.status(500).send(error);
@@ -12,4 +13,5 @@ const handler = async (req, res) => {
 
 export default handler;
 
-//localhost:3000/api/vocabAPI/getVocabListAlphabetically
+//localhost:3000/api/vocabAPI/getVocabListAlphabetically?language=Japanese
+//localhost:3000/api/vocabAPI/getVocabListAlphabetically?language=Swedish
