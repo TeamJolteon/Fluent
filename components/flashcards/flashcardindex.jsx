@@ -122,8 +122,8 @@ export default function FlashcardIndex (props) {
     var grade = e.target.id[9];
     var data = superMemo(flashcardData[FL].currentInterval, flashcardData[FL].repetition, flashcardData[FL].efactor, grade);
     data.word = flashcardData[FL].word;
-    data.word = flashcardData[FL].word_id;
-    axios.put('/api/vocabAPI/getVocalListCurrentInterval', data)
+    data.id = flashcardData[FL].id;
+    axios.put('/api/vocabAPI/updateVocablist', data)
     .then((res) => {
       console.log("success!");
       if (FL + 1 >= flashcardData.length) {
@@ -146,9 +146,9 @@ export default function FlashcardIndex (props) {
       }
     })
     .then((res) => {
+      setFlashcardIndex(0);
       setFlashcardData(res.data);
       setRepeat(false);
-      setFlashcardIndex(0);
     })
     .catch((err) => {
       console.log(err);
