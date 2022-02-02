@@ -10,6 +10,7 @@ import AddArticleModal from '../../components/articlesPage/addArticleModal.js';
 import ArticleModal from '../../components/articlesPage/articleModal.js';
 import SpotlightComponent from '../../components/spotlight/spotlight.js';
 import ArticlesFeed from '../../components/articlesPage/ArticlesFeed.js';
+import SearchBar from '../../components/articlesPage/searchBar.js';
 
 export default function Articles(props) {
   const [showAdd, setShowAdd] = useState(false);
@@ -32,7 +33,9 @@ export default function Articles(props) {
   });
   return (
     <div>
+      <Header />
       <SelectorNav/>
+      <SearchBar/>
       <AddArticleModal show={showAdd} handleClose={handleAddClose}/>
       <ArticleModal show={showArticle} handleClose={handleArticleClose}/>
 

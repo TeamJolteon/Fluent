@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import formStyles from '../../styles/ArticleStyles/textForm.module.css';
 
 export default function TextForm() {
@@ -23,6 +24,10 @@ export default function TextForm() {
       setCommunitySharing(e.target.value);
     }
   }
+
+  // let handleSubmit = () => {
+  //   axios.post('')
+  // }
 
   return (
     <div>
