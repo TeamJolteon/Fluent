@@ -10,14 +10,18 @@ import AddArticleModal from '../../components/articlesPage/addArticleModal.js';
 import ArticleModal from '../../components/articlesPage/articleModal.js';
 import SpotlightComponent from '../../components/spotlight/spotlight.js';
 import ArticlesFeed from '../../components/articlesPage/ArticlesFeed.js';
-import SearchBar from '../../components/articlesPage/searchBar.js';
-import searchBarStyles from '../../styles/ArticleStyles/searchBar.module.css';
 import addArticleButtonStyles from '../../styles/ArticleStyles/addArticleButton.module.css';
 import { getSession } from 'next-auth/client';
+import SearchBar from '../../components/articlesPage/searchBar.js';
+import searchBarStyles from '../../styles/ArticleStyles/searchBar.module.css';
+import sample from '../../components/articlesPage/articleDummyData/articleDummyData.js';
+import SortBar from '../../components/articlesPage/sortBar.js';
 
 export default function Articles(props) {
   const [showAdd, setShowAdd] = useState(false);
   const [showArticle, setShowArticle] = useState(false);
+  const [allArticles, setAllArticles] = useState(sample);
+  const [articles, setArticles] = useState(sample);
 
   const handleAddOpen = () => setShowAdd(true);
   const handleAddClose = () => setShowAdd(false);
@@ -38,9 +42,12 @@ export default function Articles(props) {
       <Header loggedin={true} />
       <SelectorNav/>
       <div className={searchBarStyles.searchBar}>
-        <SearchBar/>
+          <SearchBar allArticles={allArticles} articles={articles} setArticles={setArticles}/>
       </div>
-      <ArticlesFeed />
+      <div>
+        <SortBar allArticles={allArticles}/>
+      </div>
+      <ArticlesFeed data={articles}/>
       <div className={addArticleButtonStyles.addButton}>
         <button onClick={handleAddOpen}>Add Article</button>
       </div>
