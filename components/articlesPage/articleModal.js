@@ -71,7 +71,7 @@ export default function ArticleModal({ show, handleClose, articleText }) {
       <Modal
         open={show}
         onClose={handleClose}>
-        <div class={articleStyles.flex}>
+        <div className={articleStyles.flex}>
           <Box sx={{
             position: 'absolute',
             top: '50%',
