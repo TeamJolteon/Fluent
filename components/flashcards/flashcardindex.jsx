@@ -49,6 +49,22 @@ export default function FlashcardIndex (props) {
   const [reveal, setReveal] = useState(false);
   const [flashcardData, setFlashcardData] = useState(props.data);
   const [FL, setFlashcardIndex] = useState(0); //FL means flashcard index;
+  const [repeat, setRepeat] = useState(false);
+
+  //test without context;
+  // useEffect(() => {
+  //   axios.get('/api/vocabAPI/getVocalListCurrentInterval', {
+  //     params: {
+  //       language: "Swedish"
+  //     }
+  //   })
+  //   .then((res) => {
+  //     setFlashcardData(res.data);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   })
+  // },[])
 
   function synthesizeSpeech() {
     const speechConfig = sdk.SpeechConfig.fromSubscription(AZURE, 'westus');
@@ -100,41 +116,48 @@ export default function FlashcardIndex (props) {
   };
 
   const gradeOnclick = (e) => {
+    if (FL + 1 > flashcardData.length) {
+      return;
+    }
     var grade = e.target.id[9];
     var data = superMemo(flashcardData[FL].currentInterval, flashcardData[FL].repetition, flashcardData[FL].efactor, grade);
     data.word = flashcardData[FL].word;
     data.word = flashcardData[FL].word_id;
-    axios.put('api', {
-      params: {
-        userid: flashcardData[FL].userid
-      }
-    }, data)
+    axios.put('/api/vocabAPI/getVocalListCurrentInterval', data)
     .then((res) => {
-      // axios.get('api', {
-      //   params: {
-      //     userid: flashcardData.userid
-      //   }
-      // })
-      // .then((res) => {
-      //   setFlashcardData(res.data)
-      // })
-      // .catch((err) => {
-      //   console.log(err);
-      // })
-      console.log("success!")
-      setFlashcardIndex(FL + 1);
+      console.log("success!");
+      if (FL + 1 >= flashcardData.length) {
+        setRepeat(true);
+      } else {
+        setFlashcardIndex(FL + 1);
+      }
     })
     .catch((err) => {
       console.log(err);
     });
-    console.log(data);
-    setFlashcardIndex(FL + 1);
   };
 
+  const repeatOnClick = (e) => {
+    // var id = setFlashcardData.user_id
+    axios.get('/api/vocabAPI/getVocalListCurrentInterval', {
+      params: {
+        language: "Swedish"
+      }
+    })
+    .then((res) => {
+      setFlashcardData(res.data);
+      setRepeat(false);
+      setFlashcardIndex(0);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
 
   return (
     <div>
     <Title>Practice</Title>
+    <div className="flashcard-repeat" onClick={repeatOnClick}>{repeat?"Complete! Retry?":null}</div>
     <Card>
       <Lang className="flashcard-word">{flashcardData[FL].word}</Lang>
 
