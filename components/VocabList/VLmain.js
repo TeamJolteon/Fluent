@@ -1,7 +1,6 @@
 /* eslint-disable react/display-name */
 import VocabList from './VocabList';
 import styled from 'styled-components';
-import Search from './Search';
 
 const Title = styled.h1`
   display: flex;
@@ -16,7 +15,6 @@ export default function VLmain() {
   return (
     <Body>
       <Title>Your Words</Title>
-      <Search />
       <VocabList />
     </Body>
   );

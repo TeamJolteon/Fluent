@@ -41,7 +41,6 @@ const English = styled.div `
 `;
 
 const Grade = styled.div`
-  margin-top: 1rem;
 `;
 const PronuciationButton = styled.button`
 `;

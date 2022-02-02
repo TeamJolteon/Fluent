@@ -5,6 +5,7 @@ import VocabList from '../../components/VocabList/VLmain.js';
 export default function Vocab() {
   return (
     <div>
+      <Header />
       <VocabList />
     </div>
   );

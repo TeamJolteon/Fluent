@@ -31,7 +31,7 @@ export default function SpotlightComponent() {
 
     var location = 'westus3';
 
-    console.log(translatedWord);
+    // console.log(translatedWord);
 
     axios({
       baseURL: endpoint,

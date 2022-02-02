@@ -4,22 +4,23 @@ import axios from 'axios';
 import SelectorNav from '../../components/articlesPage/collectionsNav.js';
 
 export default function Articles(props) {
-  axios
-  .get('/api/articlesAPI/getAllArticles')
-  .then((response) => {
-    console.log('response: ', response.data);
+  // axios
+  // .get('/api/articlesAPI/getAllArticles')
+  // .then((response) => {
+  //   console.log('response: ', response.data);
 
-  })
-  .catch((e) => {
-    console.log(e);
-  });
+  // })
+  // .catch((e) => {
+  //   console.log(e);
+  // });
   return (
     <div>
+      <Header />
       <div>Articles</div>
-       <SelectorNav/>
+      <SelectorNav />
       <SpotlightComponent />
     </div>
-  )
+  );
 }
 
 // export async function getServerSideProps(context) {

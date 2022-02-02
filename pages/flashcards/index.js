@@ -1,12 +1,13 @@
 import Header from '../../components/header.js';
-import FlashcardIndex from '../../components/flashcards/flashcardindex.jsx'
+import FlashcardIndex from '../../components/flashcards/flashcardindex.jsx';
 
 export default function Flashcards(props) {
   return (
     <div>
-      <FlashcardIndex data={props.data}/>
+      <Header />
+      <FlashcardIndex data={props.data} />
     </div>
-  )
+  );
 }
 
 export async function getServerSideProps(context) {
@@ -14,24 +15,24 @@ export async function getServerSideProps(context) {
     props: {
       data: [
         {
-        userid: 1,
-        word:"Great!",
-        word_id:1,
-        currentInterval: 1,
-        repetition: 0,
-        efactor: 2.5
+          userid: 1,
+          word: 'Great!',
+          word_id: 1,
+          currentInterval: 1,
+          repetition: 0,
+          efactor: 2.5,
         },
         {
           userid: 1,
-          word:"What!",
-          word_id:1,
+          word: 'What!',
+          word_id: 1,
           currentInterval: 1,
           repetition: 0,
-          efactor: 2.5
-          }
-      ]
-    }
-  }
+          efactor: 2.5,
+        },
+      ],
+    },
+  };
 }
 
 // {
