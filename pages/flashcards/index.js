@@ -26,9 +26,25 @@ export async function getServerSideProps(context) {
     props: {
       data: [
         {
-          word_id: 5,
-          word: 'great',
-          translation: 'cool',
+          id: 1,
+          word: 'Tack',
+          translation: 'Thank you',
+          efactor: 4,
+          currentInterval: 1,
+          repetition: 0,
+        },
+        {
+          id: 2,
+          word: 'Badrum',
+          translation: 'Bathroom',
+          efactor: 4,
+          currentInterval: 1,
+          repetition: 0,
+        },
+        {
+          id: 3,
+          word: 'Vatten',
+          translation: 'Water',
           efactor: 4,
           currentInterval: 1,
           repetition: 0,
