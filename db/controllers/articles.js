@@ -1,48 +1,32 @@
-const db = require('../index.js');
-
-// const db = mysql({
-//   config: {
-//     host: 'localhost',
-//     port: 3306,
-//     database: 'volt',
-//     user: 'root',
-//     password: ''
-//   }
-// });
-
+import db from '../../db/index.js';
 
 // get all public / private articles, and get all user articles
 
-export default async function getAllArticles(){
+const getAllArticles = async () => {
   try {
-    var query = 'select * from Articles';
-
-    console.log('we got here 1');
-    const results = await db.promise().query(query);
-    console.log('we got here 2');
-
-    await db.end();
-    return results;
+    var queryString = 'select * from Articles';
+    const results = await db.promise().query(queryString);
+    return results[0];
   } catch (error) {
-    return { error };
+    return error;
   }
 }
 
-// var getUserArticles = async function({ query, values}) {
-//   try {
-//     const query = 'select * from articles where username = ?';
-//     const results = await db.query(query, values);
-//     await db.end();
-//     return results;
-//   } catch (error) {
-//     return { error }
-//   }
-// }
+const getUserArticles = async (userID) => {
+  try {
+    var queryString = `select * from Articles WHERE user_id = ${userID}`;
+    // var params = [userID];
+    const results = await db.promise().query(queryString);
+    return results[0];
+  } catch (error) {
+    return error;
+  }
+}
 
-// module.exports = {
-//   getAllArticles: getArticles,
-//   getUserArticles: getUserArticles
-// }
+//POST: add a new article
 
 
-
+module.exports = {
+  getAllArticles: getAllArticles,
+  getUserArticles: getUserArticles
+}

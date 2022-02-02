@@ -1,4 +1,4 @@
-import getAllArticles from '/Users/shuwenliang/Documents/BlueOcean/english/db/testdb.js';
+import getAllArticles from '../../db/testdb.js';
 
 const handler = async (req, res) => {
   try {

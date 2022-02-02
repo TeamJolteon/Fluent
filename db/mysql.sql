@@ -11,14 +11,14 @@ USE volt;
 -- Table 'Users'
 --
 -- ---
-DROP TABLE IF EXISTS `Users`;
+DROP TABLE IF EXISTS `users`;
 
-CREATE TABLE `Users` (
+CREATE TABLE `users` (
   `id` INTEGER AUTO_INCREMENT,
-  `email` VARCHAR(50),
+  `email` VARCHAR(50) UNIQUE,
   `default_language` VARCHAR(50),
   `isLoggedIn` Boolean,
-  `password` VARCHAR(25),
+  `password` VARCHAR(100),
   PRIMARY KEY (`id`)
 );
 -- ---
@@ -34,12 +34,20 @@ CREATE TABLE `vocab` (
   `interval` INTEGER,
   `currentInterval` INTEGER DEFAULT 1,
   `repetition` INTEGER DEFAULT 0,
-  `efactor` INTEGER DEFAULT 2.5,
+  `efactor` float DEFAULT 2.5,
   `word` VARCHAR(50),
-  `language` VARCHAR(50) ,
   `definition` VARCHAR(500),
   PRIMARY KEY (`id`)
 );
+
+CREATE TABLE `translations` (
+  `id` INTEGER AUTO_INCREMENT,
+  `word_id` INTEGER NOT NULL,
+  `language` VARCHAR(50),
+  `translation` VARCHAR(100),
+  PRIMARY KEY (`id`)
+);
+
 -- ---
 -- Table 'sentences'
 --
@@ -57,9 +65,9 @@ CREATE TABLE `sentences` (
 -- Table 'Articles'
 --
 -- ---
-DROP TABLE IF EXISTS `Articles`;
+DROP TABLE IF EXISTS `articles`;
 
-CREATE TABLE `Articles` (
+CREATE TABLE `articles` (
   `id` INTEGER AUTO_INCREMENT,
   `url` VARCHAR(100),
   `user_id` INTEGER,
@@ -75,11 +83,12 @@ CREATE TABLE `Articles` (
 -- ---
 -- Foreign Keys
 -- ---
-ALTER TABLE `vocab` ADD FOREIGN KEY (user_id) REFERENCES `Users` (`id`);
-ALTER TABLE `vocab` ADD FOREIGN KEY (article_id) REFERENCES `Articles` (`id`);
+ALTER TABLE `vocab` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
+ALTER TABLE `vocab` ADD FOREIGN KEY (article_id) REFERENCES `articles` (`id`);
+ALTER TABLE `translations` ADD FOREIGN KEY (word_id) REFERENCES `vocab` (`id`);
 ALTER TABLE `sentences` ADD FOREIGN KEY (vocab_id) REFERENCES `vocab` (`id`);
-ALTER TABLE `sentences` ADD FOREIGN KEY (article_id) REFERENCES `Articles` (`id`);
-ALTER TABLE `Articles` ADD FOREIGN KEY (user_id) REFERENCES `Users` (`id`);
+ALTER TABLE `sentences` ADD FOREIGN KEY (article_id) REFERENCES `articles` (`id`);
+ALTER TABLE `articles` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
 -- ---
 -- Table Properties
 -- ---
@@ -90,19 +99,39 @@ ALTER TABLE `Articles` ADD FOREIGN KEY (user_id) REFERENCES `Users` (`id`);
 -- ---
 -- Test Data
 -- ---
-INSERT INTO `Users` (`email`,`default language`,`isLoggedIn`,`password`) VALUES
+INSERT INTO `users` (`email`,`default_language`,`isLoggedIn`,`password`) VALUES
 ('hello@here.com','english',1,'1234');
 
-INSERT INTO `Users` (`email`,`default_language`,`isLoggedIn`,`password`) VALUES
+INSERT INTO `users` (`email`,`default_language`,`isLoggedIn`,`password`) VALUES
 ('test@mail.com','english',0,'password');
--- INSERT INTO `vocab` (`id`,`user_id`,`article_id`,`interval`,`currentInterval`,`repetition `,`efactor (difficultyVal)`,`wordInEnglish`,`language`,`definition`,`audio?`) VALUES
--- ('','','','','','','','','','','');
--- INSERT INTO `sentences` (`id`,`sentence`,`vocab_id`,`article_id`) VALUES
--- ('','','','');
-INSERT INTO `Articles` (`url`,`title`,`date_written`,`date_uploaded`,`public`,`publication`,`text`,`userUploaded`) VALUES
-('testUrl','testTitle','2022-01-31','2022-01-31',0,'NYT','text',1);
-INSERT INTO `Articles` (`url`,`title`,`date_written`,`date_uploaded`,`public`,`publication`,`text`,`userUploaded`) VALUES
-('testUrl','title','2022-01-31','2022-01-31',0,'NYT','text',0);
+
+INSERT INTO `articles` (`user_id`,`url`,`title`,`date_written`,`date_uploaded`,`public`,`publication`,`text`,`userUploaded`) VALUES
+(1,'testUrl','testTitle','2022-01-31','2022-01-31',0,'NYT','text',1);
+INSERT INTO `articles` (`user_id`,`url`,`title`,`date_written`,`date_uploaded`,`public`,`publication`,`text`,`userUploaded`) VALUES
+(1,'testUrl','title','2022-01-31','2022-01-31',0,'NYT','text',0);
+
+INSERT INTO `vocab` (`user_id`,`article_id`,`interval`,`currentInterval`,`repetition`,`efactor`,`word`,`definition`) VALUES
+(1,1,3,11,35,3.5,'hello','yoyo');
+
+INSERT INTO `vocab` (`user_id`,`article_id`,`interval`,`currentInterval`,`repetition`,`efactor`,`word`,`definition`) VALUES
+(2,2,3,5,35,3.5,'zebra','an animal');
+
+
+INSERT INTO `sentences` (`sentence`,`vocab_id`,`article_id`) VALUES
+('hello thi is a sentence','1','1');
+INSERT INTO `sentences` (`sentence`,`vocab_id`,`article_id`) VALUES
+('hello thi is a sentence','2','2');
+
+INSERT INTO `translations` (`language`,`word_id`,`translation`) VALUES
+('Swedish','1','Hej');
+INSERT INTO `translations` (`language`,`word_id`,`translation`) VALUES
+('Japanese','1','シマウマ');
+
+INSERT INTO `translations` (`language`,`word_id`,`translation`) VALUES
+('Swedish','2','Hej');
+INSERT INTO `translations` (`language`,`word_id`,`translation`) VALUES
+('Japanese','2','シマウマ');
+
 
 
 -- To run this mySQL file type the following command in your terminal: mysql -u root < db/mysql.sql
