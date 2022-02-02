@@ -8,7 +8,6 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { getSession } from 'next-auth/client';
 
-
 export default function Home(props) {
   const [session, loading] = useSession();
   const router = useRouter();

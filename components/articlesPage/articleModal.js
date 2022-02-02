@@ -96,6 +96,7 @@ export default function ArticleModal({ show, handleClose, articleText }) {
                           <TranslatedSpan>{translatedWord}</TranslatedSpan>
                         ) : null}
                         <Words
+                          key = {word + 1}
                           selected={highlightedWords === word}
                           onClick={() => {
                             translator(word);
