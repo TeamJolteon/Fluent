@@ -1,13 +1,13 @@
 import Header from '../../components/header.js';
-import axios from 'axios';
-import VocabList from '../../components/VocabList/VLmain.js';
+import UserPortalComponent from '../../components/UserPortal/portal.js';
 import { getSession } from 'next-auth/client';
 
-export default function Vocab(props) {
+
+export default function UserPortal(props) {
   return (
     <div>
       <Header loggedin={true} />
-      <VocabList/>
+      <UserPortalComponent />
     </div>
   );
 }

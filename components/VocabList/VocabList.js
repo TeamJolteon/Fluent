@@ -1,10 +1,13 @@
+/* eslint-disable react/jsx-key */
 /* eslint-disable react/display-name */
-
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
 import AZURE from '../../config';
+import fakeData from './fakeListData';
+
 const SpeakerImg = styled.div``;
 const Phrases = styled.div`
   margin: 20px;
@@ -31,8 +34,7 @@ const PhraseRow = styled.div`
   display: flex;
   flex-flow: row nowrap;
 `;
-
-const PhraseData = styled.div`
+const PhraseHeaders = styled.div`
   display: flex;
   flex-flow: row nowrap;
   flex-grow: 1;
@@ -45,14 +47,34 @@ const PhraseData = styled.div`
   white-space: nowrap;
   border-bottom: 1px solid #d0d0d0;
 `;
+const PhraseData = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 0.5em;
+  word-break: break-word;
+  width: 250px;
+  height: 50px
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0px;
+  white-space: nowrap;
+  border-bottom: 1px solid #d0d0d0;
+`;
 
 export default function VocabList() {
-  function synthesizeSpeech() {
+  const [sorted, setSorted] = useState('A-Z');
+  const [currentLang, setCurrentLang] = useState('Swedish');
+  const [data, setData] = useState(fakeData);
+  const [Ind, setListInd] = useState(0);
+
+  function synthesizeSpeech(str) {
     const speechConfig = sdk.SpeechConfig.fromSubscription(AZURE, 'westus');
     const synthesizer = new sdk.SpeechSynthesizer(speechConfig);
-
     synthesizer.speakTextAsync(
-      'No I did not do any coding yesterday',
+      str,
       (result) => {
         synthesizer.close();
         return result.audioData;
@@ -63,51 +85,45 @@ export default function VocabList() {
       }
     );
   }
-
+  const sortList = () => {
+    let wordsArray = [];
+  };
+  sortList();
   return (
     <div>
+      Sort By:
+      <select>
+        <option onChange={() => setSorted('A-Z')}>A-Z</option>
+        <option onChange={() => setSorted('Z-A')}>Z-A</option>
+        <option onChange={() => setSorted('EasyFirst')}>Difficulty 📈</option>
+        <option onChange={() => setSorted('HardFirst')}>Difficulty 📉</option>
+      </select>
       <Phrases>
         <PhraseTable>
           <PhraseRow>
-            <PhraseData>Language</PhraseData>
-            <PhraseData>Pronuciation</PhraseData>
-            <PhraseData>English</PhraseData>
-            <PhraseData>Status</PhraseData>
-            <PhraseData>Source</PhraseData>
+            <PhraseHeaders>{currentLang}</PhraseHeaders>
+            <PhraseHeaders>English</PhraseHeaders>
+            <PhraseHeaders>Pronuciation</PhraseHeaders>
+            <PhraseHeaders>Status</PhraseHeaders>
+            <PhraseHeaders>Source</PhraseHeaders>
           </PhraseRow>
-          <PhraseRow>
-            <PhraseData>Tack</PhraseData>
-            <PhraseData>
-              <PronuciationButton onClick={() => synthesizeSpeech()}>
-                <VolumeUpIcon />
-              </PronuciationButton>
-            </PhraseData>
-            <PhraseData>Thank you</PhraseData>
-            <PhraseData>Beginner</PhraseData>
-            <PhraseData>link</PhraseData>
-          </PhraseRow>
-          <PhraseRow>
-            <PhraseData>Badrum</PhraseData>
-            <PhraseData>
-              <PronuciationButton onClick={() => synthesizeSpeech()}>
-                <VolumeUpIcon />
-              </PronuciationButton>
-            </PhraseData>
-            <PhraseData>Bathroom</PhraseData>
-            <PhraseData>Intermediate</PhraseData>
-            <PhraseData>link</PhraseData>
-          </PhraseRow>
-          <PhraseRow>
-            <PhraseData>Vatten</PhraseData>
-            <PhraseData>
-              <PronuciationButton onClick={() => synthesizeSpeech()}>
-                <VolumeUpIcon />
-              </PronuciationButton>
-            </PhraseData>
-            <PhraseData>Water</PhraseData>
-            <PhraseData>Expert</PhraseData>
-            <PhraseData>link</PhraseData>
-          </PhraseRow>
+          {fakeData.map((word) => {
+            return (
+              <PhraseRow>
+                <PhraseData>{word.word}</PhraseData>
+                <PhraseData>{word.english}</PhraseData>
+                <PhraseData>
+                  <PronuciationButton
+                    onClick={() => synthesizeSpeech(word.english)}
+                  >
+                    <VolumeUpIcon />
+                  </PronuciationButton>
+                </PhraseData>
+                <PhraseData>{word.status}</PhraseData>
+                <PhraseData>link</PhraseData>
+              </PhraseRow>
+            );
+          })}
         </PhraseTable>
       </Phrases>
     </div>
