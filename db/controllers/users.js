@@ -45,6 +45,10 @@ const deleteUser = async ({ email }) => {
   }
 }
 
+//GET: check if an user exists: "email" "password", if exists, return error?
+
+// get user_id from users where email === ${email}
+
 module.exports = {
   deleteUser,
   signOut,

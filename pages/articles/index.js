@@ -7,8 +7,10 @@ import Typography from '@mui/material/Typography';
 import axios from 'axios';
 import SelectorNav from '../../components/articlesPage/collectionsNav.js';
 import AddArticleModal from '../../components/articlesPage/addArticleModal.js';
-import ArticleModal from '../../components/articlesPage/articleModal.js';
-import SpotlightComponent from '../../components/spotlight/spotlight.js';
+
+// import ArticleModal from '../../components/articlesPage/articleModal.js';
+
+// import SpotlightComponent from '../../components/spotlight/spotlight.js';
 import ArticlesFeed from '../../components/articlesPage/ArticlesFeed.js';
 import addArticleButtonStyles from '../../styles/ArticleStyles/addArticleButton.module.css';
 import { getSession } from 'next-auth/client';
@@ -19,15 +21,19 @@ import SortBar from '../../components/articlesPage/sortBar.js';
 
 export default function Articles(props) {
   const [showAdd, setShowAdd] = useState(false);
+<<<<<<< HEAD
   const [showArticle, setShowArticle] = useState(false);
   const [allArticles, setAllArticles] = useState(sample);
   const [articles, setArticles] = useState(sample);
+=======
+  // const [showArticle, setShowArticle] = useState(false);
+>>>>>>> testing
 
   const handleAddOpen = () => setShowAdd(true);
   const handleAddClose = () => setShowAdd(false);
 
-  const handleArticleOpen = () => setShowArticle(true);
-  const handleArticleClose = () => setShowArticle(false);
+  // const handleArticleOpen = () => setShowArticle(true);
+  // const handleArticleClose = () => setShowArticle(false);
 
   axios
     .get('/api/articlesAPI/getAllArticles')
@@ -40,6 +46,7 @@ export default function Articles(props) {
   return (
     <div>
       <Header loggedin={true} />
+<<<<<<< HEAD
       <SelectorNav/>
       <div className={searchBarStyles.searchBar}>
           <SearchBar
@@ -63,6 +70,12 @@ export default function Articles(props) {
         show={showAdd}
         handleClose={handleAddClose}
       />
+=======
+      <SelectorNav />
+      <ArticlesFeed />
+      <button onClick={handleAddOpen}>Add Article</button>
+      <AddArticleModal show={showAdd} handleClose={handleAddClose} />
+>>>>>>> testing
     </div>
   );
 }

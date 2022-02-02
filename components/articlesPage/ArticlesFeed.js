@@ -8,6 +8,7 @@ const feedContainerStyle = {
   marginLeft: '25%',
   justifyContent: 'center'
 }
+
 // from state, array of articles where either user_id === logged in user or public === true
 
 export default function ArticlesFeed (props) {

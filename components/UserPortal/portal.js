@@ -23,6 +23,7 @@ const RouteButton = styled.button`
   width: 500px;
   height: 50px;
   margin: 10px;
+  font-size: large;
 `;
 
 export default function UserPortalComponent() {
