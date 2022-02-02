@@ -11,7 +11,7 @@ const updateVocablist = async ({ currentInterval, repetition, efactor, id}) => {
   }
 }
 
-const getVocabListAlphabetically = async (language) => {
+const getVocabListAlphabetically = async (language, userID) => {
   try {
     //send translations and sentences
     var queryString =
@@ -19,7 +19,7 @@ const getVocabListAlphabetically = async (language) => {
     from vocab v
     LEFT JOIN translations t ON t.word_id = v.id
     LEFT JOIN sentences s ON s.vocab_id = v.id
-    WHERE t.language = '${language}'
+    WHERE t.language = '${language}' AND v.user_id=${userID}
     ORDER BY v.word ASC`;
 
     const results = await db.promise().query(queryString);
@@ -29,14 +29,14 @@ const getVocabListAlphabetically = async (language) => {
   }
 }
 
-const getVocalListCurrentInterval = async (language) => {
+const getVocalListCurrentInterval = async (language, userID) => {
   try {
     var queryString =
     `SELECT v.*, t.language, t.translation, s.sentence
     from vocab v
     LEFT JOIN translations t ON t.word_id = v.id
     LEFT JOIN sentences s ON s.vocab_id = v.id
-    WHERE t.language = '${language}'
+    WHERE t.language = '${language}' AND v.user_id=${userID}
     ORDER BY v.currentInterval ASC`;
 
     const results = await db.promise().query(queryString);
