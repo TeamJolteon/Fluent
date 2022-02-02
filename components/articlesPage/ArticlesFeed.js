@@ -19,7 +19,7 @@ let sample = [
     dateUploaded: 'Jan-30-2022',
     public: true,
     publication: null,
-    text: 'Sample Test 1 2 Sample Test 1 2, Sample Testing 3 4, Sample Testing 3 4',
+    text: 'Do you smell what the Rock is cooking???',
   },
   {
     article_id: 1,
@@ -31,19 +31,19 @@ let sample = [
     dateUploaded: 'Jan-30-2022',
     public: true,
     publication: null,
-    text: 'Sample Test 1 2 Sample Test 1 2, Sample Testing 3 4, Sample Testing 3 4',
+    text: 'We\'re no strangers to love. You know the rules, and so do I. ',
   },
   {
     article_id: 2,
     url: 'http://localhost:3000',
     user_id: '3',
     title: 'The Third Article',
-    author: 'Yo-Yo Ma',
+    author: 'Jack Sparrow',
     dateWritten: 'Jan-31-2022',
     dateUploaded: 'Jan-30-2022',
     public: false,
     publication: null,
-    text: 'Sample Test 1 2 Sample Test 1 2, Sample Testing 3 4, Sample Testing 3 4',
+    text: 'You will remember today as the day you almost caught Captain Jack Sparrow.',
   }
 ]
 
