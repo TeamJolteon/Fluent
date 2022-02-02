@@ -42,16 +42,27 @@ export default function Articles(props) {
       <Header loggedin={true} />
       <SelectorNav/>
       <div className={searchBarStyles.searchBar}>
-          <SearchBar allArticles={allArticles} articles={articles} setArticles={setArticles}/>
+          <SearchBar
+            allArticles={allArticles}
+            articles={articles}
+            setArticles={setArticles}
+          />
       </div>
       <div>
-        <SortBar allArticles={allArticles}/>
+        <SortBar
+          allArticles={allArticles}
+          rticles={articles}
+          setArticles={setArticles}
+        />
       </div>
       <ArticlesFeed data={articles}/>
       <div className={addArticleButtonStyles.addButton}>
         <button onClick={handleAddOpen}>Add Article</button>
       </div>
-      <AddArticleModal show={showAdd} handleClose={handleAddClose}/>
+      <AddArticleModal
+        show={showAdd}
+        handleClose={handleAddClose}
+      />
     </div>
   );
 }

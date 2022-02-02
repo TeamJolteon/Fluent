@@ -3,7 +3,7 @@ let sample = [
     article_id: 0,
     url: 'http://localhost:3000',
     user_id: '1',
-    title: "Bitch, Don\'t Kill My Vibe",
+    title: "B, Don\'t Kill My Vibe",
     author: 'Dwyane The Rock Johnson',
     dateWritten: 'Jan-30-2022',
     dateUploaded: 'Jan-30-2022',
