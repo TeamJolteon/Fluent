@@ -10,6 +10,7 @@ import AddArticleModal from '../../components/articlesPage/addArticleModal.js';
 import ArticleModal from '../../components/articlesPage/articleModal.js';
 import SpotlightComponent from '../../components/spotlight/spotlight.js';
 import ArticlesFeed from '../../components/articlesPage/ArticlesFeed.js';
+import { getSession } from 'next-auth/client';
 
 export default function Articles(props) {
   const [showAdd, setShowAdd] = useState(false);
@@ -22,34 +23,40 @@ export default function Articles(props) {
   const handleArticleClose = () => setShowArticle(false);
 
   axios
-  .get('/api/articlesAPI/getAllArticles')
-  .then((response) => {
-    console.log('response: ', response.data);
-
-  })
-  .catch((e) => {
-    console.log(e);
-  });
+    .get('/api/articlesAPI/getAllArticles')
+    .then((response) => {
+      console.log('response: ', response.data);
+    })
+    .catch((e) => {
+      console.log(e);
+    });
   return (
     <div>
-      <SelectorNav/>
+      <Header loggedin={true} />
+      <SelectorNav />
+      <ArticlesFeed />
       <AddArticleModal show={showAdd} handleClose={handleAddClose}/>
-      <ArticleModal show={showArticle} handleClose={handleArticleClose}/>
-
-      <button onClick={handleAddOpen}>Add Article</button>
-      <button onClick={handleArticleOpen}>Temp Button</button>
-      <ArticlesFeed/>
     </div>
-  )
+  );
 }
 
-// export async function getServerSideProps(context) {
-//   return {
-//     props: {
-//       product: 'coffee',
-//     },
-//   };
-// }
+export async function getServerSideProps(context) {
+  const session = await getSession({ req: context.req });
+  console.log(session);
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {
+      product: 'coffee',
+    },
+  };
+}
 
 // setup on testing
 // import axios from 'axios';
