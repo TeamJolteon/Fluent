@@ -41,7 +41,7 @@ const postNewArticles = async ({user_id, url, title, date_written, date_uploaded
 const postNewWord  = async ({user_id, article_id, word, definition,language,translation, sentences}) => {
   try {
     var queryString1 = `INSERT INTO vocab (user_id,article_id, word, definition) VALUES
-    (${user_id}, ${article_id},'${word}','${definition}')`;
+    (${user_id}, ${article_id},'${word.toLowerCase()}','${definition}')`;
 
     const result1 = await db.promise().query(queryString1);
 
@@ -91,7 +91,7 @@ const checkExistence = async ({user_id, article_id, word, definition,language,tr
     let checkTranslation = await db.promise().query(`select translation from translations where language='${language}' AND translation='${translation}'`);
 
     if (!checkTranslation[0][0]) {
-      const VocabID = await db.promise().query(`SELECT id from vocab where word = '${word}'`)
+      const VocabID = await db.promise().query(`SELECT id from vocab where word = '${word}' AND user_id=${user_id}`)
 
       var queryString2 = `INSERT INTO translations (word_id,language, translation) VALUES (${VocabID[0][0].id}, '${language}','${translation}')`
 
