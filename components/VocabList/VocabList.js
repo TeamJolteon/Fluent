@@ -253,7 +253,7 @@ export default function VocabList(props) {
                   <PhraseData>{word.translation}</PhraseData>
                   <PhraseData>
                     <PronuciationButton
-                      onClick={() => synthesizeSpeech(word.word)}
+                      onClick={() => synthesizeSpeech(word.translation)}
                     >
                       <VolumeUpIcon />
                     </PronuciationButton>
