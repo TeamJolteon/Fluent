@@ -124,7 +124,6 @@ export default function FlashcardIndex (props) {
     var data = superMemo(flashcardData[FL].currentInterval, flashcardData[FL].repetition, flashcardData[FL].efactor, grade);
     data.word = flashcardData[FL].word;
     data.id = flashcardData[FL].id;
-    console.log(data);
     axios.put('/api/vocabAPI/updateVocablist', data)
     .then((res) => {
       console.log("success!");
