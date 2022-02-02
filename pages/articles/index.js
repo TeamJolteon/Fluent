@@ -38,7 +38,7 @@ export default function Articles(props) {
       <SelectorNav />
       <ArticlesFeed />
       <button onClick={handleAddOpen}>Add Article</button>
-      <AddArticleModal show={showAdd} handleClose={handleAddClose}/>
+      <AddArticleModal show={showAdd} handleClose={handleAddClose} />
     </div>
   );
 }
