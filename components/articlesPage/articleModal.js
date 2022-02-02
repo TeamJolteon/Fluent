@@ -12,10 +12,10 @@ const azureToken = require('../../otherconfig.js');
 
 // import article from './fakeArticle.js';
 
-
 const Body = styled.div`
   font-family: 'Roboto', sans-serif;
-  color: #444;`;
+  color: #444;
+`;
 
 const SpotDiv = styled.div``;
 const Words = styled.button`
@@ -29,7 +29,6 @@ const TranslatedSpan = styled.span`
 `;
 
 export default function ArticleModal({ show, handleClose, articleText }) {
-
   const [highlightedWords, setHighlightedWords] = useState(null);
   const [translatedWord, setTranslatedWord] = useState(null);
   const [wordSelected, setWordSelected] = useState(false);
@@ -68,23 +67,23 @@ export default function ArticleModal({ show, handleClose, articleText }) {
 
   return (
     <div>
-      <Modal
-        open={show}
-        onClose={handleClose}>
+      <Modal open={show} onClose={handleClose}>
         <div className={articleStyles.flex}>
-          <Box sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: 850,
-            height: 750,
-            bgcolor: 'background.paper',
-            border: '2px solid #000',
-            boxShadow: 24,
-            p: 4,
-            overflow: 'scroll'
-          }}>
+          <Box
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: 850,
+              height: 750,
+              bgcolor: 'background.paper',
+              border: '2px solid #000',
+              boxShadow: 24,
+              p: 4,
+              overflow: 'scroll',
+            }}
+          >
             <Body>
               <SpotDiv>
                 <div>
@@ -99,7 +98,8 @@ export default function ArticleModal({ show, handleClose, articleText }) {
                           onClick={() => {
                             translator(word);
                             setHighlightedWords(word);
-                          }}>
+                          }}
+                        >
                           {word}{' '}
                         </Words>
                       </>

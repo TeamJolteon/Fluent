@@ -2,7 +2,6 @@ import Header from '../../components/header.js';
 import UserPortalComponent from '../../components/UserPortal/portal.js';
 import { getSession } from 'next-auth/client';
 
-
 export default function UserPortal(props) {
   return (
     <div>
@@ -13,15 +12,15 @@ export default function UserPortal(props) {
 }
 
 export async function getServerSideProps(context) {
-  const session = await getSession({req: context.req});
+  const session = await getSession({ req: context.req });
   console.log(session);
   if (!session) {
     return {
       redirect: {
         destination: '/',
-        permanent: false
-      }
-    }
+        permanent: false,
+      },
+    };
   }
   return {
     props: {

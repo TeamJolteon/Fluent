@@ -14,14 +14,12 @@ const db = mysql.createConnection({
   user: 'root',
   password: '',
   database: 'volt',
-  port: 3306
+  port: 3306,
 });
-
 
 export default db;
 
 // db.connect();
-
 
 // export default async function excuteQuery({ query, values }) {
 //   try {
@@ -32,4 +30,3 @@ export default db;
 //     return { error };
 //   }
 // }
-
