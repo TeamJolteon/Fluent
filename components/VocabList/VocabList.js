@@ -1,12 +1,20 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/display-name */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
 import AZURE from '../../config';
-import fakeData from './fakeListData';
+import axios from 'axios';
+
+const Form = styled.form`
+  display: flex;
+  justify-content: center;
+  margin-right: 10px;
+  margin-top: 20px;
+`;
 
 const SpeakerImg = styled.div``;
 const Phrases = styled.div`
@@ -63,13 +71,80 @@ const PhraseData = styled.div`
   white-space: nowrap;
   border-bottom: 1px solid #d0d0d0;
 `;
+const Title = styled.h1`
+  display: flex;
+  justify-content: center;
+`;
+const Body = styled.div`
+  font-family: 'Roboto', sans-serif;
+  color: #444;
+`;
 
-export default function VocabList() {
+export default function VocabList(props) {
   const [sorted, setSorted] = useState('A-Z');
   const [currentLang, setCurrentLang] = useState('Swedish');
-  const [data, setData] = useState(fakeData);
+  const [listData, setListData] = useState(props.data);
+  const [currentList, setCurrentList] = useState([]);
+  const [articleData, setArticleData] = useState([]);
   const [Ind, setListInd] = useState(0);
+  const [searchList, setSearchList] = useState([]);
+  const [searching, setSearching] = useState(false);
+  const [currentValue, setCurrentValue] = useState('');
+  const [listEasyfirst, setListEasyFirst] = useState([]);
+  const [listHardfirst, setListHardFirst] = useState([]);
+  const [listRecent, setListRecent] = useState([]);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setCurrentValue('');
+    setSearching(!searching);
+  };
+  const handleChange = (e) => {
+    setCurrentValue(e.target.value);
+    setSearching(!searching);
+    search();
+  };
+  const search = () => {
+    const filteredList = listData.filter((word) =>
+      word.translation.toLowerCase().includes(currentValue.toLowerCase())
+    );
+    setSearchList(filteredList);
+  };
+
+  const sortRecent = () => {
+    const sortedByInterval = listData.sort(
+      (a, b) => a.repetition - b.repetition
+    );
+    setListRecent(sortedByInterval);
+  };
+  const difficultyEasyFirst = () => {
+    const filteredEasy = listData.filter((word) => {
+      return word.efactor === 5;
+    });
+    const filteredMedium = listData.filter((word) => {
+      return word.efactor > 3 && word.efactor < 5;
+    });
+    const filteredHard = listData.filter((word) => {
+      return word.efactor < 3;
+    });
+    setListEasyFirst(filteredEasy.concat(filteredMedium).concat(filteredHard));
+  };
+  const difficultyHardFirst = () => {
+    const filteredEasy = listData.filter((word) => {
+      return word.efactor === 5;
+    });
+    const filteredMedium = listData.filter((word) => {
+      return word.efactor > 3 && word.efactor < 5;
+    });
+    const filteredHard = listData.filter((word) => {
+      return word.efactor < 3;
+    });
+    setListHardFirst(filteredHard.concat(filteredMedium).concat(filteredEasy));
+  };
+
+  const handleSortChange = (e) => {
+    setSorted(e.target.value);
+  };
   function synthesizeSpeech(str) {
     const speechConfig = sdk.SpeechConfig.fromSubscription(AZURE, 'westus');
     const synthesizer = new sdk.SpeechSynthesizer(speechConfig);
@@ -85,47 +160,123 @@ export default function VocabList() {
       }
     );
   }
-  const sortList = () => {
-    let wordsArray = [];
-  };
-  sortList();
+  // useEffect(() => {
+  //   const getList = async () => {
+  //     try {
+  //       const res = await axios.get(
+  //         '/api/vocabAPI/getVocabListAlphabetically',
+  //         {
+  //           params: {
+  //             language: currentLang,
+  //           },
+  //         }
+  //       );
+  //       setListData(res.data);
+  //       setCurrentList(res.data);
+  //       // console.log('response: ', res.data);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   getList();
+  // }, [currentLang]);
+  useEffect(() => {
+    searching ? setCurrentList(searchList) : setCurrentList(listData);
+  }, [searching]);
+
+  useEffect(() => {
+    sortRecent();
+    difficultyHardFirst();
+    difficultyEasyFirst();
+  }, []);
+  // useEffect(() => {
+  //   const getArticles = async () => {
+  //     try {
+  //       const res = await axios.get('/api/articlesAPI/getAllArticles');
+  //       setArticleData(res.data);
+  //       // console.log('responseArticles: ', res.data);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   getArticles();
+  // }, []);
+
+  useEffect(() => {
+    if (sorted === 'A-Z') {
+      setCurrentList(listData);
+    } else if (sorted === 'Difficulty 📈') {
+      setCurrentList(listEasyfirst);
+    } else if (sorted === 'Difficulty 📉') {
+      setCurrentList(listHardfirst);
+    } else if (sorted === 'Recent') {
+      setCurrentList(listRecent);
+    } else {
+      setCurrentList(listData);
+    }
+  }, [sorted]);
   return (
-    <div>
-      Sort By:
-      <select>
-        <option onChange={() => setSorted('A-Z')}>A-Z</option>
-        <option onChange={() => setSorted('Z-A')}>Z-A</option>
-        <option onChange={() => setSorted('EasyFirst')}>Difficulty 📈</option>
-        <option onChange={() => setSorted('HardFirst')}>Difficulty 📉</option>
-      </select>
-      <Phrases>
-        <PhraseTable>
-          <PhraseRow>
-            <PhraseHeaders>{currentLang}</PhraseHeaders>
-            <PhraseHeaders>English</PhraseHeaders>
-            <PhraseHeaders>Pronuciation</PhraseHeaders>
-            <PhraseHeaders>Status</PhraseHeaders>
-            <PhraseHeaders>Source</PhraseHeaders>
-          </PhraseRow>
-          {fakeData.map((word) => {
-            return (
-              <PhraseRow>
-                <PhraseData>{word.word}</PhraseData>
-                <PhraseData>{word.english}</PhraseData>
-                <PhraseData>
-                  <PronuciationButton
-                    onClick={() => synthesizeSpeech(word.english)}
-                  >
-                    <VolumeUpIcon />
-                  </PronuciationButton>
-                </PhraseData>
-                <PhraseData>{word.status}</PhraseData>
-                <PhraseData>link</PhraseData>
-              </PhraseRow>
-            );
-          })}
-        </PhraseTable>
-      </Phrases>
-    </div>
+    <Body>
+      <Title>Your Words</Title>
+      <div>
+        <Form onSubmit={(e) => handleSubmit(e)}>
+          <label>
+            <input
+              type='text'
+              placeholder='Search Words'
+              onChange={(e) => handleChange(e)}
+              value={currentValue}
+            />
+          </label>
+          <button type='submit'>Search</button>
+        </Form>
+        Sort By:
+        <select onChange={(e) => handleSortChange(e)}>
+          <option>A-Z</option>
+          <option>Difficulty 📈</option>
+          <option>Difficulty 📉</option>
+          <option>Recent</option>
+        </select>
+        <Phrases>
+          <PhraseTable>
+            <PhraseRow>
+              <PhraseHeaders>{currentLang}</PhraseHeaders>
+              <PhraseHeaders>English</PhraseHeaders>
+              <PhraseHeaders>Pronunciation</PhraseHeaders>
+              <PhraseHeaders>Status</PhraseHeaders>
+              <PhraseHeaders>Source</PhraseHeaders>
+            </PhraseRow>
+            {currentList.map((word) => {
+              return (
+                <PhraseRow key={word.id}>
+                  <PhraseData>{word.word}</PhraseData>
+                  <PhraseData>{word.translation}</PhraseData>
+                  <PhraseData>
+                    <PronuciationButton
+                      onClick={() => synthesizeSpeech(word.translation)}
+                    >
+                      <VolumeUpIcon />
+                    </PronuciationButton>
+                  </PhraseData>
+                  {word.efactor === 5 ? (
+                    <PhraseData>Got It</PhraseData>
+                  ) : word.efactor < 3 ? (
+                    <PhraseData>Not Yet</PhraseData>
+                  ) : (
+                    <PhraseData>Almost</PhraseData>
+                  )}
+                  <PhraseData>link</PhraseData>
+                </PhraseRow>
+              );
+            })}
+          </PhraseTable>
+        </Phrases>
+      </div>
+    </Body>
   );
 }
+// {articleData.map((article) =>
+//   word.article_id === article.id ? (
+//     <PhraseData>{article.url}</PhraseData>
+//   ) : null
+// )}
