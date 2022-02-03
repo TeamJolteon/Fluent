@@ -25,6 +25,8 @@ const Words = styled.button`
   margin: 10px 3.5px;
   display: inline-block;
   background-color: ${(props) => (props.selected ? '#FFFF00' : 'white')};
+  margin: 0 3.5px;
+  display: inline-block;
 `;
 const Translated = styled.div`
   color: red;
@@ -94,6 +96,7 @@ export default function ArticleModal({ show, handleClose, articleText }) {
                     return (
                       <>
                         <Words
+                          key = {word + 1}
                           selected={highlightedWords === word}
                           onClick={() => {
                             translator(word);
