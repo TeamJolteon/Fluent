@@ -27,10 +27,13 @@ const getUserArticles = async (userID) => {
 
 const postNewArticles = async ({user_id, url, title, date_written, date_uploaded, Public, publication, text, userUploaded}) => {
   try {
-    var queryString = `INSERT INTO articles (user_id,url,title,date_written,date_uploaded,public, publication, text, userUploaded) VALUES
-    (${user_id}, ${url},'${title}','${date_written}','${date_uploaded}',${Public},'${publication}','${text}',${userUploaded})`;
+    // var queryString = `INSERT INTO articles (user_id,url,title,date_written,date_uploaded,public, publication, text, userUploaded) VALUES
+    // (${user_id}, '${url}','${title}','${date_written}','${date_uploaded}',${Public},'${publication}', ${text},${userUploaded})`;
+    var queryString = `INSERT INTO articles (user_id,url,title,date_written,date_uploaded,public, publication, text, userUploaded) VALUES (?,?,?,?,?,?,?,?,?)`;
 
-    const results = await db.promise().query(queryString);
+    const params = [user_id, url, title, date_written, date_uploaded, Public, publication, text, userUploaded];
+
+    const results = await db.promise().query(queryString, params);
     return results[0];
   } catch (error) {
     return error;
