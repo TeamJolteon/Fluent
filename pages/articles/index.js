@@ -18,16 +18,14 @@ import SearchBar from '../../components/articlesPage/searchBar.js';
 import searchBarStyles from '../../styles/ArticleStyles/searchBar.module.css';
 import sample from '../../components/articlesPage/articleDummyData/articleDummyData.js';
 import SortBar from '../../components/articlesPage/sortBar.js';
+import SortBarStyles from '../../styles/ArticleStyles/sortBar.module.css';
+import topBarStyles from '../../styles/ArticleStyles/topBar.module.css';
 
 export default function Articles(props) {
   const [showAdd, setShowAdd] = useState(false);
-<<<<<<< HEAD
   const [showArticle, setShowArticle] = useState(false);
   const [allArticles, setAllArticles] = useState(sample);
   const [articles, setArticles] = useState(sample);
-=======
-  // const [showArticle, setShowArticle] = useState(false);
->>>>>>> testing
 
   const handleAddOpen = () => setShowAdd(true);
   const handleAddClose = () => setShowAdd(false);
@@ -36,7 +34,7 @@ export default function Articles(props) {
   // const handleArticleClose = () => setShowArticle(false);
 
   axios
-    .get('/api/articlesAPI/getAllArticles')
+    .get('http://localhost:3000/api/articlesAPI/getAllArticles')
     .then((response) => {
       console.log('response: ', response.data);
     })
@@ -46,21 +44,22 @@ export default function Articles(props) {
   return (
     <div>
       <Header loggedin={true} />
-<<<<<<< HEAD
       <SelectorNav/>
-      <div className={searchBarStyles.searchBar}>
-          <SearchBar
+      <div className={topBarStyles.topBar}>
+        <div className={SortBarStyles.sortBar}>
+          <SortBar
             allArticles={allArticles}
             articles={articles}
             setArticles={setArticles}
           />
-      </div>
-      <div>
-        <SortBar
-          allArticles={allArticles}
-          rticles={articles}
-          setArticles={setArticles}
-        />
+        </div>
+        <div className={searchBarStyles.searchBar}>
+            <SearchBar
+              allArticles={allArticles}
+              articles={articles}
+              setArticles={setArticles}
+            />
+        </div>
       </div>
       <ArticlesFeed data={articles}/>
       <div className={addArticleButtonStyles.addButton}>
@@ -68,14 +67,9 @@ export default function Articles(props) {
       </div>
       <AddArticleModal
         show={showAdd}
+        setShowAdd={setShowAdd}
         handleClose={handleAddClose}
       />
-=======
-      <SelectorNav />
-      <ArticlesFeed />
-      <button onClick={handleAddOpen}>Add Article</button>
-      <AddArticleModal show={showAdd} handleClose={handleAddClose} />
->>>>>>> testing
     </div>
   );
 }

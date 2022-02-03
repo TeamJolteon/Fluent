@@ -1,6 +1,6 @@
 .searchBar {
-  display: flex;
+  display:inline;
   justify-content: center;
   padding-top: 10px;
-  padding-bottom: 10px;;
+  padding-bottom: 5px;
 }

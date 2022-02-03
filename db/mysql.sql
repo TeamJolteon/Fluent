@@ -69,9 +69,9 @@ DROP TABLE IF EXISTS `articles`;
 
 CREATE TABLE `articles` (
   `id` INTEGER AUTO_INCREMENT,
-  `url` VARCHAR(100),
+  `url` VARCHAR(1000),
   `user_id` INTEGER,
-  `title` VARCHAR(50),
+  `title` VARCHAR(500),
   `date_written` DATE,
   `date_uploaded` DATE,
   `public` Boolean,

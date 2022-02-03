@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import formStyles from '../../styles/ArticleStyles/textForm.module.css';
 
-export default function TextForm() {
+export default function TextForm(props) {
   const [articleTitle, setArticleTitle] = useState('');
   const [source, setSource] = useState('');
   const [articleText, setArticleText] = useState('');
-  const [communitySharing, setCommunitySharing] = useState('true');
+  const [communitySharing, setCommunitySharing] = useState(true);
 
   let handleChange = (e) => {
     if (e.target.id === 'title') {
@@ -18,16 +18,33 @@ export default function TextForm() {
     if (e.target.id === 'text') {
       setArticleText(e.target.value);
     }
-    if (e.target.value === 'true') {
+    if (e.target.value === true) {
       setCommunitySharing(e.target.value);
-    } else if (e.target.value === 'false') {
+    } else if (e.target.value === false) {
       setCommunitySharing(e.target.value);
     }
   }
 
-  // let handleSubmit = () => {
-  //   axios.post('')
-  // }
+  let handleSubmit = (e) => {
+    e.preventDefault();
+    let newDate = new Date().toISOString().slice(0, 10);
+    axios.post('http://localhost:3000/api/articlesAPI/postNewArticles', {
+      "user_id":1,
+      "url": source,
+      "title": articleTitle,
+      "date_written":"2022-02-01",
+      "date_uploaded": newDate,
+      "Public": communitySharing,
+      "publication":"BBC",
+      "text": articleText,
+      "userUploaded":true
+    })
+    .then((response) => {
+      console.log('response', response);
+      props.setShowAdd(false);
+    })
+  }
+
 
   return (
     <div>
@@ -60,15 +77,15 @@ export default function TextForm() {
               <select onChange={(e) => { handleChange(e); }}>
                 <option
                   id="0"
-                  value="true">Yes</option>
+                  value={true}>Yes</option>
                 <option
                   id="1"
-                  value="false">No</option>
+                  value={false}>No</option>
               </select>
             </label>
           </form>
         </div>
-      <button>Submit</button>
+      <button onClick={(e) => { handleSubmit(e); }} >Submit</button>
     </div>
   )
 };

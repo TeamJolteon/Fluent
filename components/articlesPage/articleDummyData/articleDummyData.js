@@ -5,7 +5,7 @@ let sample = [
     user_id: '1',
     title: "B, Don\'t Kill My Vibe",
     author: 'Dwyane The Rock Johnson',
-    dateWritten: 'Jan-30-2022',
+    dateWritten: 'Jan-21-2022',
     dateUploaded: 'Jan-30-2022',
     public: true,
     publication: null,
