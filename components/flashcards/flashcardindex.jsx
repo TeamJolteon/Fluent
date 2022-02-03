@@ -55,7 +55,8 @@ export default function FlashcardIndex (props) {
   // useEffect(() => {
   //   axios.get('/api/vocabAPI/getVocalListCurrentInterval', {
   //     params: {
-  //       language: "Swedish"
+  //       language: "Swedish",
+  //       userID: 1
   //     }
   //   })
   //   .then((res) => {
@@ -142,7 +143,8 @@ export default function FlashcardIndex (props) {
     // var id = setFlashcardData.user_id
     axios.get('/api/vocabAPI/getVocalListCurrentInterval', {
       params: {
-        language: "Swedish"
+        language: "Swedish",
+        userID:1
       }
     })
     .then((res) => {
