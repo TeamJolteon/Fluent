@@ -22,9 +22,11 @@ const Words = styled.button`
   border: none;
   font-family: 'Roboto', sans-serif;
   color: #444;
+  margin: 10px 3.5px;
+  display: inline-block;
   background-color: ${(props) => (props.selected ? '#FFFF00' : 'white')};
 `;
-const TranslatedSpan = styled.span`
+const Translated = styled.div`
   color: red;
 `;
 
@@ -32,6 +34,7 @@ export default function ArticleModal({ show, handleClose, articleText }) {
   const [highlightedWords, setHighlightedWords] = useState(null);
   const [translatedWord, setTranslatedWord] = useState(null);
   const [wordSelected, setWordSelected] = useState(false);
+  const [wordHighlighted, setWordHighlighted] = useState(false);
 
   function translator(word) {
     var subscriptionKey = azureToken;
@@ -90,17 +93,19 @@ export default function ArticleModal({ show, handleClose, articleText }) {
                   {articleText.split(' ').map((word, index) => {
                     return (
                       <>
-                        {word === highlightedWords ? (
-                          <TranslatedSpan>{translatedWord}</TranslatedSpan>
-                        ) : null}
                         <Words
                           selected={highlightedWords === word}
                           onClick={() => {
                             translator(word);
                             setHighlightedWords(word);
+                            setWordHighlighted(!wordHighlighted);
                           }}
                         >
-                          {word}{' '}
+                          {word === highlightedWords && wordHighlighted ? (
+                            <Translated>{translatedWord}</Translated>
+                          ) : (
+                            word
+                          )}
                         </Words>
                       </>
                     );

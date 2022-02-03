@@ -79,6 +79,11 @@ const Body = styled.div`
   font-family: 'Roboto', sans-serif;
   color: #444;
 `;
+const SortMenu = styled.select`
+  border: white;
+  margin-left: 15px;
+  text-align: center;
+`;
 
 export default function VocabList(props) {
   const [sorted, setSorted] = useState('A-Z');
@@ -228,15 +233,13 @@ export default function VocabList(props) {
               value={currentValue}
             />
           </label>
-          <button type='submit'>Search</button>
         </Form>
-        Sort By:
-        <select onChange={(e) => handleSortChange(e)}>
+        <SortMenu onChange={(e) => handleSortChange(e)}>
           <option>A-Z</option>
           <option>Difficulty 📈</option>
           <option>Difficulty 📉</option>
           <option>Recent</option>
-        </select>
+        </SortMenu>
         <Phrases>
           <PhraseTable>
             <PhraseRow>

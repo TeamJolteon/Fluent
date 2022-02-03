@@ -16,7 +16,6 @@ const Button = styled.button`
 
 const Card = styled.div `
   border: 10px solid rgba(0, 0, 0, .25);
-  padding: 15px;
   max-width: 600px;
   margin: 0 auto;
   text-align: center;
@@ -24,11 +23,16 @@ const Card = styled.div `
   line-height: 50px;
   color: #444;
   font-family: "Roboto", sans-serif;
+  margin-top: 5rem;
+  padding: 15px;
 `;
 const Title = styled.h1`
   display: flex;
   justify-content: center;
   color: #444;
+  height: 50px;
+  margin-top: 2rem;
+  font-size: xxx-large;
   font-family: "Roboto", sans-serif;
 `;
 const Lang = styled.div`
@@ -42,9 +46,20 @@ const English = styled.div `
 
 const Grade = styled.div`
 `;
+const Complete = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2rem;
+    font-size: x-large;
+`;
 const PronuciationButton = styled.button`
 `;
-
+// white F8F9F0
+// gray A5B5B6
+// coffee 413A3E
+// cambridge blue 9CBFA7
+// red 762d38
 export default function FlashcardIndex (props) {
   const [reveal, setReveal] = useState(false);
   const [flashcardData, setFlashcardData] = useState(props.data);
@@ -142,6 +157,7 @@ export default function FlashcardIndex (props) {
     // var id = setFlashcardData.user_id
     axios.get('/api/vocabAPI/getVocalListCurrentInterval', {
       params: {
+        userID: 1,
         language: "Swedish"
       }
     })
@@ -158,7 +174,7 @@ export default function FlashcardIndex (props) {
   return (
     <div>
     <Title>Practice</Title>
-    <div className="flashcard-repeat" onClick={repeatOnClick}>{repeat?"Complete! Retry?":null}</div>
+    <Complete className="flashcard-repeat" onClick={repeatOnClick}>{repeat?"Complete! Retry?":null}</Complete>
     <Card>
       <Lang className="flashcard-word">{flashcardData[FL].word}</Lang>
 
