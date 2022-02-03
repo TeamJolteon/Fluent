@@ -1,5 +1,5 @@
 import Header from '../../components/header.js';
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import ModalNav from '../../components/articlesPage/modalNav.js';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -11,7 +11,8 @@ import AddArticleModal from '../../components/articlesPage/addArticleModal.js';
 // import ArticleModal from '../../components/articlesPage/articleModal.js';
 
 // import SpotlightComponent from '../../components/spotlight/spotlight.js';
-import ArticlesFeed from '../../components/articlesPage/ArticlesFeed.js';
+import PersonalFeed from '../../components/articlesPage/personalFeed.js';
+import CommunityFeed from '../../components/articlesPage/communityFeed.js';
 import addArticleButtonStyles from '../../styles/ArticleStyles/addArticleButton.module.css';
 import { getSession } from 'next-auth/client';
 import {useAppContext} from '../state.js'
@@ -27,47 +28,106 @@ export default function Articles(props) {
   // const userID = useAppContext().data[0].id;
   // console.log('user', userID);
 
+  const userID = 1;
+
   const [showAdd, setShowAdd] = useState(false);
   const [showArticle, setShowArticle] = useState(false);
-  const [allArticles, setAllArticles] = useState(sample);
-  const [articles, setArticles] = useState(sample);
+  const [allCommunityArticles, setAllCommunityArticles] = useState([]);
+  const [allPersonalArticles, setAllPersonalArticles] = useState([]);
+  const [feedSelection, setFeedSelection] = useState(true);
+  const [feed, setFeed] = useState([]);
+  const [display, setDisplay] = useState('personal');
 
   const handleAddOpen = () => setShowAdd(true);
   const handleAddClose = () => setShowAdd(false);
 
+  var derivedFeed = feedSelection ? allPersonalArticles : allCommunityArticles;
+  // var derivedFeed = allPersonalArticles;
+
+
   // const handleArticleOpen = () => setShowArticle(true);
   // const handleArticleClose = () => setShowArticle(false);
 
-  axios
-    .get('http://localhost:3000/api/articlesAPI/getAllArticles')
-    .then((response) => {
-      console.log('response: ', response.data);
-    })
-    .catch((e) => {
-      console.log(e);
-    });
+  useEffect(() => {
+    // const fetchCommunityArticles = () => {
+    //   axios.get('http://localhost:3000/api/articlesAPI/getAllArticles')
+    //   .then((response) => {
+    //     console.log('response within useEffect: ', response.data);
+    //     setAllCommunityArticles(response.data);
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
+    // };
+
+    const fetchUserArticles = () => {
+      axios({
+        url: 'http://localhost:3000/api/articlesAPI/getUserArticles',
+        method: 'get',
+        params: {
+          id: userID
+        }
+      })
+        .then((response) => {
+          console.log('response: ', response.data);
+          setAllPersonalArticles(response.data);
+
+          axios.get('http://localhost:3000/api/articlesAPI/getAllArticles')
+          .then((response) => {
+            console.log('response within useEffect: ', response.data);
+            setAllCommunityArticles(response.data);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+
+          // setFeed(response.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      }
+      // fetchCommunityArticles();
+      fetchUserArticles();
+  }, [])
+
 
   return (
+    // <div>
+    //   <div onClick={() => { setDisplay('community')}}> Switch </div>
+    //   {display === 'personal' ? <div>Personal</div> : <div>Community</div>}
+    // </div>
+
+    // <div>
+    //   {display === '' ? <ArticlesFeed data={per}/> : <ArticlesFeed data={feed}/> }
+    // </div>
     <div>
       <Header loggedin={true} />
-      <SelectorNav/>
+      <SelectorNav
+        setDisplay={setDisplay}
+        // setPersonal={setAllPersonalArticles}
+        // setCommunity={setAllCommunityArticles}
+        />
       <div className={topBarStyles.topBar}>
         <div className={SortBarStyles.sortBar}>
           <SortBar
-            allArticles={allArticles}
-            articles={articles}
-            setArticles={setArticles}
+            allCommunityArticles={allCommunityArticles}
+            allPersonalArticles={allPersonalArticles}
+            allArticles={derivedFeed}
+            setFeed={setFeedSelection}
           />
         </div>
         <div className={searchBarStyles.searchBar}>
             <SearchBar
-              allArticles={allArticles}
-              articles={articles}
-              setArticles={setArticles}
+              derivedFeed={derivedFeed}
+              setFeed={setFeedSelection}
+              // articles={articles}
+              // setArticles={setArticles}
             />
         </div>
       </div>
-      <ArticlesFeed data={articles}/>
+        {/* {display === 'personal' ? <PersonalFeed data={allPersonalArticles}/> : <CommunityFeed data={allCommunityArticles}/>} */}
+        {display === 'community' ? <CommunityFeed data={allCommunityArticles}/> : <PersonalFeed data={allPersonalArticles}/> }
       <div className={addArticleButtonStyles.addButton}>
         <button onClick={handleAddOpen}>Add Article</button>
       </div>

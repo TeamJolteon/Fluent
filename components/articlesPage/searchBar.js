@@ -11,9 +11,9 @@ export default function SearchBar(props) {
     setQuery(e.target.value);
     // props.setArticles(filtered);
     if (filtered && query.length > 3) {
-      props.setArticles(filtered);
+      props.setFeed(filtered);
     } else {
-      props.setArticles(props.allArticles);
+      props.setFeed(props.allArticles);
     }
   }
 
@@ -21,7 +21,7 @@ export default function SearchBar(props) {
     var term = query.toLowerCase();
     console.log(term);
     if (query) {
-      var filteredArticles = props.articles.filter(article =>
+      var filteredArticles = props.derivedFeed.filter(article =>
         article.title.toLowerCase().includes(term));
     }
     console.log('filtered', filteredArticles);

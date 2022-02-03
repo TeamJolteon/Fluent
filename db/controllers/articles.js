@@ -15,6 +15,7 @@ const getAllCommunityArticles = async () => {
 
 const getUserArticles = async (userID) => {
   try {
+    console.log('userID',  userID);
     var queryString = `select * from Articles WHERE user_id = ${userID}`;
     // var params = [userID];
     const results = await db.promise().query(queryString);

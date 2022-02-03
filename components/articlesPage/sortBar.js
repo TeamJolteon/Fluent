@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 export default function SortBar(props) {
-  // const [filterStatus, setFilterStatus] = useState('');
-
-  // let handleFiltering = () => {
-  //   if (filterStatus)
-  // }
 
   let handleSortChange = (e) => {
-    // setFilterStatus(e.target.value);
     sort(e.target.value);
   }
 
@@ -17,15 +11,15 @@ export default function SortBar(props) {
     if (status === 'Newest') {
       let newest = copy.sort((a, b) => (b.dateWritten < a.dateWritten ) ? -1 : 1);
       console.log('newest', newest);
-      props.setArticles(newest);
+      props.setFeed(newest);
     }
     if (status === 'Alphabetical') {
       let alphabetical = copy.sort((a, b) => (a.title < b.title) ? -1 : 1);
-      props.setArticles(alphabetical);
+      props.setFeed(alphabetical);
     }
     if (status === 'Favorited') {
       let favs = removeNonFavs();
-      props.setArticles(favs);
+      props.setFeed(favs);
     }
   };
 

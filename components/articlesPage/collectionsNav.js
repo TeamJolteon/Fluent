@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import navStyles from '../../styles/ArticleStyles/collectionNav.module.css';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -7,8 +7,8 @@ import Box from '@mui/material/Box';
 
 
 
-export default function SelectorNav() {
-  const [value, setValue] = React.useState(0);
+export default function SelectorNav(props) {
+  const [value, setValue] = useState(0);
 
   function a11yProps(index) {
     return {
@@ -16,9 +16,28 @@ export default function SelectorNav() {
       'aria-controls': `simple-tabpanel-${index}`,
     };
   }
-  const handleChange = (event, newValue) => {
+  const handleChange = (e, newValue) => {
     setValue(newValue);
+    // console.log('before', value);
+    // console.log('after', newValue);
+    // const mode = newValue ? true : false;
+    // props.setFeed(mode)
+    if (value === 0) {
+      props.setDisplay('personal');
+    }
+    if (value === 1) {
+      props.setDisplay('community');
+    }
   };
+
+  // const handleTabClick = (e) => {
+  //   if (e.target.value === "personal") {
+  //     props.setFeed(props.personalArticles);
+  //   }
+  //   if (e.target.value === "community") {
+  //     props.setFeed(props.communityArticles)
+  //   }
+  // }
 
   return (
     <div className={navStyles.navbar}>
