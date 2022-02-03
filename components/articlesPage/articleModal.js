@@ -23,6 +23,8 @@ const Words = styled.button`
   font-family: 'Roboto', sans-serif;
   color: #444;
   background-color: ${(props) => (props.selected ? '#FFFF00' : 'white')};
+  margin: 0 3.5px;
+  display: inline-block;
 `;
 const TranslatedSpan = styled.span`
   color: red;
@@ -94,6 +96,7 @@ export default function ArticleModal({ show, handleClose, articleText }) {
                           <TranslatedSpan>{translatedWord}</TranslatedSpan>
                         ) : null}
                         <Words
+                          key = {word + 1}
                           selected={highlightedWords === word}
                           onClick={() => {
                             translator(word);

@@ -1,5 +1,5 @@
 import Header from '../../components/header.js';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import ModalNav from '../../components/articlesPage/modalNav.js';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -13,8 +13,13 @@ import AddArticleModal from '../../components/articlesPage/addArticleModal.js';
 // import SpotlightComponent from '../../components/spotlight/spotlight.js';
 import ArticlesFeed from '../../components/articlesPage/ArticlesFeed.js';
 import { getSession } from 'next-auth/client';
+import {useAppContext} from '../state.js'
 
 export default function Articles(props) {
+
+  const userID = useAppContext().data[0].id;
+  console.log('user', userID);
+
   const [showAdd, setShowAdd] = useState(false);
   // const [showArticle, setShowArticle] = useState(false);
 
@@ -32,6 +37,7 @@ export default function Articles(props) {
     .catch((e) => {
       console.log(e);
     });
+
   return (
     <div>
       <Header loggedin={true} />
