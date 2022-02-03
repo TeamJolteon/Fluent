@@ -59,22 +59,8 @@ export default function FlashcardIndex (props) {
   const [repeat, setRepeat] = useState(false);
 
   useEffect(() => {
-    if (props.userID !== null ) {
-      axios.get('/api/vocabAPI/getVocalListCurrentInterval', {
-        params: {
-          language: "Swedish",
-          userID: props.userID
-        }
-      })
-      .then((res) => {
-        setFlashcardData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-    }
-
-  },[props.userID])
+    setFlashcardData(props.data);
+  }, [props.data])
 
   function synthesizeSpeech() {
     const speechConfig = sdk.SpeechConfig.fromSubscription(AZURE, 'westus');

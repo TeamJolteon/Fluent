@@ -8,28 +8,31 @@ import axios from 'axios';
 export default function Flashcards(props) {
   const userID = useAppContext().data[0].id
   const [id, setId] = useState(null);
-  // const [data, setData] = useState(props.data);
+  const [data, setData] = useState(props.data);
 
-  // useEffect(() => {
-  //   setId(userID);
-  //   axios.get('/api/vocabAPI/getVocalListCurrentInterval', {
-  //     params: {
-  //       language: "Swedish",
-  //       userID:userID
-  //     }
-  //   })
-  //   .then((res) => {
-  //     setData(res.data);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   })
-  // }, [userID]);
+  useEffect(() => {
+    const fetchUserArticles = () => {
+      axios.get('/api/vocabAPI/getVocalListCurrentInterval', {
+        params: {
+          language: "Swedish",
+          userID: userID
+        }
+      })
+      .then((res) => {
+        console.log(res.data)
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    }
+    fetchUserArticles();
+  }, []);
 
   return (
     <div>
       <Header loggedin={true} />
-      <FlashcardIndex data={props.data} userID={userID}/>
+      <FlashcardIndex data={data} userID={userID}/>
     </div>
   );
 }
@@ -52,8 +55,8 @@ export async function getServerSideProps(context) {
       data: [
         {
           id: 1,
-          word: 'Tack',
-          translation: 'Thank you',
+          word: 'asd',
+          translation: 'Hej',
           efactor: 4,
           currentInterval: 1,
           repetition: 0,
