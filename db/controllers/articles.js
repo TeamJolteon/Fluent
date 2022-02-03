@@ -63,25 +63,6 @@ const postNewWord  = async ({user_id, article_id, word, definition,language,tran
 }
 //POST or PUT: add a new word with the translations and the sentences
 
-// db.promise().query(get word for this user and this word)
-// .then((res) => {
-//   if (!res) {
-//     doesnt exist
-//   }) else {
-//     return res
-//   }
-// })
-// .then((word) => {
-//   db.promise().query(get translations for this word, based on lagnauge)
-//   .then((translations) => {
-//     if (!translation) {
-//       update translation and language
-//     } else {
-//       return null
-//     }
-//   })
-// })
-
 const checkExistence = async ({user_id, article_id, word, definition,language,translation, sentences}) => {
   let checkVocab = await db.promise().query(`select word from vocab where word='${word}' AND user_id=${user_id}`);
 
@@ -120,7 +101,6 @@ const checkExistence = async ({user_id, article_id, word, definition,language,tr
 
 const deleteArticle = async ({user_id, title, id}) => {
   try {
-    // var queryString = 'DELETE FROM articles WHERE title = ? and user_id = ?';
     var queryString = 'UPDATE articles SET deleted = ? where articles.user_id = ? and articles.title = ?'
     var params = [true, user_id, title];
     const results = await db.promise().query(queryString, params);
@@ -132,7 +112,6 @@ const deleteArticle = async ({user_id, title, id}) => {
 
 const deleteWord = async ({user_id, word_id}) => {
   try {
-    // var queryString = 'DELETE FROM vocab WHERE user_id = ? and id = ?';
     var queryString = 'UPDATE vocab SET deleted = ? WHERE vocab.user_id = ? AND vocab.id = ?';
     var params = [true, user_id, word_id];
     const results = await db.promise().query(queryString, params);

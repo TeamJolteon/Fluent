@@ -1,6 +1,3 @@
-// import getAllArticles from '/db/controllers/articles.js';
-// const { getAllArticles } = require('/db/controllers/articles.js');
-// const { getAllArticles } = require('./db/controllers/articles.js');
 const { getAllCommunityArticles } = require('../../../db/controllers/articles.js');
 
  const handler = async (req, res) => {
