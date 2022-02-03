@@ -6,7 +6,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test": "jest --detectOpenHandles true",
+    "unit": "jest -testRegex '(?<!integration\\.)test\\.js$'",
+    "integration": "jest --testRegex 'integration\\.test\\.js$'"
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
