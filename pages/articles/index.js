@@ -1,5 +1,5 @@
 import Header from '../../components/header.js';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import ModalNav from '../../components/articlesPage/modalNav.js';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -14,6 +14,7 @@ import AddArticleModal from '../../components/articlesPage/addArticleModal.js';
 import ArticlesFeed from '../../components/articlesPage/ArticlesFeed.js';
 import addArticleButtonStyles from '../../styles/ArticleStyles/addArticleButton.module.css';
 import { getSession } from 'next-auth/client';
+import {useAppContext} from '../state.js'
 import SearchBar from '../../components/articlesPage/searchBar.js';
 import searchBarStyles from '../../styles/ArticleStyles/searchBar.module.css';
 import sample from '../../components/articlesPage/articleDummyData/articleDummyData.js';
@@ -22,6 +23,10 @@ import SortBarStyles from '../../styles/ArticleStyles/sortBar.module.css';
 import topBarStyles from '../../styles/ArticleStyles/topBar.module.css';
 
 export default function Articles(props) {
+
+  const userID = useAppContext().data[0].id;
+  console.log('user', userID);
+
   const [showAdd, setShowAdd] = useState(false);
   const [showArticle, setShowArticle] = useState(false);
   const [allArticles, setAllArticles] = useState(sample);
@@ -41,6 +46,7 @@ export default function Articles(props) {
     .catch((e) => {
       console.log(e);
     });
+
   return (
     <div>
       <Header loggedin={true} />
