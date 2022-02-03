@@ -18,21 +18,27 @@ const Body = styled.div`
 `;
 
 const SpotDiv = styled.div``;
+
 const Words = styled.button`
   border: none;
   font-family: 'Roboto', sans-serif;
   color: #444;
   background-color: ${(props) => (props.selected ? '#FFFF00' : 'white')};
+  margin: 0 3.5px;
+  display: inline-block;
 `;
-const TranslatedSpan = styled.span`
+
+const Translated = styled.div`
   color: red;
 `;
 
 export default function ArticleModal({ show, handleClose, articleText }) {
-  const [highlightedWords, setHighlightedWords] = useState(null);
-  const [translatedWord, setTranslatedWord] = useState(null);
   const [wordSelected, setWordSelected] = useState(false);
+  const [translatedWord, setTranslatedWord] = useState(null);
+  const [wordHighlighted, setWordHighlighted] = useState(false);
+  const [highlightedWords, setHighlightedWords] = useState(null);
 
+  // Translator Function
   function translator(word) {
     var subscriptionKey = azureToken;
     var endpoint = 'https://api.cognitive.microsofttranslator.com';
@@ -59,10 +65,45 @@ export default function ArticleModal({ show, handleClose, articleText }) {
         },
       ],
       responseType: 'json',
-    }).then(function (response) {
+    }).then(function(response) {
+      defineWord(word);
       setTranslatedWord(response.data[0].translations[0].text, null, 4);
+      saveWord(word, (response.data[0].translations[0].text));
     });
     return null;
+  }
+
+  // define word function
+  function defineWord(word) {
+    axios({
+      url: `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`,
+      method: 'get',
+    })
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+
+  // Save Word Function
+  function saveWord(word, translated) {
+    axios.post('http://localhost:3000/api/articlesAPI/postNewWord', {
+      "user_id":1,
+      "article_id": 1,
+      "word": word,
+      "definition":null,
+      "language":"swedish",
+      "translation": translated,
+      "sentences":"Good morning"
+    })
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((error) => {
+      console.error(error);
+    })
   }
 
   return (
@@ -88,22 +129,43 @@ export default function ArticleModal({ show, handleClose, articleText }) {
               <SpotDiv>
                 <div>
                   {articleText.split(' ').map((word, index) => {
+
                     return (
                       <>
-                        {word === highlightedWords ? (
-                          <TranslatedSpan>{translatedWord}</TranslatedSpan>
-                        ) : null}
                         <Words
+                          key = {word + 1}
                           selected={highlightedWords === word}
                           onClick={() => {
                             translator(word);
                             setHighlightedWords(word);
+                            setWordHighlighted(!wordHighlighted);
                           }}
                         >
-                          {word}{' '}
+                          {word === highlightedWords && wordHighlighted ? (
+                            <Translated>{translatedWord}</Translated>
+                          ) : (
+                            word
+                          )}
                         </Words>
                       </>
                     );
+
+                    // return (
+                    //   <>
+                    //     {word === highlightedWords ? (
+                    //       <TranslatedSpan>{translatedWord}</TranslatedSpan>
+                    //     ) : null}
+                    //     <Words
+                    //       selected={highlightedWords === word}
+                    //       onClick={(e) => {
+                    //         translator(word);
+                    //         setHighlightedWords(word);
+                    //       }}
+                    //     >
+                    //       {word}{' '}
+                    //     </Words>
+                    //   </>
+                    // );
                   })}
                 </div>
               </SpotDiv>

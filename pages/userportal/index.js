@@ -1,8 +1,13 @@
 import Header from '../../components/header.js';
 import UserPortalComponent from '../../components/UserPortal/portal.js';
 import { getSession } from 'next-auth/client';
+import {useAppContext} from '../state.js'
 
 export default function UserPortal(props) {
+
+  const userID = useAppContext().data[0].id;
+  console.log('user', userID);
+
   return (
     <div>
       <Header loggedin={true} />
