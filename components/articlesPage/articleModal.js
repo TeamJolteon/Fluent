@@ -11,7 +11,7 @@ const { v4: uuidv4 } = require('uuid');
 const azureToken = require('../../otherconfig.js');
 
 // import article from './fakeArticle.js';
-
+// White : #F8F9F0 coffee: #413A3E grey: #D2D9DA blue: #9CBFA7
 const Body = styled.div`
   font-family: 'Roboto', sans-serif;
   color: #444;
@@ -25,8 +25,6 @@ const Words = styled.button`
   margin: 10px 3.5px;
   display: inline-block;
   background-color: ${(props) => (props.selected ? '#FFFF00' : 'white')};
-  margin: 0 3.5px;
-  display: inline-block;
 `;
 const Translated = styled.div`
   color: red;
@@ -96,7 +94,6 @@ export default function ArticleModal({ show, handleClose, articleText }) {
                     return (
                       <>
                         <Words
-                          key = {word + 1}
                           selected={highlightedWords === word}
                           onClick={() => {
                             translator(word);

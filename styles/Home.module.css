@@ -1,4 +1,3 @@
-
 .container {
   max-width: 1200px;
   margin: 40px auto;
@@ -8,8 +7,9 @@
 .login {
   width: 400px;
   margin: 0 auto;
-  border: 1px solid #eee;
+  border: 3px solid #d2d9da;
   border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.829);
 }
 
 .title {
@@ -39,16 +39,16 @@
 }
 
 .option.active {
-  border-bottom: 2px solid #444;
-  color: #444;
+  border-bottom: 2px solid #413a3e;
+  color: #413a3e;
 }
 
 .google {
   margin: 20px 30px 0 30px;
   padding: 15px;
-  background-color: #4c8bf5;
+  background-color: #9cbfa7;
   border-radius: 4px;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.829);
   cursor: pointer;
   font-weight: 700;
   font-size: 14px;
@@ -73,7 +73,7 @@
   padding: 15px;
   background-color: #eee;
   border: none;
-  color: #444;
+  color: #413a3e;
   font-size: 16px;
   letter-spacing: 1px;
   outline: none;
@@ -82,9 +82,9 @@
 .button {
   margin-top: 35px;
   padding: 18px 0;
-  background-color: #444;
+  background-color: #413a3e;
   border-radius: 0 0 4px 4px;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.829);
   cursor: pointer;
   font-size: 20px;
   font-weight: 700;
