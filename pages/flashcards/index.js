@@ -1,8 +1,13 @@
 import Header from '../../components/header.js';
 import FlashcardIndex from '../../components/flashcards/flashcardindex.jsx';
 import { getSession } from 'next-auth/client';
+import {useAppContext} from '../state.js'
 
 export default function Flashcards(props) {
+
+  const userID = useAppContext().data[0].id;
+  console.log('user', userID);
+
   return (
     <div>
       <Header loggedin={true} />
@@ -12,6 +17,7 @@ export default function Flashcards(props) {
 }
 
 export async function getServerSideProps(context) {
+
   const session = await getSession({ req: context.req });
   console.log(session);
   if (!session) {

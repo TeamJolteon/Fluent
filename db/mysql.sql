@@ -69,9 +69,9 @@ DROP TABLE IF EXISTS `articles`;
 
 CREATE TABLE `articles` (
   `id` INTEGER AUTO_INCREMENT,
-  `url` VARCHAR(100),
+  `url` VARCHAR(1000),
   `user_id` INTEGER,
-  `title` VARCHAR(50),
+  `title` VARCHAR(500),
   `date_written` DATE,
   `date_uploaded` DATE,
   `public` Boolean,
@@ -104,6 +104,18 @@ INSERT INTO `users` (`email`,`default_language`,`isLoggedIn`,`password`) VALUES
 
 INSERT INTO `users` (`email`,`default_language`,`isLoggedIn`,`password`) VALUES
 ('test@mail.com','english',0,'password');
+
+INSERT INTO `users` (`email`)
+VALUES
+('alexromeroreyes09@gmail.com'),
+('elliehunt8@gmail.com'),
+('fidwrs@gmail.com'),
+('ginwoopak@gmail.com'),
+('jacobhawkins7@gmail.com'),
+('jmitchell31@g.ucla.edu'),
+('lihouheng0710@gmail.com'),
+('tawata.daniel@gmail.com'),
+('timnevada@gmail.com');
 
 INSERT INTO `articles` (`user_id`,`url`,`title`,`date_written`,`date_uploaded`,`public`,`publication`,`text`,`userUploaded`) VALUES
 (1,'testUrl','testTitle','2022-01-31','2022-01-31',0,'NYT','text',1);

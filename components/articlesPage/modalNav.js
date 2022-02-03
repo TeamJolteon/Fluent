@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import TextForm from './textForm.js';
 import UrlForm from './urlForm.js';
 
-export default function ModalNav() {
+export default function ModalNav(props) {
   const [value, setValue] = useState('text');
 
   function a11yProps(index) {
@@ -32,7 +32,7 @@ export default function ModalNav() {
           </Box>
         </Box>
       </div>
-      {value === 'text' ? <TextForm/> : <UrlForm/>  }
+    {value === 'text' ? <TextForm setShowAdd={props.setShowAdd}/> : <UrlForm setShowAdd={props.setShowAdd}/>  }
     </div>
   )
 };
