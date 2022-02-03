@@ -37,6 +37,7 @@ CREATE TABLE `vocab` (
   `efactor` float DEFAULT 2.5,
   `word` VARCHAR(50),
   `definition` VARCHAR(500),
+  `deleted` Boolean default 0,
   PRIMARY KEY (`id`)
 );
 
@@ -78,6 +79,7 @@ CREATE TABLE `articles` (
   `publication` VARCHAR(50),
   `text` TEXT,
   `userUploaded` Boolean,
+  `deleted` Boolean DEFAULT 0,
   PRIMARY KEY (`id`)
 );
 -- ---
@@ -85,9 +87,12 @@ CREATE TABLE `articles` (
 -- ---
 ALTER TABLE `vocab` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
 ALTER TABLE `vocab` ADD FOREIGN KEY (article_id) REFERENCES `articles` (`id`);
+
 ALTER TABLE `translations` ADD FOREIGN KEY (word_id) REFERENCES `vocab` (`id`);
+
 ALTER TABLE `sentences` ADD FOREIGN KEY (vocab_id) REFERENCES `vocab` (`id`);
 ALTER TABLE `sentences` ADD FOREIGN KEY (article_id) REFERENCES `articles` (`id`);
+
 ALTER TABLE `articles` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
 -- ---
 -- Table Properties
@@ -148,3 +153,7 @@ INSERT INTO `translations` (`language`,`word_id`,`translation`) VALUES
 
 -- To run this mySQL file type the following command in your terminal: mysql -u root < db/mysql.sql
 
+-- drop foreign key commands
+
+-- alter table articles drop constraint articles_ibfk_1; drop user id fk from articles
+-- alter table articles drop constraint articles_ibfk_1; drop user id fk from articles
