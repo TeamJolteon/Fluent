@@ -25,6 +25,10 @@ export default function SelectorNav() {
           <Tabs
             value={value}
             onChange={handleChange}
+            TabIndicatorProps={{
+              style: { background: '#413A3E' },
+            }}
+            textColor='#413A3E'
             aria-label='basic tabs example'
           >
             <Tab label='My Articles' {...a11yProps(0)} />

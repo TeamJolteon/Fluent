@@ -44,7 +44,7 @@ export default function UserPortalComponent() {
   return (
     <Body>
       <Title>Welcome Back</Title>
-      <Subheader>How would you like to learn today...</Subheader>
+      <Subheader>How would you like to learn today?</Subheader>
       <RoutesDiv>
         <RouteButton>
           <Link href='/articles'>Read Articles</Link>

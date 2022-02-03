@@ -14,7 +14,7 @@ const azureToken = require('../../otherconfig.js');
 // White : #F8F9F0 coffee: #413A3E grey: #D2D9DA blue: #9CBFA7
 const Body = styled.div`
   font-family: 'Roboto', sans-serif;
-  color: #444;
+  color: #f8f9f0;
 `;
 
 const SpotDiv = styled.div``;
@@ -22,13 +22,14 @@ const SpotDiv = styled.div``;
 const Words = styled.button`
   border: none;
   font-family: 'Roboto', sans-serif;
-  color: #444;
+  color: #413a3e;
+  background-color: #f8f9f0;
   margin: 10px 3.5px;
   display: inline-block;
-  background-color: ${(props) => (props.selected ? '#FFFF00' : 'white')};
+  background-color: ${(props) => (props.selected ? '#9CBFA7' : '#f8f9f0')};
 `;
 const Translated = styled.div`
-  color: red;
+  color: #762d38;
 `;
 
 export default function ArticleModal({ show, handleClose, articleText }) {
@@ -118,8 +119,8 @@ export default function ArticleModal({ show, handleClose, articleText }) {
               transform: 'translate(-50%, -50%)',
               width: 850,
               height: 750,
-              bgcolor: 'background.paper',
-              border: '2px solid #000',
+              bgcolor: '#F8F9F0',
+              border: '2px solid #413A3E',
               boxShadow: 24,
               p: 4,
               overflow: 'scroll',
