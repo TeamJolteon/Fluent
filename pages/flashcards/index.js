@@ -7,7 +7,6 @@ import axios from 'axios';
 
 export default function Flashcards(props) {
   const userID = useAppContext().data[0].id
-  console.log('user', userID);
   const [id, setId] = useState(null);
   // const [data, setData] = useState(props.data);
 
