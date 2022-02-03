@@ -3,11 +3,11 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import Header from '../components/header.js';
+import axios from 'axios';
 import { signIn, signOut, useSession } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { getSession } from 'next-auth/client';
-
 
 export default function Home(props) {
   const [session, loading] = useSession();
@@ -137,11 +137,13 @@ export default function Home(props) {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
+
   if (session) {
     context.res.writeHead(302, { Location: '/userportal' });
     context.res.end();
     return {};
   }
+
   return {
     props: {
       login: false,

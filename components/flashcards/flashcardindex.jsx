@@ -41,7 +41,6 @@ const English = styled.div `
 `;
 
 const Grade = styled.div`
-  margin-top: 1rem;
 `;
 const PronuciationButton = styled.button`
 `;
@@ -71,7 +70,7 @@ export default function FlashcardIndex (props) {
     const speechConfig = sdk.SpeechConfig.fromSubscription(AZURE, 'westus');
     const synthesizer = new sdk.SpeechSynthesizer(speechConfig);
     synthesizer.speakTextAsync(
-      flashcardData[FL].word,
+      flashcardData[FL].translation,
       (result) => {
         synthesizer.close();
         return result.audioData;
@@ -123,14 +122,15 @@ export default function FlashcardIndex (props) {
     var grade = e.target.id[9];
     var data = superMemo(flashcardData[FL].currentInterval, flashcardData[FL].repetition, flashcardData[FL].efactor, grade);
     data.word = flashcardData[FL].word;
-    data.word = flashcardData[FL].word_id;
-    axios.put('/api/vocabAPI/getVocalListCurrentInterval', data)
+    data.id = flashcardData[FL].id;
+    axios.put('/api/vocabAPI/updateVocablist', data)
     .then((res) => {
       console.log("success!");
       if (FL + 1 >= flashcardData.length) {
         setRepeat(true);
       } else {
         setFlashcardIndex(FL + 1);
+        setReveal(false)
       }
     })
     .catch((err) => {
@@ -146,9 +146,9 @@ export default function FlashcardIndex (props) {
       }
     })
     .then((res) => {
+      setFlashcardIndex(0);
       setFlashcardData(res.data);
       setRepeat(false);
-      setFlashcardIndex(0);
     })
     .catch((err) => {
       console.log(err);
@@ -167,12 +167,9 @@ export default function FlashcardIndex (props) {
                     <VolumeUpIcon />
                   </PronuciationButton>
       <Grade>
-        <Button id="flashcard0" onClick={gradeOnclick}>No Idea</Button>
-        <Button id="flashcard1" onClick={gradeOnclick}>Not Even Close</Button>
-        <Button id="flashcard2" onClick={gradeOnclick}>Pretty Close</Button>
-        <Button id="flashcard3" onClick={gradeOnclick}>Close</Button>
-        <Button id="flashcard4" onClick={gradeOnclick}>Almost Got It</Button>
-        <Button id="flashcard5" onClick={gradeOnclick}>Perfect</Button>
+        <Button id="flashcard0" onClick={gradeOnclick}>Not Yet</Button>
+        <Button id="flashcard3" onClick={gradeOnclick}>Almost</Button>
+        <Button id="flashcard5" onClick={gradeOnclick}>Got it</Button>
       </Grade>
     </Card>
     </div>

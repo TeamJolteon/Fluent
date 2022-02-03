@@ -4,7 +4,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-export default function AddArticleModal({ show, handleClose }) {
+export default function AddArticleModal({ setShowAdd ,show, handleClose }) {
   return (
     <div>
       <Modal
@@ -26,7 +26,7 @@ export default function AddArticleModal({ show, handleClose }) {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Submit An Article
           </Typography>
-          <ModalNav/>
+          <ModalNav setShowAdd={setShowAdd}/>
         </Box>
       </Modal>
     </div>
