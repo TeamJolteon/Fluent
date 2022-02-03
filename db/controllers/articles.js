@@ -2,10 +2,11 @@ import db from '../../db/index.js';
 
 // get all public / private articles, and get all user articles
 
-const getAllArticles = async () => {
+const getAllCommunityArticles = async () => {
   try {
-    var queryString = 'select * from Articles';
-    const results = await db.promise().query(queryString);
+    var queryString = 'select * from Articles where public = ?';
+    var params = [true];
+    const results = await db.promise().query(queryString, params);
     return results[0];
   } catch (error) {
     return error;
@@ -114,7 +115,7 @@ const checkExistence = async ({user_id, article_id, word, definition,language,tr
     //if language and translations do not exist, just update the language and translations
 
 module.exports = {
-  getAllArticles: getAllArticles,
+  getAllCommunityArticles: getAllCommunityArticles,
   getUserArticles: getUserArticles,
   postNewArticles,
   postNewWord,

@@ -24,8 +24,8 @@ import topBarStyles from '../../styles/ArticleStyles/topBar.module.css';
 
 export default function Articles(props) {
 
-  const userID = useAppContext().data[0].id;
-  console.log('user', userID);
+  // const userID = useAppContext().data[0].id;
+  // console.log('user', userID);
 
   const [showAdd, setShowAdd] = useState(false);
   const [showArticle, setShowArticle] = useState(false);
