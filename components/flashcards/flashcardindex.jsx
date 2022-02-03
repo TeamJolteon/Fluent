@@ -40,6 +40,13 @@ const English = styled.div `
   font-size: 1.5em;
 `;
 
+const Repeat = styled.div `
+  margin: 15px;
+  font-size: 1.5em;
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+`;
+
 const Grade = styled.div`
 `;
 const PronuciationButton = styled.button`
@@ -51,21 +58,23 @@ export default function FlashcardIndex (props) {
   const [FL, setFlashcardIndex] = useState(0); //FL means flashcard index;
   const [repeat, setRepeat] = useState(false);
 
-  //test without context;
-  // useEffect(() => {
-  //   axios.get('/api/vocabAPI/getVocalListCurrentInterval', {
-  //     params: {
-  //       language: "Swedish",
-  //       userID: 1
-  //     }
-  //   })
-  //   .then((res) => {
-  //     setFlashcardData(res.data);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   })
-  // },[])
+  useEffect(() => {
+    if (props.userID !== null ) {
+      axios.get('/api/vocabAPI/getVocalListCurrentInterval', {
+        params: {
+          language: "Swedish",
+          userID: props.userID
+        }
+      })
+      .then((res) => {
+        setFlashcardData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    }
+
+  },[props.userID])
 
   function synthesizeSpeech() {
     const speechConfig = sdk.SpeechConfig.fromSubscription(AZURE, 'westus');
@@ -120,13 +129,13 @@ export default function FlashcardIndex (props) {
     if (FL + 1 > flashcardData.length) {
       return;
     }
+    console.log(props.userID);
     var grade = e.target.id[9];
     var data = superMemo(flashcardData[FL].currentInterval, flashcardData[FL].repetition, flashcardData[FL].efactor, grade);
     data.word = flashcardData[FL].word;
     data.id = flashcardData[FL].id;
     axios.put('/api/vocabAPI/updateVocablist', data)
     .then((res) => {
-      console.log("success!");
       if (FL + 1 >= flashcardData.length) {
         setRepeat(true);
       } else {
@@ -144,7 +153,7 @@ export default function FlashcardIndex (props) {
     axios.get('/api/vocabAPI/getVocalListCurrentInterval', {
       params: {
         language: "Swedish",
-        userID:1
+        userID:props.userID
       }
     })
     .then((res) => {
@@ -159,21 +168,21 @@ export default function FlashcardIndex (props) {
 
   return (
     <div>
-    <Title>Practice</Title>
-    <div className="flashcard-repeat" onClick={repeatOnClick}>{repeat?"Complete! Retry?":null}</div>
-    <Card>
-      <Lang className="flashcard-word">{flashcardData[FL].word}</Lang>
+      <Repeat onClick={repeatOnClick}>{repeat?"Complete! Retry?":null}</Repeat>
+      <Title>Practice</Title>
+      <Card>
+        <Lang className="flashcard-word">{flashcardData[FL].word}</Lang>
 
-      <English onClick={() => {reveal? setReveal(false): setReveal(true)}}>{reveal? flashcardData[FL].translation:"Reveal Translation"}</English>
-      <PronuciationButton onClick={() => synthesizeSpeech()}>
-                    <VolumeUpIcon />
-                  </PronuciationButton>
-      <Grade>
-        <Button id="flashcard0" onClick={gradeOnclick}>Not Yet</Button>
-        <Button id="flashcard3" onClick={gradeOnclick}>Almost</Button>
-        <Button id="flashcard5" onClick={gradeOnclick}>Got it</Button>
-      </Grade>
-    </Card>
+        <English onClick={() => {reveal? setReveal(false): setReveal(true)}}>{reveal? flashcardData[FL].translation:"Reveal Translation"}</English>
+        <PronuciationButton onClick={() => synthesizeSpeech()}>
+                      <VolumeUpIcon />
+                    </PronuciationButton>
+        <Grade>
+          <Button id="flashcard0" onClick={gradeOnclick}>Not Yet</Button>
+          <Button id="flashcard3" onClick={gradeOnclick}>Almost</Button>
+          <Button id="flashcard5" onClick={gradeOnclick}>Got it</Button>
+        </Grade>
+      </Card>
     </div>
   )
 }
