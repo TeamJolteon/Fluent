@@ -7,7 +7,7 @@ export const AppContext = createContext();
 
 export function AppWrapper({ children }) {
   const [session, loadingSession] = useSession();
-  const [user, setuser] = useState({ data: [{ id: null }] });
+  const [user, setuser] = useState({ data: [{ id: null, default_language: null }] });
 
   let sharedState = {};
 
