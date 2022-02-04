@@ -1,17 +1,46 @@
 import Header from '../../components/header.js';
 import FlashcardIndex from '../../components/flashcards/flashcardindex.jsx';
 import { getSession } from 'next-auth/client';
-import {useAppContext} from '../state.js'
+import {useAppContext} from '../state.js';
+import React, { useState, useContext, useEffect } from 'react';
+import axios from 'axios';
 
 export default function Flashcards(props) {
-
   const userID = useAppContext().data[0].id;
-  console.log('user', userID);
+  const [id, setId] = useState(null);
+  const [data, setData] = useState(props.data);
+  const initialLanguage = useAppContext().data[0].default_language;
+  const [language, setLanguage] = useState(null);
+
+  useEffect(() => {
+    if (language === null) {
+      setLanguage(initialLanguage);
+    }
+  }, [])
+
+  useEffect(() => {
+    const fetchUserVocab = () => {
+      axios.get('/api/vocabAPI/getVocalListCurrentInterval', {
+        params: {
+          language: language,
+          userID: userID
+        }
+      })
+      .then((res) => {
+        setData(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    }
+    fetchUserVocab();
+  }, []);
 
   return (
     <div>
-      <Header loggedin={true} />
-      <FlashcardIndex data={props.data} />
+      <Header loggedin={true} language={language} setLanguage={setLanguage} />
+      <FlashcardIndex data={data} userID={userID} language={language}/>
     </div>
   );
 }
@@ -19,6 +48,9 @@ export default function Flashcards(props) {
 export async function getServerSideProps(context) {
 
   const session = await getSession({ req: context.req });
+  console.log(session);
+
+
   if (!session) {
     return {
       redirect: {
@@ -32,8 +64,14 @@ export async function getServerSideProps(context) {
       data: [
         {
           id: 1,
-          word: 'Tack',
-          translation: 'Thank you',
+          word: 'asd',
+          translation: 'Hej',
+          efactor: 4,
+          currentInterval: 1,
+          repetition: 0,
+          efactor: 1,
+          currentInterval: 1,
+          repetition: 5,
           efactor: 1,
           currentInterval: 1,
           repetition: 5,
@@ -42,6 +80,14 @@ export async function getServerSideProps(context) {
           id: 2,
           word: 'Badrum',
           translation: 'Bathroom',
+          efactor: 4,
+          currentInterval: 1,
+          repetition: 0,
+        },
+        {
+          id: 3,
+          word: 'Vatten',
+          translation: 'Water',
           efactor: 4,
           currentInterval: 1,
           repetition: 1,

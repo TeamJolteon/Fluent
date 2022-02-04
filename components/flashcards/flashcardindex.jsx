@@ -56,6 +56,13 @@ const English = styled.div `
   }
 `;
 
+const Repeat = styled.div `
+  margin: 15px;
+  font-size: 1.5em;
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+`;
+
 const Grade = styled.div`
   display: flex;
   justify-content: space-around;
@@ -94,20 +101,10 @@ export default function FlashcardIndex (props) {
   const [FL, setFlashcardIndex] = useState(0); //FL means flashcard index;
   const [repeat, setRepeat] = useState(false);
 
-  //test without context;
-  // useEffect(() => {
-  //   axios.get('/api/vocabAPI/getVocalListCurrentInterval', {
-  //     params: {
-  //       language: "Swedish"
-  //     }
-  //   })
-  //   .then((res) => {
-  //     setFlashcardData(res.data);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   })
-  // },[])
+  useEffect(() => {
+    setFlashcardData(props.data);
+    console.log(flashcardData);
+  }, [props.data])
 
   function synthesizeSpeech() {
     const speechConfig = sdk.SpeechConfig.fromSubscription(AZURE, 'westus');
@@ -162,13 +159,13 @@ export default function FlashcardIndex (props) {
     if (FL + 1 > flashcardData.length) {
       return;
     }
+    console.log(props.userID);
     var grade = e.target.id[9];
     var data = superMemo(flashcardData[FL].currentInterval, flashcardData[FL].repetition, flashcardData[FL].efactor, grade);
     data.word = flashcardData[FL].word;
     data.id = flashcardData[FL].id;
     axios.put('/api/vocabAPI/updateVocablist', data)
     .then((res) => {
-      console.log("success!");
       if (FL + 1 >= flashcardData.length) {
         setRepeat(true);
       } else {
@@ -182,11 +179,10 @@ export default function FlashcardIndex (props) {
   };
 
   const repeatOnClick = (e) => {
-    // var id = setFlashcardData.user_id
     axios.get('/api/vocabAPI/getVocalListCurrentInterval', {
       params: {
-        userID: 1,
-        language: "Swedish"
+        language: props.language,
+        userID:props.userID
       }
     })
     .then((res) => {
@@ -203,7 +199,6 @@ export default function FlashcardIndex (props) {
     <Body>
     <Title>Practice</Title>
     <Complete className="flashcard-repeat" onClick={repeatOnClick}>{repeat?"Complete! Retry?":null}</Complete>
-
     <Card>
     <Inbord>
       <Lang className="flashcard-word">{flashcardData[FL].translation}</Lang>

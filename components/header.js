@@ -6,6 +6,13 @@ export default function Header(props) {
   const logoutHandler = () => {
     signOut();
   };
+  const languages = ['fr', 'de', 'it', 'pt', 'es', 'sv'];
+  const languagesFull = ['French', 'German', 'Italian', 'Portuguese', 'Spanish', 'Swedish'];
+  const index = languages.indexOf(props.language);
+  const abbreviation = languages.splice(index, 1);
+  const full = languagesFull.splice(index, 1);
+  languages.unshift(abbreviation);
+  languagesFull.unshift(full);
 
   return (
     <div className={styles.wrap}>
@@ -27,8 +34,19 @@ export default function Header(props) {
           </ul>
         ) : null}
         {props.loggedin ? (
-          <div onClick={logoutHandler} className={styles.sign}>
-            Sign Out
+          <div className={styles.flex}>
+            <select className={styles.language_selector} onChange={(e) => { props.setLanguage(e.target.value); }}>
+              {languages.map((language, index) => {
+                if (index === 0) {
+                  return <option key={language} value={language} selected>{languagesFull[index]}</option>
+                } else {
+                  return <option key={language} value={language}>{languagesFull[index]}</option>
+                }
+              })}
+            </select>
+            <div onClick={logoutHandler} className={styles.sign}>
+              Sign Out
+            </div>
           </div>
         ) : null}
       </div>
