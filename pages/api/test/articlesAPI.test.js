@@ -6,8 +6,7 @@ const request = require('supertest');
 // jest.useFakeTimers();
 
 const app = express();
-app.use('/api/articlesAPI/getAllArticles', getAllArticles);
-app.listen(3000, () => console.log('im the server'))
+// app.use('/api/articlesAPI/getAllArticles', getAllArticles);
 
 // describe('testing articles api', () => {
 
