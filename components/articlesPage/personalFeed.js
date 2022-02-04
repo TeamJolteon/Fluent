@@ -25,6 +25,8 @@ export default function PersonalFeed(props) {
         {props.data.length ? (
           props.data.map((item) => (
             <ArticleFeedItem
+              getFeed={props.getFeed}
+              getCommunityFeed={props.getCommunityFeed}
               language={props.language}
               data={item}
               key={item.article_id}
