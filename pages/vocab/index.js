@@ -11,7 +11,7 @@ export default function Vocab(props) {
   return (
     <div>
       <Header loggedin={true} />
-      <VocabList data={props.data} />
+      <VocabList userID={userID} />
     </div>
   );
 }

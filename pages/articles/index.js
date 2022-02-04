@@ -41,16 +41,17 @@ const AddArticle = styled.button`
 `;
 
 export default function Articles(props) {
-  // const userID = useAppContext().data[0].id;
-  // console.log('user', userID);
+  const userID = useAppContext().data[0].id;
+  console.log('user', userID);
 
-  const userID = 1;
-
+  //const userID = 1;
 
   const [showAdd, setShowAdd] = useState(false);
   const [showArticle, setShowArticle] = useState(false);
   const [allCommunityArticles, setAllCommunityArticles] = useState([]);
-  const [originalCommunityArticles, setOriginalCommunityArticles] = useState([]);
+  const [originalCommunityArticles, setOriginalCommunityArticles] = useState(
+    []
+  );
   const [allPersonalArticles, setAllPersonalArticles] = useState([]);
   const [originalPersonalArticles, setOriginalPersonalArticles] = useState([]);
   const [feedSelection, setFeedSelection] = useState(true);
@@ -63,21 +64,21 @@ export default function Articles(props) {
   var derivedFeed = feedSelection ? allPersonalArticles : allCommunityArticles;
   // var derivedFeed = allPersonalArticles;
 
-
   // const handleArticleOpen = () => setShowArticle(true);
   // const handleArticleClose = () => setShowArticle(false);
 
   useEffect(() => {
     const fetchCommunityArticles = () => {
-      axios.get('http://localhost:3000/api/articlesAPI/getAllArticles')
-      .then((response) => {
-        console.log('response within useEffect: ', response.data);
-        setAllCommunityArticles(response.data);
-        setOriginalCommunityArticles(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+      axios
+        .get('http://localhost:3000/api/articlesAPI/getAllArticles')
+        .then((response) => {
+          console.log('response within useEffect: ', response.data);
+          setAllCommunityArticles(response.data);
+          setOriginalCommunityArticles(response.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     };
 
     const fetchUserArticles = () => {
@@ -85,8 +86,8 @@ export default function Articles(props) {
         url: 'http://localhost:3000/api/articlesAPI/getUserArticles',
         method: 'get',
         params: {
-          id: userID
-        }
+          id: userID,
+        },
       })
         .then((response) => {
           console.log('response: ', response.data);
@@ -97,11 +98,10 @@ export default function Articles(props) {
         .catch((e) => {
           console.log(e);
         });
-      }
-      fetchCommunityArticles();
-      fetchUserArticles();
-  }, [])
-
+    };
+    fetchCommunityArticles();
+    fetchUserArticles();
+  }, []);
 
   return (
     // <div>
@@ -118,7 +118,7 @@ export default function Articles(props) {
         setDisplay={setDisplay}
         // setPersonal={setAllPersonalArticles}
         // setCommunity={setAllCommunityArticles}
-        />
+      />
       <div className={topBarStyles.topBar}>
         <div className={SortBarStyles.sortBar}>
           <SortBar
@@ -129,21 +129,25 @@ export default function Articles(props) {
           />
         </div>
         <div className={searchBarStyles.searchBar}>
-            <SearchBar
-              // derivedFeed={derivedFeed}
-              setFeed={setFeedSelection}
-              allPersonalArticles={allPersonalArticles}
-              allCommunityArticles={allCommunityArticles}
-              originalCommunityArticles={originalCommunityArticles}
-              originalPersonalArticles={originalPersonalArticles}
-              display={display}
-              setAllPersonalArticles={setAllPersonalArticles}
-              setAllCommunityArticles={setAllCommunityArticles}
-            />
+          <SearchBar
+            // derivedFeed={derivedFeed}
+            setFeed={setFeedSelection}
+            allPersonalArticles={allPersonalArticles}
+            allCommunityArticles={allCommunityArticles}
+            originalCommunityArticles={originalCommunityArticles}
+            originalPersonalArticles={originalPersonalArticles}
+            display={display}
+            setAllPersonalArticles={setAllPersonalArticles}
+            setAllCommunityArticles={setAllCommunityArticles}
+          />
         </div>
       </div>
-        {/* {display === 'personal' ? <PersonalFeed data={allPersonalArticles}/> : <CommunityFeed data={allCommunityArticles}/>} */}
-        {display === 'community' ? <CommunityFeed data={allCommunityArticles}/> : <PersonalFeed data={allPersonalArticles}/> }
+      {/* {display === 'personal' ? <PersonalFeed data={allPersonalArticles}/> : <CommunityFeed data={allCommunityArticles}/>} */}
+      {display === 'community' ? (
+        <CommunityFeed data={allCommunityArticles} />
+      ) : (
+        <PersonalFeed data={allPersonalArticles} />
+      )}
       <div className={addArticleButtonStyles.addButton}>
         <AddArticle onClick={handleAddOpen}>Add Article</AddArticle>
       </div>

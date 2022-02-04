@@ -20,17 +20,6 @@ const Button = styled.button`
   }
 `;
 
-// const Card = styled.div `
-//   border: 10px solid #9CBFA7;
-//   max-width: 600px;
-//   margin: 0 auto;
-//   text-align: center;
-//   height: 300px;
-//   padding: 15px;
-//   box-shadow: 0 2px 10px 0;
-//   color: #F8F9F0;
-//   background-color: #413A3E;
-// `;
 const Card = styled.div `
   max-width: 600px;
   margin: 0 auto;
@@ -79,6 +68,7 @@ const Complete = styled.div`
     align-items: center;
     padding-top: 2rem;
     font-size: x-large;
+    margin-bottom: 50px;
 `;
 const Body = styled.div`
   font-family: 'Roboto', sans-serif;
@@ -97,11 +87,7 @@ const PronuciationButton = styled.button`
     color: #A5B5B6;
   }
 `;
-// white F8F9F0
-// gray A5B5B6
-// coffee 413A3E
-// cambridge blue 9CBFA7
-// red 762d38
+
 export default function FlashcardIndex (props) {
   const [reveal, setReveal] = useState(false);
   const [flashcardData, setFlashcardData] = useState(props.data);
@@ -220,9 +206,9 @@ export default function FlashcardIndex (props) {
 
     <Card>
     <Inbord>
-      <Lang className="flashcard-word">{flashcardData[FL].word}</Lang>
+      <Lang className="flashcard-word">{flashcardData[FL].translation}</Lang>
 
-      <English onClick={() => {reveal? setReveal(false): setReveal(true)}}>{reveal? flashcardData[FL].translation:"Reveal Translation"}</English>
+      <English onClick={() => {reveal? setReveal(false): setReveal(true)}}>{reveal? flashcardData[FL].word:"Reveal Translation"}</English>
       <PronuciationButton onClick={() => synthesizeSpeech()}>
                     <VolumeUpIcon />
                   </PronuciationButton>

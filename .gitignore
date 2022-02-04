@@ -34,8 +34,10 @@ yarn-error.log*
 .vercel
 config.js
 otherconfig.js
+anotherOne.js
 
 
 package-lock.json
 
 node_modules
+anotherOne.js

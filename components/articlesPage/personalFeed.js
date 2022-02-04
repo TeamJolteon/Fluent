@@ -10,18 +10,25 @@ const FeedContainerStyle = styled.div`
   margin: 0 auto;
   overflow-y: scroll;
 `;
+const NothingFound = styled.div`
+  display: block;
+  margin: 0 auto;
+  padding-top: 5rem;
+`;
 
 // from state, array of articles where either user_id === logged in user or public === true
 
-export default function PersonalFeed (props) {
+export default function PersonalFeed(props) {
   return (
     <div>
       <FeedContainerStyle>
-        {props.data.length
-          ? props.data.map((item) => (
-              <ArticleFeedItem data={item} key={item.article_id} />
-            ))
-          : 'Nothing Found'}
+        {props.data.length ? (
+          props.data.map((item) => (
+            <ArticleFeedItem data={item} key={item.article_id} />
+          ))
+        ) : (
+          <NothingFound>Nothing Found</NothingFound>
+        )}
       </FeedContainerStyle>
     </div>
   );

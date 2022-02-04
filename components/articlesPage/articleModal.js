@@ -66,7 +66,7 @@ export default function ArticleModal({ show, handleClose, articleText }) {
         },
       ],
       responseType: 'json',
-    }).then(function(response) {
+    }).then(function (response) {
       setTranslatedWord(response.data[0].translations[0].text, null, 4);
       saveWord(word, response.data[0].translations[0].text);
     });
@@ -91,7 +91,7 @@ export default function ArticleModal({ show, handleClose, articleText }) {
   function saveWord(word, translated) {
     axios
       .post('http://localhost:3000/api/articlesAPI/postNewWord', {
-        user_id: 1,
+        user_id: 4,
         article_id: 1,
         word: word,
         definition: null,
@@ -139,8 +139,13 @@ export default function ArticleModal({ show, handleClose, articleText }) {
                             translator(word);
                             setHighlightedWords(word);
                             setWordHighlighted(!wordHighlighted);
-                          }}>
-                          {word === highlightedWords && wordHighlighted ? <Translated>{translatedWord}</Translated> : (word)}
+                          }}
+                        >
+                          {word === highlightedWords && wordHighlighted ? (
+                            <Translated>{translatedWord}</Translated>
+                          ) : (
+                            word
+                          )}
                         </Words>
                       </>
                     );
