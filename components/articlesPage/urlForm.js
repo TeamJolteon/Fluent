@@ -70,7 +70,7 @@ export default function UrlForm({ userID }) {
   const [communitySharing, setCommunitySharing] = useState(true);
   const [urlText, setUrlText] = useState('');
 
-  const userID = useAppContext().data[0].id;
+  // const userID = useAppContext().data[0].id;
 
   let handleChange = (e) => {
     if (e.target.id === 'url') {
@@ -172,5 +172,3 @@ export default function UrlForm({ userID }) {
     </SubmitArticles>
   );
 }
-
-// "(CNN)Weeks after she announced the postponement of her eagerly awaited Las Vegas residency, Adele has shared a few places where she can be seen. The singer posted on her verified Instagram account Tuesday that she plans to perform on the Brit Awards next week and will appear on an upcoming episode of the \"The Graham Norton Show.\" \"Hiya, so I'm really happy to say that I am performing at the Brits next week!!,\" she wrote in the caption of a photo showing her smiling. \"Anddddd I'll also be popping in to see Graham for a chat on the couch while I'm in town too!\" Some who commented on her post expressed frustration over the delayed Vegas shows. \"What about all of us that are still waiting over here with our Vegas tickets that we can't get a refund on and can't resell because you haven't set a date,\" one person wrote. \"Please @adele figure out what you are doing for the sake of all your fans that are sitting on thousands of worthless hotel, airfare, and tickets.\" Adele broke hearts (and some pockets, apparently) when she posted a video on social media just before her first Vegas show was set to debut that the she had to postpone. \"I'm so sorry but my show ain't ready,\" she said. \"Half my crew, half my team is down with Covid. They still are, and it's been impossible to finish the show. And I can't give you what I have right now, and I'm gutted.\" In her Tuesday post Adele also took a swipe at reports that she and her boyfriend Rich Paul have hit a rough patch, cheekily writing \"Oh, and Rich sends his love.\"",

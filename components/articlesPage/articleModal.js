@@ -34,11 +34,12 @@ const Translated = styled.div`
   color: #762d38;
 `;
 
-export default function ArticleModal({ show, handleClose, articleText, language }) {
+export default function ArticleModal({ show, handleClose, articleText, language, articleId }) {
   const [wordSelected, setWordSelected] = useState(false);
   const [translatedWord, setTranslatedWord] = useState(null);
   const [wordHighlighted, setWordHighlighted] = useState(false);
   const [highlightedWords, setHighlightedWords] = useState(null);
+
 
   const userID = useAppContext().data[0].id;
 
@@ -95,7 +96,7 @@ export default function ArticleModal({ show, handleClose, articleText, language 
     axios
       .post('http://localhost:3000/api/articlesAPI/postNewWord', {
         user_id: userID,
-        article_id: null,
+        article_id: articleId,
         word: word,
         definition: null,
         language: 'swedish',

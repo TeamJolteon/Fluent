@@ -27,7 +27,7 @@ export default function SortBar(props) {
       props.setAllPersonalArticles(newest);
     }
     if (status === 'Alphabetical' && props.display === 'personal') {
-      let alphabetical = personalCopy.sort((a, b) => (b.title < a.title) ? -1 : 1);
+      let alphabetical = personalCopy.sort((a, b) => (a.title < b.title) ? -1 : 1);
       props.setAllPersonalArticles(alphabetical);
     }
     if (status === 'Favorited' && props.display === 'personal') {

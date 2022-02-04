@@ -43,8 +43,9 @@ export default function ArticleFeedItem(props) {
   let text = props.data.text ? props.data.text : '';
   let title = props.data.title ? props.data.title : '';
   let author = props.data.author ? props.data.author : '';
-  let dateWritten = props.data.dateWritten ? props.data.dateWritten : '';
-  let dateUploaded = props.date_uploaded ? props.date_uploaded : '';
+  let dateWritten = props.data.dateWritten;
+  let dateUploaded = props.data.date_uploaded;
+  console.log('date written', props.dateWritten);
 
   return (
     <ArticleFeedItemContainer>
@@ -54,14 +55,15 @@ export default function ArticleFeedItem(props) {
         <Link href={url}>Link</Link>
       </ArticleTitleContainer>
       <ArticleInfoContainer>
-        <Written>Written: {dateWritten}</Written>
-        <Written>Uploaded: {props.date_uploaded}</Written>
+        <Written>Written: {props.data.dateWritten}</Written>
+        <Written>Uploaded: {props.data.date_uploaded}</Written>
       </ArticleInfoContainer>
       <ArticleModal
         language={props.language}
         show={showArticle}
         handleClose={handleArticleClose}
         articleText={text}
+        articleId={props.data.id}
       />
     </ArticleFeedItemContainer>
   );
