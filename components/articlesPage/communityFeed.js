@@ -11,7 +11,7 @@ const feedContainerStyle = {
 
 // from state, array of articles where either user_id === logged in user or public === true
 
-export default function ArticlesFeed (props) {
+export default function CommunityFeed (props) {
   return (
     <div>
       <div

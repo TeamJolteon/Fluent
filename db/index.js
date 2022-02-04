@@ -1,14 +1,12 @@
 import mysql from 'mysql2';
 import { dbAlexPassword } from '../config.js';
 
-// const db = mysql({
-//   config: {
+// const db = mysql.createConnection({
 //     host: 'localhost',
 //     port: 3306,
 //     database: 'volt',
 //     user: 'root',
 //     password: ''
-//   }
 // });
 const db = mysql.createConnection({
   host: 'localhost',
@@ -17,6 +15,14 @@ const db = mysql.createConnection({
   database: 'volt',
   port: 3306,
 });
+
+// const db = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: '',
+//   database: 'volt',
+//   port: 3306
+// });
 
 export default db;
 

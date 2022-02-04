@@ -4,6 +4,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import articleStyles from '../../styles/ArticleStyles/articleModal.module.css';
+import ArticleWord from './articleWord.js';
 
 import styled from 'styled-components';
 const axios = require('axios').default;
@@ -11,10 +12,10 @@ const { v4: uuidv4 } = require('uuid');
 const azureToken = require('../../otherconfig.js');
 
 // import article from './fakeArticle.js';
-
+// White : #F8F9F0 coffee: #413A3E grey: #D2D9DA blue: #9CBFA7
 const Body = styled.div`
   font-family: 'Roboto', sans-serif;
-  color: #444;
+  color: #f8f9f0;
 `;
 
 const SpotDiv = styled.div``;
@@ -22,14 +23,14 @@ const SpotDiv = styled.div``;
 const Words = styled.button`
   border: none;
   font-family: 'Roboto', sans-serif;
-  color: #444;
-  background-color: ${(props) => (props.selected ? '#FFFF00' : 'white')};
-  margin: 0 3.5px;
+  color: #413a3e;
+  background-color: #f8f9f0;
+  margin: 10px 3.5px;
   display: inline-block;
+  background-color: ${(props) => (props.selected ? '#9CBFA7' : '#f8f9f0')};
 `;
-
 const Translated = styled.div`
-  color: red;
+  color: #762d38;
 `;
 
 export default function ArticleModal({ show, handleClose, articleText }) {
@@ -66,9 +67,8 @@ export default function ArticleModal({ show, handleClose, articleText }) {
       ],
       responseType: 'json',
     }).then(function(response) {
-      defineWord(word);
       setTranslatedWord(response.data[0].translations[0].text, null, 4);
-      saveWord(word, (response.data[0].translations[0].text));
+      saveWord(word, response.data[0].translations[0].text);
     });
     return null;
   }
@@ -79,31 +79,32 @@ export default function ArticleModal({ show, handleClose, articleText }) {
       url: `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`,
       method: 'get',
     })
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((error) => {
-      console.log(error);
-    })
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   // Save Word Function
   function saveWord(word, translated) {
-    axios.post('http://localhost:3000/api/articlesAPI/postNewWord', {
-      "user_id":1,
-      "article_id": 1,
-      "word": word,
-      "definition":null,
-      "language":"swedish",
-      "translation": translated,
-      "sentences":"Good morning"
-    })
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((error) => {
-      console.error(error);
-    })
+    axios
+      .post('http://localhost:3000/api/articlesAPI/postNewWord', {
+        user_id: 1,
+        article_id: 1,
+        word: word,
+        definition: null,
+        language: 'swedish',
+        translation: translated,
+        sentences: 'Good morning',
+      })
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   return (
@@ -118,8 +119,8 @@ export default function ArticleModal({ show, handleClose, articleText }) {
               transform: 'translate(-50%, -50%)',
               width: 850,
               height: 750,
-              bgcolor: 'background.paper',
-              border: '2px solid #000',
+              bgcolor: '#F8F9F0',
+              border: '2px solid #413A3E',
               boxShadow: 24,
               p: 4,
               overflow: 'scroll',
@@ -129,43 +130,20 @@ export default function ArticleModal({ show, handleClose, articleText }) {
               <SpotDiv>
                 <div>
                   {articleText.split(' ').map((word, index) => {
-
                     return (
+                      // <ArticleWord word={word} key={index}/>
                       <>
                         <Words
-                          key = {word + 1}
                           selected={highlightedWords === word}
                           onClick={() => {
                             translator(word);
                             setHighlightedWords(word);
                             setWordHighlighted(!wordHighlighted);
-                          }}
-                        >
-                          {word === highlightedWords && wordHighlighted ? (
-                            <Translated>{translatedWord}</Translated>
-                          ) : (
-                            word
-                          )}
+                          }}>
+                          {word === highlightedWords && wordHighlighted ? <Translated>{translatedWord}</Translated> : (word)}
                         </Words>
                       </>
                     );
-
-                    // return (
-                    //   <>
-                    //     {word === highlightedWords ? (
-                    //       <TranslatedSpan>{translatedWord}</TranslatedSpan>
-                    //     ) : null}
-                    //     <Words
-                    //       selected={highlightedWords === word}
-                    //       onClick={(e) => {
-                    //         translator(word);
-                    //         setHighlightedWords(word);
-                    //       }}
-                    //     >
-                    //       {word}{' '}
-                    //     </Words>
-                    //   </>
-                    // );
                   })}
                 </div>
               </SpotDiv>
