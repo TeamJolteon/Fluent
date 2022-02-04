@@ -43,10 +43,12 @@ const PronuciationButton2 = styled.button`
   background-color: #9cbfa7;
   margin-right: 8px;
   color: #413a3e;
+  cursor: pointer;
 `;
 const PronuciationButton = styled.button`
   border-radius: 45%;
   border: none;
+  cursor: pointer;
   background-color: #d2d9da;
   margin-right: 8px;
   color: #413a3e;
@@ -330,7 +332,9 @@ export default function VocabList({ userID, language }) {
                       <PhraseData>Almost</PhraseData>
                     )}
                     <PhraseData>
-                      <ArticleLink href={word.url}>Link to Article</ArticleLink>
+                      <ArticleLink href={word.url} target='_blank'>
+                        Link to Article
+                      </ArticleLink>
                     </PhraseData>
                   </PhraseRow>
                 );
@@ -356,7 +360,7 @@ export default function VocabList({ userID, language }) {
 
                     <PhraseData>
                       {' '}
-                      <ArticleLink1 href={word.url}>
+                      <ArticleLink1 href={word.url} target='_blank'>
                         Link to Article
                       </ArticleLink1>
                     </PhraseData>
