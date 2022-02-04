@@ -40,7 +40,7 @@ const RouteButton = styled.button`
   }
 `;
 
-export default function UserPortalComponent() {
+export default function UserPortalComponent(props) {
   return (
     <Body>
       <Title>Welcome Back</Title>
