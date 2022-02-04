@@ -1,29 +1,40 @@
 import React, { useState } from 'react';
 import ArticleModal from './articleModal.js';
+import styled from 'styled-components';
+const ArticleFeedItemContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #d2d9da;
+  align-items: center;
+  width: 800px;
+  margin: 20px auto;
+  padding: 25px;
+`;
 
+const ArticleTitleContainer = styled.div`
+  width: 70%;
+  cursor: pointer;
+`;
 
-const articleFeedItemContainerStyle = {
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  width: '100%',
-}
+const ArticleInfoContainer = styled.div`
+  width: 30%;
+  text-align: right;
+`;
+const Written = styled.div`
+  font-style: italic;
+  padding: 3px 0;
+  font-size: 13px;
+`;
+const Link = styled.a`
+  padding: 3px 0;
+  font-size: 14px;
+  color: #413a3e;
+  text-decoration: underline;
+  cursor: pointer;
+`;
 
-const articleTitleContainerStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  height: '100px',
-}
-
-const articleInfoContainerStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  height: '100px',
-}
-
-
-export default function ArticleFeedItem (props) {
-
+export default function ArticleFeedItem(props) {
   const [showArticle, setShowArticle] = useState(false);
   const handleArticleOpen = () => setShowArticle(true);
   const handleArticleClose = () => setShowArticle(false);
@@ -33,29 +44,24 @@ export default function ArticleFeedItem (props) {
   let title = props.data.title ? props.data.title : '';
   let author = props.data.author ? props.data.author : '';
   let dateWritten = props.data.dateWritten ? props.data.dateWritten : '';
-  let dateUploaded = props.data.dateUploaded ? props.data.dateUploaded: '';
+  let dateUploaded = props.data.dateUploaded ? props.data.dateUploaded : '';
 
   return (
-    <div
-      className='articleFeedItemContainer'
-      style={articleFeedItemContainerStyle}>
-      <div
-        className='articleTitleContainer'
-        style={articleTitleContainerStyle}>
-          <span onClick={handleArticleOpen}>{title}</span>
-          <span>{author}</span>
-          <a href={url}>Link</a>
-      </div>
-      <div
-        className='articleInfoContainer'
-        style={articleInfoContainerStyle}>
-          <span>written: {dateWritten}</span>
-          <span>uploaded: {dateUploaded}</span>
-      </div>
+    <ArticleFeedItemContainer>
+      <ArticleTitleContainer>
+        <div onClick={handleArticleOpen}>{title}</div>
+        <Written>{author}</Written>
+        <Link href={url}>Link</Link>
+      </ArticleTitleContainer>
+      <ArticleInfoContainer>
+        <Written>Written: {dateWritten}</Written>
+        <Written>Uploaded: {dateUploaded}</Written>
+      </ArticleInfoContainer>
       <ArticleModal
         show={showArticle}
         handleClose={handleArticleClose}
-        articleText={text}/>
-    </div>
-  )
+        articleText={text}
+      />
+    </ArticleFeedItemContainer>
+  );
 }

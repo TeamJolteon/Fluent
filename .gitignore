@@ -25,10 +25,14 @@ yarn-error.log*
 
 # local env files
 .env
+<<<<<<< HEAD
 .env.local
+=======
+>>>>>>> 6ffbe61f2055604439deccfdec364e2d9804a4d2
 .env.development.local
 .env.test.local
 .env.production.local
+.env
 
 # vercel
 .vercel
@@ -38,3 +42,4 @@ otherconfig.js
 
 package-lock.json
 
+node_modules

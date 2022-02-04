@@ -2,10 +2,11 @@ import db from '../../db/index.js';
 
 // get all public / private articles, and get all user articles
 
-const getAllArticles = async () => {
+const getAllCommunityArticles = async () => {
   try {
-    var queryString = 'select * from Articles';
-    const results = await db.promise().query(queryString);
+    var queryString = 'select * from articles where public = ? and deleted = ?';
+    var params = [true, false];
+    const results = await db.promise().query(queryString, params);
     return results[0];
   } catch (error) {
     return error;
@@ -14,7 +15,7 @@ const getAllArticles = async () => {
 
 const getUserArticles = async (userID) => {
   try {
-    var queryString = `select * from Articles WHERE user_id = ${userID}`;
+    var queryString = `select * from articles WHERE user_id = ${userID} and deleted = ${false}`;
     // var params = [userID];
     const results = await db.promise().query(queryString);
     return results[0];
@@ -40,7 +41,7 @@ const postNewArticles = async ({user_id, url, title, date_written, date_uploaded
 const postNewWord  = async ({user_id, article_id, word, definition,language,translation, sentences}) => {
   try {
     var queryString1 = `INSERT INTO vocab (user_id,article_id, word, definition) VALUES
-    (${user_id}, ${article_id},'${word}','${definition}')`;
+    (${user_id}, ${article_id},'${word.toLowerCase()}','${definition}')`;
 
     const result1 = await db.promise().query(queryString1);
 
@@ -62,25 +63,6 @@ const postNewWord  = async ({user_id, article_id, word, definition,language,tran
 }
 //POST or PUT: add a new word with the translations and the sentences
 
-// db.promise().query(get word for this user and this word)
-// .then((res) => {
-//   if (!res) {
-//     doesnt exist
-//   }) else {
-//     return res
-//   }
-// })
-// .then((word) => {
-//   db.promise().query(get translations for this word, based on lagnauge)
-//   .then((translations) => {
-//     if (!translation) {
-//       update translation and language
-//     } else {
-//       return null
-//     }
-//   })
-// })
-
 const checkExistence = async ({user_id, article_id, word, definition,language,translation, sentences}) => {
   let checkVocab = await db.promise().query(`select word from vocab where word='${word}' AND user_id=${user_id}`);
 
@@ -90,7 +72,7 @@ const checkExistence = async ({user_id, article_id, word, definition,language,tr
     let checkTranslation = await db.promise().query(`select translation from translations where language='${language}' AND translation='${translation}'`);
 
     if (!checkTranslation[0][0]) {
-      const VocabID = await db.promise().query(`SELECT id from vocab where word = '${word}'`)
+      const VocabID = await db.promise().query(`SELECT id from vocab where word = '${word}' AND user_id=${user_id}`)
 
       var queryString2 = `INSERT INTO translations (word_id,language, translation) VALUES (${VocabID[0][0].id}, '${language}','${translation}')`
 
@@ -113,10 +95,42 @@ const checkExistence = async ({user_id, article_id, word, definition,language,tr
     //if language and translations exist, cannot add this word
     //if language and translations do not exist, just update the language and translations
 
+
+
+
+
+const deleteArticle = async ({user_id, title, id}) => {
+  try {
+    var queryString = 'UPDATE articles SET deleted = ? where articles.user_id = ? and articles.title = ?'
+    var params = [true, user_id, title];
+    const results = await db.promise().query(queryString, params);
+    return results[0];
+  } catch (error) {
+    return error;
+  }
+};
+
+const deleteWord = async ({user_id, word_id}) => {
+  try {
+    var queryString = 'UPDATE vocab SET deleted = ? WHERE vocab.user_id = ? AND vocab.id = ?';
+    var params = [true, user_id, word_id];
+    const results = await db.promise().query(queryString, params);
+    return results[0];
+  } catch(error) {
+    return error;
+  }
+}
+
+
+
+
+
 module.exports = {
-  getAllArticles: getAllArticles,
+  getAllCommunityArticles: getAllCommunityArticles,
   getUserArticles: getUserArticles,
   postNewArticles,
   postNewWord,
-  checkExistence
+  checkExistence,
+  deleteArticle,
+  deleteWord
 }

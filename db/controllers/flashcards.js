@@ -19,7 +19,7 @@ const getVocabListAlphabetically = async (language, userID) => {
     from vocab v
     LEFT JOIN translations t ON t.word_id = v.id
     LEFT JOIN sentences s ON s.vocab_id = v.id
-    WHERE t.language = '${language}' AND v.user_id=${userID}
+    WHERE t.language = '${language}' AND v.user_id=${userID} AND deleted = 0
     ORDER BY v.word ASC`;
 
     const results = await db.promise().query(queryString);
@@ -36,7 +36,7 @@ const getVocalListCurrentInterval = async (language, userID) => {
     from vocab v
     LEFT JOIN translations t ON t.word_id = v.id
     LEFT JOIN sentences s ON s.vocab_id = v.id
-    WHERE t.language = '${language}' AND v.user_id=${userID}
+    WHERE t.language = '${language}' AND v.user_id=${userID} AND deleted = 0
     ORDER BY v.currentInterval ASC`;
 
     const results = await db.promise().query(queryString);

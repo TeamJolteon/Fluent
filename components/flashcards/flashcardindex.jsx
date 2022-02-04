@@ -8,43 +8,100 @@ import AZURE from '../../config';
 const Button = styled.button`
   cursor: pointer;
   border: none;
-  border-radius: 3px;
-  margin-right: 5px;
+  background-color: #F8F9F0
+  color: #413A3E;
+  border-radius: 4px;
   padding: 10px;
   font-size: 1rem;
+  letter-spacing: 1px;
+  width: 140px;
+  &:hover {
+    background-color: #9CBFA7;
+  }
 `;
 
+// const Card = styled.div `
+//   border: 10px solid #9CBFA7;
+//   max-width: 600px;
+//   margin: 0 auto;
+//   text-align: center;
+//   height: 300px;
+//   padding: 15px;
+//   box-shadow: 0 2px 10px 0;
+//   color: #F8F9F0;
+//   background-color: #413A3E;
+// `;
 const Card = styled.div `
-  border: 10px solid rgba(0, 0, 0, .25);
-  padding: 15px;
   max-width: 600px;
   margin: 0 auto;
   text-align: center;
-  height: 300px;
-  line-height: 50px;
-  color: #444;
-  font-family: "Roboto", sans-serif;
+  padding: 15px;
+  box-shadow: 0 5px 20px 0 #413A3E;
+  color: #F8F9F0;
+  background-color: #413A3E;
+  border: 1px solid #413A3E;
 `;
+const Inbord = styled.div `
+  background-color: #413A3E;
+  border: 10px double #A5B5B6;
+  padding: 30px;
+`
 const Title = styled.h1`
   display: flex;
   justify-content: center;
-  color: #444;
-  font-family: "Roboto", sans-serif;
+  letter-spacing: 1px;
+  font-size: 36px;
 `;
 const Lang = styled.div`
   font-size: 3em;
-  margin-top: 30px;
+  letter-spacing: 2px;
 `
 const English = styled.div `
   margin: 15px;
   font-size: 1.5em;
+  margin-top: 25px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  &:hover {
+    color: #A5B5B6;
+  }
 `;
 
 const Grade = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-top: 25px;
+
+`;
+const Complete = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2rem;
+    font-size: x-large;
+`;
+const Body = styled.div`
+  font-family: 'Roboto', sans-serif;
+  color: #413a3e;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 2rem;
 `;
 const PronuciationButton = styled.button`
+  border: none;
+  background-color: #413A3E;
+  margin-top: 10px;
+  color: #F8F9F0;
+  cursor: pointer;
+  &:hover {
+    color: #A5B5B6;
+  }
 `;
-
+// white F8F9F0
+// gray A5B5B6
+// coffee 413A3E
+// cambridge blue 9CBFA7
+// red 762d38
 export default function FlashcardIndex (props) {
   const [reveal, setReveal] = useState(false);
   const [flashcardData, setFlashcardData] = useState(props.data);
@@ -142,6 +199,7 @@ export default function FlashcardIndex (props) {
     // var id = setFlashcardData.user_id
     axios.get('/api/vocabAPI/getVocalListCurrentInterval', {
       params: {
+        userID: 1,
         language: "Swedish"
       }
     })
@@ -156,10 +214,12 @@ export default function FlashcardIndex (props) {
   }
 
   return (
-    <div>
+    <Body>
     <Title>Practice</Title>
-    <div className="flashcard-repeat" onClick={repeatOnClick}>{repeat?"Complete! Retry?":null}</div>
+    <Complete className="flashcard-repeat" onClick={repeatOnClick}>{repeat?"Complete! Retry?":null}</Complete>
+
     <Card>
+    <Inbord>
       <Lang className="flashcard-word">{flashcardData[FL].word}</Lang>
 
       <English onClick={() => {reveal? setReveal(false): setReveal(true)}}>{reveal? flashcardData[FL].translation:"Reveal Translation"}</English>
@@ -167,11 +227,12 @@ export default function FlashcardIndex (props) {
                     <VolumeUpIcon />
                   </PronuciationButton>
       <Grade>
+      <Button id="flashcard5" onClick={gradeOnclick}>Got it</Button>
+      <Button id="flashcard3" onClick={gradeOnclick}>Almost</Button>
         <Button id="flashcard0" onClick={gradeOnclick}>Not Yet</Button>
-        <Button id="flashcard3" onClick={gradeOnclick}>Almost</Button>
-        <Button id="flashcard5" onClick={gradeOnclick}>Got it</Button>
       </Grade>
+      </Inbord>
     </Card>
-    </div>
+    </Body>
   )
 }

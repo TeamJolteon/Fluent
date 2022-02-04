@@ -1,5 +1,6 @@
 .topBar {
   display: flex;
   justify-content: space-evenly;
-  padding-bottom: 15px;
+  align-items: center;
+  padding: 15px 0;
 }
