@@ -12,7 +12,7 @@ const Title = styled.div`
   letter-spacing: 2px;
 `;
 
-export default function AddArticleModal({ setShowAdd, show, handleClose }) {
+export default function AddArticleModal({ setShowAdd, show, handleClose, userID }) {
   return (
     <div>
       <Modal open={show} onClose={handleClose}>
@@ -33,7 +33,7 @@ export default function AddArticleModal({ setShowAdd, show, handleClose }) {
           <Typography id='modal-modal-title' variant='h6' component='h2'>
             <Title>Submit An Article</Title>
           </Typography>
-          <ModalNav setShowAdd={setShowAdd} />
+          <ModalNav setShowAdd={setShowAdd} userID={userID}/>
         </Box>
       </Modal>
     </div>

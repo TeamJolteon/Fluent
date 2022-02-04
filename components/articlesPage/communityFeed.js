@@ -29,6 +29,7 @@ export default function CommunityFeed(props) {
               language={props.language}
               data={item}
               key={item.article_id}
+              getFeed={props.getFeed}
             />
           ))
         ) : (
