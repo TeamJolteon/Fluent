@@ -4,7 +4,7 @@ import db from '../../db/index.js';
 
 const getUser = async ( email ) => {
   try {
-    var queryString = 'SELECT id FROM users WHERE email=?';
+    var queryString = 'SELECT id, default_language FROM users WHERE email=?';
     var params = [email];
     const results = await db.promise().query(queryString, params);
     return results[0];
