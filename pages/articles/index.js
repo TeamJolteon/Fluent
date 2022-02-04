@@ -81,39 +81,39 @@ export default function Articles(props) {
 
   // const handleArticleOpen = () => setShowArticle(true);
   // const handleArticleClose = () => setShowArticle(false);
+  const fetchCommunityArticles = () => {
+    axios
+      .get('http://localhost:3000/api/articlesAPI/getAllArticles')
+      .then((response) => {
+        console.log('response within useEffect: ', response.data);
+        setAllCommunityArticles(response.data);
+        setOriginalCommunityArticles(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const fetchUserArticles = () => {
+    axios({
+      url: 'http://localhost:3000/api/articlesAPI/getUserArticles',
+      method: 'get',
+      params: {
+        id: userID,
+      },
+    })
+      .then((response) => {
+        console.log('response: ', response.data);
+        setAllPersonalArticles(response.data);
+        setOriginalPersonalArticles(response.data);
+        // setFeed(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   useEffect(() => {
-    const fetchCommunityArticles = () => {
-      axios
-        .get('http://localhost:3000/api/articlesAPI/getAllArticles')
-        .then((response) => {
-          console.log('response within useEffect: ', response.data);
-          setAllCommunityArticles(response.data);
-          setOriginalCommunityArticles(response.data);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    };
-
-    const fetchUserArticles = () => {
-      axios({
-        url: 'http://localhost:3000/api/articlesAPI/getUserArticles',
-        method: 'get',
-        params: {
-          id: userID,
-        },
-      })
-        .then((response) => {
-          console.log('response: ', response.data);
-          setAllPersonalArticles(response.data);
-          setOriginalPersonalArticles(response.data);
-          // setFeed(response.data);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    };
     fetchCommunityArticles();
     fetchUserArticles();
   }, [userID]);
@@ -163,9 +163,9 @@ export default function Articles(props) {
       </div>
       {/* {display === 'personal' ? <PersonalFeed data={allPersonalArticles}/> : <CommunityFeed data={allCommunityArticles}/>} */}
       {display === 'community' ? (
-        <CommunityFeed language={language} data={allCommunityArticles} />
+        <CommunityFeed getFeed={fetchCommunityArticles} language={language} data={allCommunityArticles} />
       ) : (
-        <PersonalFeed language={language} data={allPersonalArticles} />
+        <PersonalFeed getFeed={fetchUserArticles} getCommunityFeed={fetchCommunityArticles} language={language} data={allPersonalArticles} />
       )}
       <div className={addArticleButtonStyles.addButton}>
         <AddArticle onClick={handleAddOpen}>Add Article</AddArticle>

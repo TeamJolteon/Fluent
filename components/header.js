@@ -17,11 +17,7 @@ export default function Header(props) {
   return (
     <div className={styles.wrap}>
       <div className={styles.container}>
-<<<<<<< HEAD
-      <div className={styles.logo}>
-=======
         <div className={styles.logo}>
->>>>>>> testing
           <Link href='../userportal'>Fluent</Link>
         </div>
         {props.loggedin ? (

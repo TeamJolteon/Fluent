@@ -39,16 +39,7 @@ const Translated = styled.div`
   left: 0;
 `;
 
-<<<<<<< HEAD
 export default function ArticleModal({ show, handleClose, articleText, language, articleId }) {
-=======
-export default function ArticleModal({
-  show,
-  handleClose,
-  articleText,
-  language,
-}) {
->>>>>>> testing
   const [wordSelected, setWordSelected] = useState(false);
   const [translatedWord, setTranslatedWord] = useState(null);
   const [wordHighlighted, setWordHighlighted] = useState(false);

@@ -101,9 +101,10 @@ const checkExistence = async ({user_id, article_id, word, definition,language,tr
 
 
 const deleteArticle = async ({user_id, title, id}) => {
+  console.log(user_id, title, id);
   try {
     var queryString = 'UPDATE articles SET deleted = ? where articles.user_id = ? and articles.title = ?'
-    var params = [true, user_id, title];
+    var params = [1, user_id, title];
     const results = await db.promise().query(queryString, params);
     return results[0];
   } catch (error) {

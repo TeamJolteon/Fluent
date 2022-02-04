@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import formStyles from '../../styles/ArticleStyles/textForm.module.css';
-import extractorAPIKEY from '../../anotherOne.js';
+// import extractorAPIKEY from '../../anotherOne.js';
 import styled from 'styled-components';
 import { useAppContext } from '../../pages/state.js';
 import { TramRounded } from '@material-ui/icons';
+import { extractorAPIKEY } from '../../config.js';
 
 const SubmitArticles = styled.div`
   display: flex;
@@ -66,7 +67,7 @@ const ShareLabel = styled.label`
   padding: 10px 0;
   justify-content: center;
 `;
-export default function UrlForm({ userID }) {
+export default function UrlForm({ userID, setShowAdd }) {
   const [url, setUrl] = useState('');
   const [communitySharing, setCommunitySharing] = useState(true);
   const [urlText, setUrlText] = useState('');
@@ -86,6 +87,7 @@ export default function UrlForm({ userID }) {
 
   let handleSubmit = (e) => {
     e.preventDefault();
+    setShowAdd(false);
     axios({
       url: 'https://extractorapi.com/api/v1/extractor/',
       method: 'get',
