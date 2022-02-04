@@ -6,7 +6,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 
 export default function Flashcards(props) {
-  const userID = useAppContext().data[0].id
+  const userID = useAppContext().data[0].id;
   const [id, setId] = useState(null);
   const [data, setData] = useState(props.data);
 
@@ -19,7 +19,6 @@ export default function Flashcards(props) {
         }
       })
       .then((res) => {
-        console.log(res.data)
         setData(res.data);
       })
       .catch((err) => {
@@ -32,7 +31,7 @@ export default function Flashcards(props) {
   return (
     <div>
       <Header loggedin={true} />
-      <FlashcardIndex data={data} userID={userID}/>
+      <FlashcardIndex data={data} userID={userID} />
     </div>
   );
 }
