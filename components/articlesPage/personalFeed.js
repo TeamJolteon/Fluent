@@ -13,7 +13,7 @@ const FeedContainerStyle = styled.div`
 
 // from state, array of articles where either user_id === logged in user or public === true
 
-export default function ArticlesFeed(props) {
+export default function PersonalFeed (props) {
   return (
     <div>
       <FeedContainerStyle>

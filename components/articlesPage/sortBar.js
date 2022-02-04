@@ -13,14 +13,8 @@ const SortMenu = styled.select`
   color: #f8f9f0;
 `;
 export default function SortBar(props) {
-  // const [filterStatus, setFilterStatus] = useState('');
-
-  // let handleFiltering = () => {
-  //   if (filterStatus)
-  // }
 
   let handleSortChange = (e) => {
-    // setFilterStatus(e.target.value);
     sort(e.target.value);
   };
 
@@ -31,15 +25,15 @@ export default function SortBar(props) {
         b.dateWritten < a.dateWritten ? -1 : 1
       );
       console.log('newest', newest);
-      props.setArticles(newest);
+      props.setFeed(newest);
     }
     if (status === 'Alphabetical') {
-      let alphabetical = copy.sort((a, b) => (a.title < b.title ? -1 : 1));
-      props.setArticles(alphabetical);
+      let alphabetical = copy.sort((a, b) => (a.title < b.title) ? -1 : 1);
+      props.setFeed(alphabetical);
     }
     if (status === 'Favorited') {
       let favs = removeNonFavs();
-      props.setArticles(favs);
+      props.setFeed(favs);
     }
   };
 

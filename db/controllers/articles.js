@@ -4,7 +4,7 @@ import db from '../../db/index.js';
 
 const getAllCommunityArticles = async () => {
   try {
-    var queryString = 'select * from articles where public = ? and deleted = ?';
+    var queryString = 'select * from Articles where public = ? and deleted = ?';
     var params = [true, false];
     const results = await db.promise().query(queryString, params);
     return results[0];
