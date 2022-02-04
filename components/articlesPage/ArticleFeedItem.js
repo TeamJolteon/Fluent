@@ -62,6 +62,7 @@ export default function ArticleFeedItem(props) {
         show={showArticle}
         handleClose={handleArticleClose}
         articleText={text}
+        articleID={props.data.id}
       />
     </ArticleFeedItemContainer>
   );
