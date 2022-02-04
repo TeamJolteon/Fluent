@@ -1,7 +1,7 @@
 import Header from '../../components/header.js';
 import FlashcardIndex from '../../components/flashcards/flashcardindex.jsx';
 import { getSession } from 'next-auth/client';
-import {useAppContext} from '../state.js'
+import {useAppContext} from '../state.js';
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 
@@ -9,18 +9,26 @@ export default function Flashcards(props) {
   const userID = useAppContext().data[0].id;
   const [id, setId] = useState(null);
   const [data, setData] = useState(props.data);
+  const initialLanguage = useAppContext().data[0].default_language;
+  const [language, setLanguage] = useState(null);
+
+  useEffect(() => {
+    if (language === null) {
+      setLanguage(initialLanguage);
+    }
+  }, [])
 
   useEffect(() => {
     const fetchUserVocab = () => {
       axios.get('/api/vocabAPI/getVocalListCurrentInterval', {
         params: {
-          language: "Swedish",
+          language: language,
           userID: userID
         }
       })
       .then((res) => {
         setData(res.data);
-        console.log(data);
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -31,8 +39,8 @@ export default function Flashcards(props) {
 
   return (
     <div>
-      <Header loggedin={true} />
-      <FlashcardIndex data={data} userID={userID} />
+      <Header loggedin={true} language={language} setLanguage={setLanguage} />
+      <FlashcardIndex data={data} userID={userID} language={language}/>
     </div>
   );
 }

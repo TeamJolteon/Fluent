@@ -193,12 +193,10 @@ export default function FlashcardIndex (props) {
   };
 
   const repeatOnClick = (e) => {
-    // var id = setFlashcardData.user_id
     axios.get('/api/vocabAPI/getVocalListCurrentInterval', {
       params: {
-        language: "Swedish",
+        language: props.language,
         userID:props.userID
-
       }
     })
     .then((res) => {
