@@ -49,16 +49,16 @@ export default function Articles(props) {
   // const handleArticleClose = () => setShowArticle(false);
 
   useEffect(() => {
-    // const fetchCommunityArticles = () => {
-    //   axios.get('http://localhost:3000/api/articlesAPI/getAllArticles')
-    //   .then((response) => {
-    //     console.log('response within useEffect: ', response.data);
-    //     setAllCommunityArticles(response.data);
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
-    // };
+    const fetchCommunityArticles = () => {
+      axios.get('http://localhost:3000/api/articlesAPI/getAllArticles')
+      .then((response) => {
+        console.log('response within useEffect: ', response.data);
+        setAllCommunityArticles(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    };
 
     const fetchUserArticles = () => {
       axios({
@@ -71,23 +71,13 @@ export default function Articles(props) {
         .then((response) => {
           console.log('response: ', response.data);
           setAllPersonalArticles(response.data);
-
-          axios.get('http://localhost:3000/api/articlesAPI/getAllArticles')
-          .then((response) => {
-            console.log('response within useEffect: ', response.data);
-            setAllCommunityArticles(response.data);
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-
           // setFeed(response.data);
         })
         .catch((e) => {
           console.log(e);
         });
       }
-      // fetchCommunityArticles();
+      fetchCommunityArticles();
       fetchUserArticles();
   }, [])
 
@@ -119,10 +109,13 @@ export default function Articles(props) {
         </div>
         <div className={searchBarStyles.searchBar}>
             <SearchBar
-              derivedFeed={derivedFeed}
+              // derivedFeed={derivedFeed}
               setFeed={setFeedSelection}
-              // articles={articles}
-              // setArticles={setArticles}
+              allPersonalArticles={allPersonalArticles}
+              allCommunityArticles={allCommunityArticles}
+              display={display}
+              setAllPersonalArticles={setAllPersonalArticles}
+              setAllCommunityArticles={setAllCommunityArticles}
             />
         </div>
       </div>

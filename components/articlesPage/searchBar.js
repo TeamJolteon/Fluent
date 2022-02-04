@@ -7,24 +7,39 @@ export default function SearchBar(props) {
 
   let handleSearch = (e) => {
     let filtered = filterArticles();
+    let personalsCopy = props.allPersonalArticles.slice();
+    let communityCopy = props.allCommunityArticles.slice();
+    console.log('', communityCopy);
     console.log('query', query);
     setQuery(e.target.value);
     // props.setArticles(filtered);
-    if (filtered && query.length > 3) {
-      props.setFeed(filtered);
+    if (filtered && query.length > 3 && props.display === 'personal') {
+      props.setAllPersonalArticles(filtered);
     } else {
-      props.setFeed(props.allArticles);
+      props.setAllPersonalArticles(personalsCopy);
+    }
+    if (filtered && query.length > 3 && props.display === 'community') {
+      props.setAllCommunityArticles(filtered);
+    } else {
+      props.setAllCommunityArticles(communityCopy);
     }
   }
 
   let filterArticles = () => {
     var term = query.toLowerCase();
-    console.log(term);
-    if (query) {
-      var filteredArticles = props.derivedFeed.filter(article =>
-        article.title.toLowerCase().includes(term));
+    if (props.display === 'personal') {
+      if (query) {
+        var filteredArticles = props.allPersonalArticles.filter(article =>
+          article.title.toLowerCase().includes(term));
+      }
     }
-    console.log('filtered', filteredArticles);
+    if (props.display === 'community') {
+      if (query) {
+        var filteredArticles = props.allCommunityArticles.filter(article =>
+          article.title.toLowerCase().includes(term));
+      }
+    }
+    console.log(filteredArticles);
     return filteredArticles;
   }
 

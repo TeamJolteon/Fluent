@@ -22,3 +22,7 @@ a {
 ul {
   list-style: none;
 }
+
+.MuiTab-textColorPrimary {
+  color: red;
+}

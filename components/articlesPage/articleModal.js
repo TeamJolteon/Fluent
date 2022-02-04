@@ -4,6 +4,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import articleStyles from '../../styles/ArticleStyles/articleModal.module.css';
+import ArticleWord from './articleWord.js';
 
 import styled from 'styled-components';
 const axios = require('axios').default;
@@ -66,7 +67,6 @@ export default function ArticleModal({ show, handleClose, articleText }) {
       ],
       responseType: 'json',
     }).then(function(response) {
-      defineWord(word);
       setTranslatedWord(response.data[0].translations[0].text, null, 4);
       saveWord(word, (response.data[0].translations[0].text));
     });
@@ -129,8 +129,8 @@ export default function ArticleModal({ show, handleClose, articleText }) {
               <SpotDiv>
                 <div>
                   {articleText.split(' ').map((word, index) => {
-
                     return (
+                      // <ArticleWord word={word} key={index}/>
                       <>
                         <Words
                           key = {word + 1}
@@ -139,33 +139,11 @@ export default function ArticleModal({ show, handleClose, articleText }) {
                             translator(word);
                             setHighlightedWords(word);
                             setWordHighlighted(!wordHighlighted);
-                          }}
-                        >
-                          {word === highlightedWords && wordHighlighted ? (
-                            <Translated>{translatedWord}</Translated>
-                          ) : (
-                            word
-                          )}
+                          }}>
+                          {word === highlightedWords && wordHighlighted ? <Translated>{translatedWord}</Translated> : (word)}
                         </Words>
                       </>
                     );
-
-                    // return (
-                    //   <>
-                    //     {word === highlightedWords ? (
-                    //       <TranslatedSpan>{translatedWord}</TranslatedSpan>
-                    //     ) : null}
-                    //     <Words
-                    //       selected={highlightedWords === word}
-                    //       onClick={(e) => {
-                    //         translator(word);
-                    //         setHighlightedWords(word);
-                    //       }}
-                    //     >
-                    //       {word}{' '}
-                    //     </Words>
-                    //   </>
-                    // );
                   })}
                 </div>
               </SpotDiv>

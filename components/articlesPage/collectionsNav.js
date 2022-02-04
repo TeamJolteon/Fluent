@@ -22,14 +22,16 @@ export default function SelectorNav(props) {
     // console.log('after', newValue);
     // const mode = newValue ? true : false;
     // props.setFeed(mode)
+  };
+
+  useEffect(() => {
     if (value === 0) {
       props.setDisplay('personal');
     }
     if (value === 1) {
       props.setDisplay('community');
     }
-  };
-
+  }, [value]);
   // const handleTabClick = (e) => {
   //   if (e.target.value === "personal") {
   //     props.setFeed(props.personalArticles);
@@ -40,6 +42,10 @@ export default function SelectorNav(props) {
   // }
 
   return (
+    // <div>
+    //   <div onClick={() => { props.setDisplay('personal') }}>Personal</div>
+    //   <div onClick={() => { props.setDisplay('community') }}>Community</div>
+    // </div>
     <div className={navStyles.navbar}>
       <Box sx={{ width: '25%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
