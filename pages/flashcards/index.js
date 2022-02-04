@@ -22,7 +22,7 @@ export default function Flashcards(props) {
     const fetchUserVocab = () => {
       axios.get('/api/vocabAPI/getVocalListCurrentInterval', {
         params: {
-          language: language,
+          language: initialLanguage,
           userID: userID
         }
       })
@@ -35,7 +35,7 @@ export default function Flashcards(props) {
       })
     }
     fetchUserVocab();
-  }, [initialLanguage]);
+  });
 
   return (
     <div>
