@@ -16,13 +16,13 @@ export default function Flashcards(props) {
     if (language === null) {
       setLanguage(initialLanguage);
     }
-  }, [])
+  })
 
   useEffect(() => {
     const fetchUserVocab = () => {
       axios.get('/api/vocabAPI/getVocalListCurrentInterval', {
         params: {
-          language: language,
+          language: initialLanguage,
           userID: userID
         }
       })
@@ -35,7 +35,7 @@ export default function Flashcards(props) {
       })
     }
     fetchUserVocab();
-  }, []);
+  });
 
   return (
     <div>

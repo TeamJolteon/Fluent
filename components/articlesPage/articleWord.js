@@ -8,6 +8,7 @@ const wordPairContainerStyle = {
   display: 'flex',
   flexDirection: 'column',
   height: '30px',
+  width: 'auto',
   fontFamily: 'Roboto, sans-serif'
 }
 
@@ -23,14 +24,14 @@ const translatedInvisible = {
 
 const wordSelectedStyle = {
   height: '50%',
-  backgroundColor: '9CBFA7',
-  margin: '0 3.5px',
+  backgroundColor: 'yellow',
+  marginRight: '3.5px',
   display: 'inline-block'
 }
 
 const wordNotSelectedStyle = {
   height: '50%',
-  margin: '0 3.5px',
+  marginRight: '3.5px',
   display: 'inline-block'
 }
 
@@ -39,7 +40,7 @@ export default function ArticleWord(props) {
   const [translatedWord, setTranslatedWord] = useState('');
   const [wordHighlighted, setWordHighlighted] = useState(false);
 
-  const translatedWordContainerStyle = translation ? translatedVisible : translatedInvisible;
+  const translatedWordContainerStyle = translatedWord ? translatedVisible : translatedInvisible;
   const translated = props.translatedWord ? props.translatedWord : '';
   const selected = wordSelected ? wordSelectedStyle : wordNotSelectedStyle;
 
@@ -89,31 +90,31 @@ export default function ArticleWord(props) {
       responseType: 'json',
     }).then(function(response) {
       setTranslatedWord(response.data[0].translations[0].text, null, 4);
-      saveWord(word, (response.data[0].translations[0].text));
+      saveWord(props.word, (response.data[0].translations[0].text));
     });
     return null;
   }
 
   const clickWord = () => {
     setWordSelected(!wordSelected);
-    translator(word);
+    translator(props.word);
   }
 
   return (
-    <div
+    <span
       className="wordPairContainer"
       style={wordPairContainerStyle}>
-      <div
+      <span
         className="translatedWordContainer"
         style={translatedWordContainerStyle}>
           {translatedWord}
-        </div>
-      <div
+        </span>
+      <span
         className="defaultWordContainer"
         onClick={clickWord}
-        style={defaultWordContainerStyle}>
+        style={selected}>
           {props.word}
-      </div>
-    </div>
+      </span>
+    </span>
   )
 }
