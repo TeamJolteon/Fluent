@@ -22,7 +22,7 @@ export function AppWrapper({ children }) {
         },
       })
       .then((data) => {
-        // console.log('data:', data)
+        console.log('data:', data)
         setuser(data);
       })
       .catch((err) => console.log(err));

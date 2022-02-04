@@ -110,17 +110,17 @@ INSERT INTO `users` (`email`,`default_language`,`isLoggedIn`,`password`) VALUES
 INSERT INTO `users` (`email`,`default_language`,`isLoggedIn`,`password`) VALUES
 ('test@mail.com','english',0,'password');
 
-INSERT INTO `users` (`email`)
+INSERT INTO `users` (`email`,`default_language`)
 VALUES
-('alexromeroreyes09@gmail.com'),
-('elliehunt8@gmail.com'),
-('fidwrs@gmail.com'),
-('ginwoopak@gmail.com'),
-('jacobhawkins7@gmail.com'),
-('jmitchell31@g.ucla.edu'),
-('lihouheng0710@gmail.com'),
-('tawata.daniel@gmail.com'),
-('timnevada@gmail.com');
+('alexromeroreyes09@gmail.com','sv'),
+('elliehunt8@gmail.com','sv'),
+('fidwrs@gmail.com','sv'),
+('ginwoopak@gmail.com','sv'),
+('jacobhawkins7@gmail.com','sv'),
+('jmitchell31@g.ucla.edu','sv'),
+('lihouheng0710@gmail.com','sv'),
+('tawata.daniel@gmail.com','sv'),
+('timnevada@gmail.com','sv');
 
 INSERT INTO `articles` (`user_id`,`url`,`title`,`date_written`,`date_uploaded`,`public`,`publication`,`text`,`userUploaded`) VALUES
 (1,'testUrl','testTitle','2022-01-31','2022-01-31',0,'NYT','text',1);

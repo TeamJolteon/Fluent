@@ -58,6 +58,7 @@ export default function ArticleFeedItem(props) {
         <Written>Uploaded: {dateUploaded}</Written>
       </ArticleInfoContainer>
       <ArticleModal
+        language={props.language}
         show={showArticle}
         handleClose={handleArticleClose}
         articleText={text}

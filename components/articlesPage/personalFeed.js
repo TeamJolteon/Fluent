@@ -19,7 +19,10 @@ export default function PersonalFeed (props) {
       <FeedContainerStyle>
         {props.data.length
           ? props.data.map((item) => (
-              <ArticleFeedItem data={item} key={item.article_id} />
+              <ArticleFeedItem
+              language={props.language}
+              data={item}
+              key={item.article_id} />
             ))
           : 'Nothing Found'}
       </FeedContainerStyle>
