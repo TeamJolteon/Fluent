@@ -88,7 +88,10 @@ export default function Home(props) {
                   })
                 }
               >
-                Sign In With Google
+                <img src='./google.png' className={styles.googleimg} />
+                <div>
+                  {signin ? 'Sign In With Google' : 'Sign Up With Google'}
+                </div>
               </div>
             </>
             <div className={styles.or}>or</div>
