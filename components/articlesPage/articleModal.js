@@ -47,6 +47,19 @@ export default function ArticleModal({
 
   const userID = useAppContext().data[0].id;
 
+  function languageConverter(languageName) {
+    if (languageName === 'Swedish') {
+      return 'sv';
+    } else if (languageName === 'German') {
+      return 'de';
+    } else if (languageName === 'French') {
+      return 'fr';
+    } else if (languageName === 'Italian') {
+      return 'it';
+    } else if (languageName === 'Portugese') {
+      return 'pt';
+    }
+  }
   // Translator Function
   function translator(word) {
     var subscriptionKey = azureToken;
@@ -66,7 +79,7 @@ export default function ArticleModal({
       params: {
         'api-version': '3.0',
         from: 'en',
-        to: 'sv',
+        to: languageConverter(language),
       },
       data: [
         {

@@ -46,10 +46,14 @@ export default function Articles(props) {
   console.log('user', userID);
   const initialLanguage = useAppContext().data[0].default_language;
   const [language, setLanguage] = useState(null);
+  const [userID2, setUserID2] = useState(null);
 
   useEffect(() => {
     if (language === null) {
       setLanguage(initialLanguage);
+    }
+    if (userID2 === null) {
+      setUserID2(userID);
     }
   });
 
