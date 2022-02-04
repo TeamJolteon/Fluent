@@ -30,9 +30,13 @@ const Words = styled.button`
   margin: 10px 3.5px;
   display: inline-block;
   background-color: ${(props) => (props.selected ? '#9CBFA7' : '#f8f9f0')};
+  position: relative;
 `;
 const Translated = styled.div`
   color: #762d38;
+  position: absolute;
+  top: -18px;
+  left: 0;
 `;
 
 export default function ArticleModal({
@@ -167,10 +171,11 @@ export default function ArticleModal({
                             setWordHighlighted(!wordHighlighted);
                           }}
                         >
+                        {word}
                           {word === highlightedWords && wordHighlighted ? (
                             <Translated>{translatedWord}</Translated>
                           ) : (
-                            word
+                            null
                           )}
                         </Words>
                       </>
