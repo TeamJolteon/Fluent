@@ -10,7 +10,9 @@ export default function Header(props) {
   return (
     <div className={styles.wrap}>
       <div className={styles.container}>
-        <div className={styles.logo}>Fluent</div>
+        <div className={styles.logo}>
+          <Link href='../userportal'>Fluent</Link>
+        </div>
         {props.loggedin ? (
           <ul className={styles.sections}>
             <li>
