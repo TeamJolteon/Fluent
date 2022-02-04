@@ -19,20 +19,31 @@ export default function SortBar(props) {
 
   let sort = (status) => {
     let copy = props.allArticles.slice();
-    if (status === 'Newest') {
-      let newest = copy.sort((a, b) =>
-        b.dateWritten < a.dateWritten ? -1 : 1
-      );
+    if (status === 'Newest' && props.display === 'personal') {
+      let newest = copy.sort((a, b) => b.dateWritten < a.dateWritten ? -1 : 1);
       console.log('newest', newest);
-      props.setFeed(newest);
+      props.setAllPersonalArticles(newest);
     }
-    if (status === 'Alphabetical') {
-      let alphabetical = copy.sort((a, b) => (a.title < b.title) ? -1 : 1);
-      props.setFeed(alphabetical);
+    if (status === 'Alphabetical' && props.display === 'personal') {
+      let alphabetical = copy.sort((a, b) => (b.title < a.title) ? -1 : 1);
+      props.setAllPersonalArticles(alphabetical);
     }
-    if (status === 'Favorited') {
+    if (status === 'Favorited' && props.display === 'personal') {
       let favs = removeNonFavs();
-      props.setFeed(favs);
+      props.setAllPersonalArticles(favs);
+    }
+    if (status === 'Newest' && props.display === 'community') {
+      let newest = copy.sort((a, b) => b.dateWritten < a.dateWritten ? -1 : 1);
+      console.log('newest', newest);
+      props.setAllPersonalArticles(newest);
+    }
+    if (status === 'Alphabetical' && props.display === 'community') {
+      let alphabetical = copy.sort((a, b) => (b.title < a.title) ? -1 : 1);
+      props.setAllPersonalArticles(alphabetical);
+    }
+    if (status === 'Favorited' && props.display === 'community') {
+      let favs = removeNonFavs();
+      props.setAllPersonalArticles(favs);
     }
   };
 

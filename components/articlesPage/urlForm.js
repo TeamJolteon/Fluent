@@ -64,7 +64,7 @@ const ShareLabel = styled.label`
   padding: 10px 0;
   justify-content: center;
 `;
-export default function UrlForm() {
+export default function UrlForm({ userID }) {
   const [url, setUrl] = useState('');
   const [communitySharing, setCommunitySharing] = useState(true);
   const [urlText, setUrlText] = useState('');
@@ -104,7 +104,7 @@ export default function UrlForm() {
           : newDate;
         axios
           .post('http://localhost:3000/api/articlesAPI/postNewArticles', {
-            user_id: 1,
+            user_id: userID,
             url: result.data.url,
             title: result.data.title,
             date_written: publishDate,

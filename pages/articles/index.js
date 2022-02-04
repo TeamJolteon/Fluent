@@ -41,10 +41,10 @@ const AddArticle = styled.button`
 `;
 
 export default function Articles(props) {
-  // const userID = useAppContext().data[0].id;
-  // console.log('user', userID);
+  const userID = useAppContext().data[0].id;
+  console.log('user', userID);
 
-  const userID = 1;
+  // const userID = 1;
 
 
   const [showAdd, setShowAdd] = useState(false);
@@ -124,6 +124,9 @@ export default function Articles(props) {
           <SortBar
             allCommunityArticles={allCommunityArticles}
             allPersonalArticles={allPersonalArticles}
+            display={display}
+            setAllCommunityArticles={setAllCommunityArticles}
+            setAllPersonalArticles={setAllPersonalArticles}
             allArticles={derivedFeed}
             setFeed={setFeedSelection}
           />
@@ -151,6 +154,7 @@ export default function Articles(props) {
         show={showAdd}
         setShowAdd={setShowAdd}
         handleClose={handleAddClose}
+        userID={userID}
       />
     </div>
   );
