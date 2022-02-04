@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAppContext } from '../../pages/state.js';
 import ModalNav from './modalNav.js';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -33,11 +34,18 @@ const Translated = styled.div`
   color: #762d38;
 `;
 
-export default function ArticleModal({ show, handleClose, articleText }) {
+export default function ArticleModal({
+  show,
+  handleClose,
+  articleText,
+  language,
+}) {
   const [wordSelected, setWordSelected] = useState(false);
   const [translatedWord, setTranslatedWord] = useState(null);
   const [wordHighlighted, setWordHighlighted] = useState(false);
   const [highlightedWords, setHighlightedWords] = useState(null);
+
+  const userID = useAppContext().data[0].id;
 
   // Translator Function
   function translator(word) {
@@ -58,7 +66,7 @@ export default function ArticleModal({ show, handleClose, articleText }) {
       params: {
         'api-version': '3.0',
         from: 'en',
-        to: 'sv',
+        to: language,
       },
       data: [
         {
@@ -91,8 +99,8 @@ export default function ArticleModal({ show, handleClose, articleText }) {
   function saveWord(word, translated) {
     axios
       .post('http://localhost:3000/api/articlesAPI/postNewWord', {
-        user_id: 4,
-        article_id: 1,
+        user_id: userID,
+        article_id: null,
         word: word,
         definition: null,
         language: 'swedish',

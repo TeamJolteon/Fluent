@@ -1,5 +1,4 @@
 import mysql from 'mysql2';
-import { dbAlexPassword } from '../config.js';
 
 const db = mysql.createConnection({
   host: 'localhost',
@@ -12,6 +11,22 @@ const db = mysql.createConnection({
 //   host: 'localhost',
 //   user: 'root',
 //   password: dbAlexPassword,
+//   database: 'volt',
+//   port: 3306,
+// });
+
+// const db = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: dbAlexPassword,
+//   database: 'volt',
+//   port: 3306,
+// });
+
+// const db = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: '',
 //   database: 'volt',
 //   port: 3306,
 // });
