@@ -133,10 +133,9 @@ const SortMenu = styled.select`
   color: #413a3e; ;
 `;
 
-export default function VocabList(props) {
+export default function VocabList({ userID, language }) {
   const [sorted, setSorted] = useState('A-Z');
-  const [currentLang, setCurrentLang] = useState('swedish');
-  const [listData, setListData] = useState(props.data);
+  const [listData, setListData] = useState([]);
   const [currentList, setCurrentList] = useState([]);
   const [articleData, setArticleData] = useState([]);
   const [Ind, setListInd] = useState(0);
@@ -147,21 +146,59 @@ export default function VocabList(props) {
   const [listHardfirst, setListHardFirst] = useState([]);
   const [listRecent, setListRecent] = useState([]);
 
+  const currentLang = language;
+  console.log(currentLang === 'Swedish');
+  useEffect(() => {
+    const getList = async () => {
+      try {
+        const res = await axios.get(
+          '/api/vocabAPI/getVocabListAlphabetically',
+          {
+            params: {
+              userID: userID,
+              language: currentLang,
+            },
+          }
+        );
+        setCurrentList(res.data);
+        setListData(res.data);
+        console.log('response: ', res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getList();
+  }, [currentLang]);
+  useEffect(() => {
+    if (sorted === 'A-Z') {
+      setCurrentList(listData);
+    } else if (sorted === 'Difficulty 📈') {
+      setCurrentList(listEasyfirst);
+    } else if (sorted === 'Difficulty 📉') {
+      setCurrentList(listHardfirst);
+    } else if (sorted === 'Recent') {
+      setCurrentList(listRecent);
+    } else {
+      setCurrentList(listData);
+    }
+  }, [sorted]);
   const handleSubmit = (e) => {
     e.preventDefault();
     setCurrentValue('');
-    setSearching(!searching);
+    setSearching(false);
   };
-  const handleChange = (e) => {
+  // const handleChange = (e) => {};
+  const search = (e) => {
     setCurrentValue(e.target.value);
-    setSearching(!searching);
-    search();
-  };
-  const search = () => {
-    const filteredList = listData.filter((word) =>
-      word.translation.toLowerCase().includes(currentValue.toLowerCase())
-    );
-    setSearchList(filteredList);
+    setSearching(true);
+    if (currentValue.length < 2) {
+      setCurrentList(listData);
+    } else {
+      const filteredList = currentList.filter((word) =>
+        word.word.toLowerCase().includes(currentValue.toLowerCase())
+      );
+      setCurrentList(filteredList);
+    }
   };
 
   const sortRecent = () => {
@@ -213,27 +250,7 @@ export default function VocabList(props) {
       }
     );
   }
-  // useEffect(() => {
-  //   const getList = async () => {
-  //     try {
-  //       const res = await axios.get(
-  //         '/api/vocabAPI/getVocabListAlphabetically',
-  //         {
-  //           params: {
-  //             userID: 1,
-  //             language: currentLang,
-  //           },
-  //         }
-  //       );
-  //       setListData(res.data);
-  //       setCurrentList(listData);
-  //       console.log('response: ', res.data);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   getList();
-  // }, [currentLang]);
+
   useEffect(() => {
     searching ? setCurrentList(searchList) : setCurrentList(listData);
   }, [searching]);
@@ -243,32 +260,20 @@ export default function VocabList(props) {
     difficultyHardFirst();
     difficultyEasyFirst();
   }, []);
-  // useEffect(() => {
-  //   const getArticles = async () => {
-  //     try {
-  //       const res = await axios.get('/api/articlesAPI/getAllArticles');
-  //       setArticleData(res.data);
-  //       // console.log('responseArticles: ', res.data);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-  //   getArticles();
-  // }, []);
 
   useEffect(() => {
-    if (sorted === 'A-Z') {
-      setCurrentList(listData);
-    } else if (sorted === 'Difficulty 📈') {
-      setCurrentList(listEasyfirst);
-    } else if (sorted === 'Difficulty 📉') {
-      setCurrentList(listHardfirst);
-    } else if (sorted === 'Recent') {
-      setCurrentList(listRecent);
-    } else {
-      setCurrentList(listData);
-    }
-  }, [sorted]);
+    const getArticles = async () => {
+      try {
+        const res = await axios.get('/api/articlesAPI/getAllArticles');
+        setArticleData(res.data);
+        console.log('responseArticles: ', res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getArticles();
+  }, []);
+
   return (
     <Body>
       <Title>Your Words</Title>
@@ -278,7 +283,7 @@ export default function VocabList(props) {
             <Input
               type='text'
               placeholder='Search Words'
-              onChange={(e) => handleChange(e)}
+              onChange={(e) => search(e)}
               value={currentValue}
             />
           </label>
@@ -292,7 +297,7 @@ export default function VocabList(props) {
         <Phrases>
           <PhraseTable>
             <PhraseTitles>
-              <PhraseHeaders>{currentLang}</PhraseHeaders>
+              <PhraseHeaders>{language}</PhraseHeaders>
               <PhraseHeaders>English</PhraseHeaders>
               <PhraseHeaders>Status</PhraseHeaders>
               <PhraseHeaders>Source</PhraseHeaders>
@@ -300,7 +305,7 @@ export default function VocabList(props) {
             {currentList.map((word, index) => {
               if (index % 2 === 0) {
                 return (
-                  <PhraseRow key={word.id}>
+                  <PhraseRow>
                     <PhraseData>{word.translation}</PhraseData>
                     <PhraseData>
                       <PronuciationButton
@@ -317,7 +322,7 @@ export default function VocabList(props) {
                     ) : (
                       <PhraseData>Almost</PhraseData>
                     )}
-                    <PhraseData>link</PhraseData>
+                    <PhraseData>Link</PhraseData>
                   </PhraseRow>
                 );
               } else {
@@ -330,7 +335,7 @@ export default function VocabList(props) {
                       >
                         <VolumeUpIcon />
                       </PronuciationButton2>
-                      {word.translation}
+                      {word.word}
                     </PhraseData>
                     {word.efactor === 5 ? (
                       <PhraseData>Got It</PhraseData>

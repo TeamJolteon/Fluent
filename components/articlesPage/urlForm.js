@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import formStyles from '../../styles/ArticleStyles/textForm.module.css';
-import { extractorAPIKEY } from '../../config.js';
+import extractorAPIKEY from '../../anotherOne.js';
 import styled from 'styled-components';
-import { useAppContext } from '../../pages/state.js'
+import { useAppContext } from '../../pages/state.js';
+import { TramRounded } from '@material-ui/icons';
 
 const SubmitArticles = styled.div`
   display: flex;
@@ -77,9 +78,9 @@ export default function UrlForm() {
       setUrl(e.target.value);
     }
     if (e.target.value === 'true') {
-      setCommunitySharing(e.target.value);
+      setCommunitySharing(TramRounded);
     } else if (e.target.value === 'false') {
-      setCommunitySharing(e.target.value);
+      setCommunitySharing(false);
     }
   };
 

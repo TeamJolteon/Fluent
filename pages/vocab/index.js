@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Header from '../../components/header.js';
 import axios from 'axios';
 import VocabList from '../../components/VocabList/VocabList.js';
@@ -6,7 +7,6 @@ import { useAppContext } from '../state.js';
 import { useState, useEffect } from 'react';
 
 export default function Vocab(props) {
-
   const userID = useAppContext().data[0].id;
   console.log('user', userID);
   const initialLanguage = useAppContext().data[0].default_language;
@@ -16,12 +16,12 @@ export default function Vocab(props) {
     if (language === null) {
       setLanguage(initialLanguage);
     }
-  })
+  });
 
   return (
     <div>
       <Header loggedin={true} language={language} setLanguage={setLanguage} />
-      <VocabList data={props.data} />
+      <VocabList userID={userID} language={language} />
     </div>
   );
 }

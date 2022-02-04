@@ -51,6 +51,10 @@
   border-radius: 4px;
   padding: 7px 10px;
   outline: none;
+  border: none;
+  letter-spacing: 1px;
+  color: #413a3e;
+  background-color: #f8f9f0;
 }
 
 .flex {

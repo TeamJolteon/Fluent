@@ -35,8 +35,15 @@ yarn-error.log*
 .vercel
 config.js
 otherconfig.js
+anotherOne.js
 
 
 package-lock.json
+<<<<<<< HEAD
+
+node_modules
+anotherOne.js
+=======
 .gitignore
 node_modules
+>>>>>>> testing

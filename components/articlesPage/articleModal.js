@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from 'react';
-import { useAppContext } from '../../pages/state.js'
+import { useAppContext } from '../../pages/state.js';
 import ModalNav from './modalNav.js';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -34,21 +35,36 @@ const Translated = styled.div`
   color: #762d38;
 `;
 
-export default function ArticleModal({ show, handleClose, articleText, language }) {
+export default function ArticleModal({
+  show,
+  handleClose,
+  articleText,
+  language,
+}) {
   const [wordSelected, setWordSelected] = useState(false);
   const [translatedWord, setTranslatedWord] = useState(null);
   const [wordHighlighted, setWordHighlighted] = useState(false);
   const [highlightedWords, setHighlightedWords] = useState(null);
+  const [languageAbbrev, setLanguageAbbrev] = useState(null);
 
   const userID = useAppContext().data[0].id;
+  console.log(language);
 
   function languageConverter(languageName) {
-    if (languageName === 'Swedish') { return 'sv' } else
-    if (languageName === 'German') { return 'de' } else
-    if (languageName === 'French') { return 'fr' } else
-    if (languageName === 'Italian') { return 'it'} else
-    if (languageName === 'Portugese') { return 'pt' }
+    if (languageName === 'Swedish') {
+      return 'sv';
+    } else if (languageName === 'German') {
+      return 'de';
+    } else if (languageName === 'French') {
+      return 'fr';
+    } else if (languageName === 'Italian') {
+      return 'it';
+    } else if (languageName === 'Portugese') {
+      return 'pt';
+    }
   }
+
+  // console.log(languageConverter(language));
   // Translator Function
   function translator(word) {
     var subscriptionKey = azureToken;
@@ -76,7 +92,7 @@ export default function ArticleModal({ show, handleClose, articleText, language 
         },
       ],
       responseType: 'json',
-    }).then(function(response) {
+    }).then(function (response) {
       setTranslatedWord(response.data[0].translations[0].text, null, 4);
       saveWord(word, response.data[0].translations[0].text);
     });
@@ -149,8 +165,13 @@ export default function ArticleModal({ show, handleClose, articleText, language 
                             translator(word);
                             setHighlightedWords(word);
                             setWordHighlighted(!wordHighlighted);
-                          }}>
-                          {word === highlightedWords && wordHighlighted ? <Translated>{translatedWord}</Translated> : (word)}
+                          }}
+                        >
+                          {word === highlightedWords && wordHighlighted ? (
+                            <Translated>{translatedWord}</Translated>
+                          ) : (
+                            word
+                          )}
                         </Words>
                       </>
                     );
