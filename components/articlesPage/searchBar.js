@@ -1,6 +1,19 @@
 import React, { useState } from 'react';
 import searchBarStyles from '../../styles/ArticleStyles/searchBar.module.css';
+import styled from 'styled-components';
 
+const Form = styled.form`
+  display: flex;
+  justify-content: center;
+`;
+const Input = styled.input`
+  background-color: #d2d9da;
+  color: #413a3e;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 4px;
+  outline: none;
+`;
 export default function SearchBar(props) {
   const [query, setQuery] = useState('');
 
@@ -26,7 +39,7 @@ export default function SearchBar(props) {
     } else {
       props.setAllCommunityArticles(communityCopy);
     }
-  }
+  };
 
   let filterArticles = () => {
     var term = query.toLowerCase();
@@ -44,15 +57,18 @@ export default function SearchBar(props) {
     }
     console.log(filteredArticles);
     return filteredArticles;
-  }
-
+  };
 
   return (
     <div className={searchBarStyles.searchBar}>
-      <form>
-        <input onChange={(e) => { handleSearch(e); }}/>
-        <button>Search</button>
-      </form>
+      <Form>
+        <Input
+          onChange={(e) => {
+            handleSearch(e);
+          }}
+          placeholder='Search Articles'
+        />
+      </Form>
     </div>
-  )
-};
+  );
+}

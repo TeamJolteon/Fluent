@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 
-
 html,
 body {
-  color: #444;
-  font-family: "Roboto", sans-serif;
+  color: #413a3e;
+  background-color: #f8f9f0;
+  font-family: 'Roboto', sans-serif;
   font-weight: 400;
 }
 
@@ -21,8 +21,4 @@ a {
 
 ul {
   list-style: none;
-}
-
-.MuiTab-textColorPrimary {
-  color: red;
 }
