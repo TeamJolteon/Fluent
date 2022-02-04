@@ -5,7 +5,6 @@ const handler = async (req, res) => {
     var results = await checkExistence(req.body);
     console.log('what is results', results);
     res.status(200).send(results);
-    //results[0][0].id
   } catch (error) {
     console.log('error to add new word', error)
     res.status(500).send(error);

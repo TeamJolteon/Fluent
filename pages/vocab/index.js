@@ -2,10 +2,9 @@ import Header from '../../components/header.js';
 import axios from 'axios';
 import VocabList from '../../components/VocabList/VocabList.js';
 import { getSession } from 'next-auth/client';
-import {useAppContext} from '../state.js'
+import { useAppContext } from '../state.js';
 
 export default function Vocab(props) {
-
   const userID = useAppContext().data[0].id;
   console.log('user', userID);
 

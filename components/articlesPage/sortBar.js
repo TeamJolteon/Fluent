@@ -1,31 +1,38 @@
 import React, { useState, useEffect } from 'react';
-
+import styled from 'styled-components';
+const SortMenu = styled.select`
+  border: white;
+  margin-left: 15px;
+  text-align: center;
+  background-color: #f8f9f0;
+  padding: 4px 0;
+  box-shadow: 0 2px 3px 0 #413a3e;
+  border-radius: 4px;
+  background-color: #413a3e;
+  color: #f8f9f0;
+`;
 export default function SortBar(props) {
-  // const [filterStatus, setFilterStatus] = useState('');
-
-  // let handleFiltering = () => {
-  //   if (filterStatus)
-  // }
 
   let handleSortChange = (e) => {
-    // setFilterStatus(e.target.value);
     sort(e.target.value);
-  }
+  };
 
   let sort = (status) => {
     let copy = props.allArticles.slice();
     if (status === 'Newest') {
-      let newest = copy.sort((a, b) => (b.dateWritten < a.dateWritten ) ? -1 : 1);
+      let newest = copy.sort((a, b) =>
+        b.dateWritten < a.dateWritten ? -1 : 1
+      );
       console.log('newest', newest);
-      props.setArticles(newest);
+      props.setFeed(newest);
     }
     if (status === 'Alphabetical') {
       let alphabetical = copy.sort((a, b) => (a.title < b.title) ? -1 : 1);
-      props.setArticles(alphabetical);
+      props.setFeed(alphabetical);
     }
     if (status === 'Favorited') {
       let favs = removeNonFavs();
-      props.setArticles(favs);
+      props.setFeed(favs);
     }
   };
 
@@ -36,11 +43,11 @@ export default function SortBar(props) {
       if (article.favorite === false) {
         copy.splice(i, 1);
       }
-    })
+    });
     // props.setArticles(copy);
     console.log('favs', copy);
     return copy;
-  }
+  };
 
   useEffect(() => {
     removeNonFavs();
@@ -50,13 +57,16 @@ export default function SortBar(props) {
   return (
     <div>
       <label>
-        Sort By:
-        <select onChange={(e) => { handleSortChange(e); }}>
+        <SortMenu
+          onChange={(e) => {
+            handleSortChange(e);
+          }}
+        >
           <option>Newest</option>
           <option>Alphabetical</option>
           <option>Favorited</option>
-        </select>
+        </SortMenu>
       </label>
     </div>
-  )
+  );
 }

@@ -12,8 +12,15 @@ import axios from 'axios';
 const Form = styled.form`
   display: flex;
   justify-content: center;
-  margin-right: 10px;
   margin-top: 20px;
+`;
+const Input = styled.input`
+  background-color: #d2d9da;
+  color: #413a3e;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 4px;
+  outline: none;
 `;
 
 const SpeakerImg = styled.div``;
@@ -26,10 +33,22 @@ const PhraseTable = styled.div`
   margin: 0.5rem;
   line-height: 1.5;
   flex: 1 1 auto;
-  border: 1px solid #d0d0d0;
+  border: 1px solid #413a3e;
+  border-radius: 4px;
+`;
+const PronuciationButton2 = styled.button`
+  border-radius: 45%;
+  border: none;
+  background-color: #9cbfa7;
+  margin-right: 8px;
+  color: #413a3e;
 `;
 const PronuciationButton = styled.button`
   border-radius: 45%;
+  border: none;
+  background-color: #d2d9da;
+  margin-right: 8px;
+  color: #413a3e;
 `;
 const PhraseHeader = styled.div`
   display: none;
@@ -40,7 +59,29 @@ const PhraseHeader = styled.div`
 const PhraseRow = styled.div`
   width: 100%;
   display: flex;
+  padding: 0 10px;
+  background-color: #d2d9da;
   flex-flow: row nowrap;
+`;
+const PhraseRow2 = styled.div`
+  width: 100%;
+  display: flex;
+  padding: 0 10px;
+  flex-flow: row nowrap;
+  background-color: #9cbfa7;
+  color: #413a3e;
+`;
+const PhraseTitles = styled.div`
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  padding: 0 10px;
+  flex-flow: row nowrap;
+  background-color: #413a3e;
+  color: #f8f9f0;
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
 `;
 const PhraseHeaders = styled.div`
   display: flex;
@@ -48,12 +89,9 @@ const PhraseHeaders = styled.div`
   flex-grow: 1;
   flex-basis: 0;
   padding: 0.5em;
-  word-break: break-word;
   overflow: hidden;
-  text-overflow: ellipsis;
   min-width: 0px;
   white-space: nowrap;
-  border-bottom: 1px solid #d0d0d0;
 `;
 const PhraseData = styled.div`
   display: flex;
@@ -62,27 +100,42 @@ const PhraseData = styled.div`
   flex-grow: 1;
   flex-basis: 0;
   padding: 0.5em;
-  word-break: break-word;
   width: 250px;
   height: 50px
   overflow: hidden;
-  text-overflow: ellipsis;
   min-width: 0px;
   white-space: nowrap;
-  border-bottom: 1px solid #d0d0d0;
+  font-weight: 550;
+  letter-spacing: 0.5px;
 `;
 const Title = styled.h1`
   display: flex;
   justify-content: center;
+  letter-spacing: 1px;
+  font-size: 36px;
 `;
 const Body = styled.div`
   font-family: 'Roboto', sans-serif;
-  color: #444;
+  color: #413a3e;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 2rem;
+`;
+const SortMenu = styled.select`
+  border: white;
+  margin-left: 15px;
+  text-align: center;
+  background-color: #f8f9f0;
+  padding: 4px 0;
+  box-shadow: 0 2px 3px 0 #413a3e;
+  border-radius: 4px;
+  background-color: #9cbfa7;
+  color: #413a3e; ;
 `;
 
 export default function VocabList(props) {
   const [sorted, setSorted] = useState('A-Z');
-  const [currentLang, setCurrentLang] = useState('Swedish');
+  const [currentLang, setCurrentLang] = useState('swedish');
   const [listData, setListData] = useState(props.data);
   const [currentList, setCurrentList] = useState([]);
   const [articleData, setArticleData] = useState([]);
@@ -167,13 +220,14 @@ export default function VocabList(props) {
   //         '/api/vocabAPI/getVocabListAlphabetically',
   //         {
   //           params: {
+  //             userID: 1,
   //             language: currentLang,
   //           },
   //         }
   //       );
   //       setListData(res.data);
-  //       setCurrentList(res.data);
-  //       // console.log('response: ', res.data);
+  //       setCurrentList(listData);
+  //       console.log('response: ', res.data);
   //     } catch (err) {
   //       console.log(err);
   //     }
@@ -221,53 +275,75 @@ export default function VocabList(props) {
       <div>
         <Form onSubmit={(e) => handleSubmit(e)}>
           <label>
-            <input
+            <Input
               type='text'
               placeholder='Search Words'
               onChange={(e) => handleChange(e)}
               value={currentValue}
             />
           </label>
-          <button type='submit'>Search</button>
         </Form>
-        Sort By:
-        <select onChange={(e) => handleSortChange(e)}>
+        <SortMenu onChange={(e) => handleSortChange(e)}>
           <option>A-Z</option>
           <option>Difficulty 📈</option>
           <option>Difficulty 📉</option>
           <option>Recent</option>
-        </select>
+        </SortMenu>
         <Phrases>
           <PhraseTable>
-            <PhraseRow>
+            <PhraseTitles>
               <PhraseHeaders>{currentLang}</PhraseHeaders>
               <PhraseHeaders>English</PhraseHeaders>
-              <PhraseHeaders>Pronunciation</PhraseHeaders>
               <PhraseHeaders>Status</PhraseHeaders>
               <PhraseHeaders>Source</PhraseHeaders>
-            </PhraseRow>
-            {currentList.map((word) => {
-              return (
-                <PhraseRow key={word.id}>
-                  <PhraseData>{word.word}</PhraseData>
-                  <PhraseData>{word.translation}</PhraseData>
-                  <PhraseData>
-                    <PronuciationButton
-                      onClick={() => synthesizeSpeech(word.translation)}
-                    >
-                      <VolumeUpIcon />
-                    </PronuciationButton>
-                  </PhraseData>
-                  {word.efactor === 5 ? (
-                    <PhraseData>Got It</PhraseData>
-                  ) : word.efactor < 3 ? (
-                    <PhraseData>Not Yet</PhraseData>
-                  ) : (
-                    <PhraseData>Almost</PhraseData>
-                  )}
-                  <PhraseData>link</PhraseData>
-                </PhraseRow>
-              );
+            </PhraseTitles>
+            {currentList.map((word, index) => {
+              if (index % 2 === 0) {
+                return (
+                  <PhraseRow key={word.id}>
+                    <PhraseData>{word.translation}</PhraseData>
+                    <PhraseData>
+                      <PronuciationButton
+                        onClick={() => synthesizeSpeech(word.word)}
+                      >
+                        <VolumeUpIcon />
+                      </PronuciationButton>
+                      {word.word}
+                    </PhraseData>
+                    {word.efactor === 5 ? (
+                      <PhraseData>Got It</PhraseData>
+                    ) : word.efactor < 3 ? (
+                      <PhraseData>Not Yet</PhraseData>
+                    ) : (
+                      <PhraseData>Almost</PhraseData>
+                    )}
+                    <PhraseData>link</PhraseData>
+                  </PhraseRow>
+                );
+              } else {
+                return (
+                  <PhraseRow2 key={word.id}>
+                    <PhraseData>{word.translation}</PhraseData>
+                    <PhraseData>
+                      <PronuciationButton2
+                        onClick={() => synthesizeSpeech(word.word)}
+                      >
+                        <VolumeUpIcon />
+                      </PronuciationButton2>
+                      {word.translation}
+                    </PhraseData>
+                    {word.efactor === 5 ? (
+                      <PhraseData>Got It</PhraseData>
+                    ) : word.efactor < 3 ? (
+                      <PhraseData>Not Yet</PhraseData>
+                    ) : (
+                      <PhraseData>Almost</PhraseData>
+                    )}
+
+                    <PhraseData>link</PhraseData>
+                  </PhraseRow2>
+                );
+              }
             })}
           </PhraseTable>
         </Phrases>
@@ -275,8 +351,10 @@ export default function VocabList(props) {
     </Body>
   );
 }
-// {articleData.map((article) =>
-//   word.article_id === article.id ? (
-//     <PhraseData>{article.url}</PhraseData>
-//   ) : null
-// )}
+// {
+//   articleData.map((article) =>
+//     word.article_id === article.id ? (
+//       <PhraseData>{article.url}</PhraseData>
+//     ) : null
+//   );
+// }
