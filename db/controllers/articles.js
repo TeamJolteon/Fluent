@@ -28,13 +28,8 @@ const getUserArticles = async (userID) => {
 const postNewArticles = async ({user_id, url, title, date_written, date_uploaded, Public, publication, text, userUploaded}) => {
   try {
     var queryString = `INSERT INTO articles (user_id,url,title,date_written,date_uploaded,public, publication, text, userUploaded) VALUES (?,?,?,?,?,?,?,?,?)`;
-<<<<<<< HEAD
-
     const params = [user_id, url, title, date_written, date_uploaded, Public, publication, text, userUploaded];
 
-=======
-    const params = [user_id, url, title, date_written, date_uploaded, Public, publication, text, userUploaded];
->>>>>>> 249111cdb68345553d2700533f3454a47f5316eb
     const results = await db.promise().query(queryString, params);
     return results[0];
   } catch (error) {
