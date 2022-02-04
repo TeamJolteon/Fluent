@@ -8,7 +8,7 @@ export default function Header(props) {
   };
   const languages = ['fr', 'de', 'it', 'pt', 'es', 'sv'];
   const languagesFull = ['French', 'German', 'Italian', 'Portuguese', 'Spanish', 'Swedish'];
-  const index = languages.indexOf(props.language);
+  const index = languagesFull.indexOf(props.language);
   const abbreviation = languages.splice(index, 1);
   const full = languagesFull.splice(index, 1);
   languages.unshift(abbreviation);
@@ -17,7 +17,11 @@ export default function Header(props) {
   return (
     <div className={styles.wrap}>
       <div className={styles.container}>
+<<<<<<< HEAD
       <div className={styles.logo}>
+=======
+        <div className={styles.logo}>
+>>>>>>> testing
           <Link href='../userportal'>Fluent</Link>
         </div>
         {props.loggedin ? (
@@ -36,11 +40,11 @@ export default function Header(props) {
         {props.loggedin ? (
           <div className={styles.flex}>
             <select className={styles.language_selector} onChange={(e) => { props.setLanguage(e.target.value); }}>
-              {languages.map((language, index) => {
+              {languagesFull.map((language, index) => {
                 if (index === 0) {
-                  return <option key={language} value={language} selected>{languagesFull[index]}</option>
+                  return <option key={language} value={language} selected>{language}</option>
                 } else {
-                  return <option key={language} value={language}>{languagesFull[index]}</option>
+                  return <option key={language} value={language}>{language}</option>
                 }
               })}
             </select>

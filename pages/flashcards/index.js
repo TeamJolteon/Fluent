@@ -28,14 +28,13 @@ export default function Flashcards(props) {
       })
       .then((res) => {
         setData(res.data);
-        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
       })
     }
     fetchUserVocab();
-  });
+  },[]);
 
   return (
     <div>
@@ -64,7 +63,7 @@ export async function getServerSideProps(context) {
       data: [
         {
           id: 1,
-          word: 'asd',
+          word: 'hello',
           translation: 'Hej',
           efactor: 4,
           currentInterval: 1,

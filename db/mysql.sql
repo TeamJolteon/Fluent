@@ -113,15 +113,15 @@ INSERT INTO `users` (`email`,`default_language`,`isLoggedIn`,`password`) VALUES
 
 INSERT INTO `users` (`email`, `default_language`)
 VALUES
-('alexromeroreyes09@gmail.com', 'sv'),
-('elliehunt8@gmail.com', 'sv'),
-('fidwrs@gmail.com', 'sv'),
-('ginwoopak@gmail.com', 'sv'),
-('jacobhawkins7@gmail.com', 'sv'),
-('jmitchell31@g.ucla.edu', 'sv'),
-('lihouheng0710@gmail.com', 'sv'),
-('tawata.daniel@gmail.com', 'sv'),
-('timnevada@gmail.com', 'sv');
+('alexromeroreyes09@gmail.com', 'Swedish'),
+('elliehunt8@gmail.com', 'Swedish'),
+('fidwrs@gmail.com', 'Swedish'),
+('ginwoopak@gmail.com', 'Swedish'),
+('jacobhawkins7@gmail.com', 'Swedish'),
+('jmitchell31@g.ucla.edu', 'Swedish'),
+('lihouheng0710@gmail.com', 'Swedish'),
+('tawata.daniel@gmail.com', 'Swedish'),
+('timnevada@gmail.com', 'Swedish');
 
 
 INSERT INTO `articles` (`user_id`,`url`,`title`,`date_written`,`date_uploaded`,`public`,`publication`,`text`,`userUploaded`) VALUES
@@ -142,12 +142,12 @@ INSERT INTO `sentences` (`sentence`,`vocab_id`,`article_id`) VALUES
 ('hello thi is a sentence','2','2');
 
 INSERT INTO `translations` (`language`,`word_id`,`translation`) VALUES
-('sv','1','Hej');
+('Swedish','1','Hej');
 INSERT INTO `translations` (`language`,`word_id`,`translation`) VALUES
 ('jp','1','シマウマ');
 
 INSERT INTO `translations` (`language`,`word_id`,`translation`) VALUES
-('sv','2','Hej');
+('Swedish','2','Hej');
 INSERT INTO `translations` (`language`,`word_id`,`translation`) VALUES
 ('jp','2','シマウマ');
 
