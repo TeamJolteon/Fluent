@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from 'react';
 import { useAppContext } from '../../pages/state.js';
 import ModalNav from './modalNav.js';
@@ -44,8 +45,10 @@ export default function ArticleModal({
   const [translatedWord, setTranslatedWord] = useState(null);
   const [wordHighlighted, setWordHighlighted] = useState(false);
   const [highlightedWords, setHighlightedWords] = useState(null);
+  const [languageAbbrev, setLanguageAbbrev] = useState(null);
 
   const userID = useAppContext().data[0].id;
+  console.log(language);
 
   function languageConverter(languageName) {
     if (languageName === 'Swedish') {
@@ -60,6 +63,8 @@ export default function ArticleModal({
       return 'pt';
     }
   }
+
+  // console.log(languageConverter(language));
   // Translator Function
   function translator(word) {
     var subscriptionKey = azureToken;

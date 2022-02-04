@@ -133,9 +133,8 @@ const SortMenu = styled.select`
   color: #413a3e; ;
 `;
 
-export default function VocabList(props) {
+export default function VocabList({ userID, language }) {
   const [sorted, setSorted] = useState('A-Z');
-  const [currentLang, setCurrentLang] = useState(props.language);
   const [listData, setListData] = useState([]);
   const [currentList, setCurrentList] = useState([]);
   const [articleData, setArticleData] = useState([]);
@@ -146,8 +145,9 @@ export default function VocabList(props) {
   const [listEasyfirst, setListEasyFirst] = useState([]);
   const [listHardfirst, setListHardFirst] = useState([]);
   const [listRecent, setListRecent] = useState([]);
-  console.log(props.language);
 
+  const currentLang = language;
+  console.log(currentLang === 'Swedish');
   useEffect(() => {
     const getList = async () => {
       try {
@@ -155,21 +155,20 @@ export default function VocabList(props) {
           '/api/vocabAPI/getVocabListAlphabetically',
           {
             params: {
-              userID: props.userID,
-              language: props.language,
+              userID: userID,
+              language: currentLang,
             },
           }
         );
-        setListData(res.data);
-        setCurrentLang(props.language);
         setCurrentList(res.data);
+        setListData(res.data);
         console.log('response: ', res.data);
       } catch (err) {
         console.log(err);
       }
     };
     getList();
-  }, []);
+  }, [currentLang]);
   useEffect(() => {
     if (sorted === 'A-Z') {
       setCurrentList(listData);
@@ -298,7 +297,7 @@ export default function VocabList(props) {
         <Phrases>
           <PhraseTable>
             <PhraseTitles>
-              <PhraseHeaders>{currentLang}</PhraseHeaders>
+              <PhraseHeaders>{language}</PhraseHeaders>
               <PhraseHeaders>English</PhraseHeaders>
               <PhraseHeaders>Status</PhraseHeaders>
               <PhraseHeaders>Source</PhraseHeaders>
@@ -306,7 +305,7 @@ export default function VocabList(props) {
             {currentList.map((word, index) => {
               if (index % 2 === 0) {
                 return (
-                  <PhraseRow key={word.id}>
+                  <PhraseRow>
                     <PhraseData>{word.translation}</PhraseData>
                     <PhraseData>
                       <PronuciationButton
