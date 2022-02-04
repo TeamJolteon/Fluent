@@ -154,7 +154,7 @@ export default function VocabList(props) {
           {
             params: {
               userID: props.userID,
-              language: 'swedish',
+              language: props.language,
             },
           }
         );

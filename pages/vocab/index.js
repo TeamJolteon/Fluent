@@ -4,6 +4,7 @@ import axios from 'axios';
 import VocabList from '../../components/VocabList/VocabList.js';
 import { getSession } from 'next-auth/client';
 import { useAppContext } from '../state.js';
+import { useState, useEffect } from 'react';
 
 export default function Vocab(props) {
   const userID = useAppContext().data[0].id;
@@ -20,7 +21,7 @@ export default function Vocab(props) {
   return (
     <div>
       <Header loggedin={true} language={language} setLanguage={setLanguage} />
-      <VocabList userID={userID} />
+      <VocabList userID={userID} language={language} />
     </div>
   );
 }
