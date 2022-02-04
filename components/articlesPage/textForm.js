@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { useAppContext } from '../../pages/state.js'
 
 const SubmitArticles = styled.div`
   display: flex;
@@ -74,6 +75,8 @@ export default function TextForm(props) {
   const [articleText, setArticleText] = useState('');
   const [communitySharing, setCommunitySharing] = useState(true);
 
+  const userID = useAppContext().data[0].id;
+
   let handleChange = (e) => {
     if (e.target.id === 'title') {
       setArticleTitle(e.target.value);
@@ -96,7 +99,7 @@ export default function TextForm(props) {
     let newDate = new Date().toISOString().slice(0, 10);
     axios
       .post('http://localhost:3000/api/articlesAPI/postNewArticles', {
-        user_id: 1,
+        user_id: userID,
         url: source,
         title: articleTitle,
         date_written: '2022-02-01',

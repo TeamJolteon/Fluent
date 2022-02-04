@@ -20,6 +20,7 @@ export default function CommunityFeed (props) {
       {props.data.length ?
         (props.data.map(item =>
           <ArticleFeedItem
+            language={props.language}
             data={item}
             key={item.article_id}/>
         )) : 'Nothing Found'

@@ -3,6 +3,7 @@ import axios from 'axios';
 import formStyles from '../../styles/ArticleStyles/textForm.module.css';
 import { extractorAPIKEY } from '../../config.js';
 import styled from 'styled-components';
+import { useAppContext } from '../../pages/state.js'
 
 const SubmitArticles = styled.div`
   display: flex;
@@ -69,6 +70,8 @@ export default function UrlForm() {
   const [communitySharing, setCommunitySharing] = useState(true);
   const [urlText, setUrlText] = useState('');
 
+  const userID = useAppContext().data[0].id;
+
   let handleChange = (e) => {
     if (e.target.id === 'url') {
       setUrl(e.target.value);
@@ -104,7 +107,7 @@ export default function UrlForm() {
           : newDate;
         axios
           .post('http://localhost:3000/api/articlesAPI/postNewArticles', {
-            user_id: 1,
+            user_id: userID,
             url: result.data.url,
             title: result.data.title,
             date_written: publishDate,
