@@ -135,7 +135,7 @@ const SortMenu = styled.select`
 
 export default function VocabList(props) {
   const [sorted, setSorted] = useState('A-Z');
-  const [currentLang, setCurrentLang] = useState('swedish');
+  const [currentLang, setCurrentLang] = useState(props.language);
   const [listData, setListData] = useState([]);
   const [currentList, setCurrentList] = useState([]);
   const [articleData, setArticleData] = useState([]);
@@ -146,6 +146,8 @@ export default function VocabList(props) {
   const [listEasyfirst, setListEasyFirst] = useState([]);
   const [listHardfirst, setListHardFirst] = useState([]);
   const [listRecent, setListRecent] = useState([]);
+  console.log(props.language);
+
   useEffect(() => {
     const getList = async () => {
       try {
@@ -159,7 +161,7 @@ export default function VocabList(props) {
           }
         );
         setListData(res.data);
-        setCurrentLang('swedish');
+        setCurrentLang(props.language);
         setCurrentList(res.data);
         console.log('response: ', res.data);
       } catch (err) {
@@ -296,7 +298,7 @@ export default function VocabList(props) {
         <Phrases>
           <PhraseTable>
             <PhraseTitles>
-              <PhraseHeaders>Swedish</PhraseHeaders>
+              <PhraseHeaders>{currentLang}</PhraseHeaders>
               <PhraseHeaders>English</PhraseHeaders>
               <PhraseHeaders>Status</PhraseHeaders>
               <PhraseHeaders>Source</PhraseHeaders>

@@ -112,7 +112,7 @@ export default function Articles(props) {
     };
     fetchCommunityArticles();
     fetchUserArticles();
-  }, []);
+  }, [userID]);
 
   return (
     // <div>

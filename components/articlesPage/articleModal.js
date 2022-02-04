@@ -66,7 +66,7 @@ export default function ArticleModal({
       params: {
         'api-version': '3.0',
         from: 'en',
-        to: language,
+        to: 'sv',
       },
       data: [
         {
