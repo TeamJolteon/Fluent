@@ -8,6 +8,7 @@ export default function UserPortal(props) {
 
   const userID = useAppContext().data[0].id;
   console.log('user ', userID);
+
   const initialLanguage = useAppContext().data[0].default_language;
   const [language, setLanguage] = useState(null);
 

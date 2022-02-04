@@ -152,7 +152,7 @@ export default function Articles(props) {
         </div>
       </div>
         {/* {display === 'personal' ? <PersonalFeed data={allPersonalArticles}/> : <CommunityFeed data={allCommunityArticles}/>} */}
-        {display === 'community' ? <CommunityFeed data={allCommunityArticles}/> : <PersonalFeed data={allPersonalArticles}/> }
+        {display === 'community' ? <CommunityFeed language={language} data={allCommunityArticles}/> : <PersonalFeed language={language} data={allPersonalArticles}/> }
       <div className={addArticleButtonStyles.addButton}>
         <AddArticle onClick={handleAddOpen}>Add Article</AddArticle>
       </div>

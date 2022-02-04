@@ -110,6 +110,7 @@ INSERT INTO `users` (`email`,`default_language`,`isLoggedIn`,`password`) VALUES
 INSERT INTO `users` (`email`,`default_language`,`isLoggedIn`,`password`) VALUES
 ('test@mail.com','english',0,'password');
 
+
 INSERT INTO `users` (`email`, `default_language`)
 VALUES
 ('alexromeroreyes09@gmail.com', 'sv'),
@@ -121,6 +122,7 @@ VALUES
 ('lihouheng0710@gmail.com', 'sv'),
 ('tawata.daniel@gmail.com', 'sv'),
 ('timnevada@gmail.com', 'sv');
+
 
 INSERT INTO `articles` (`user_id`,`url`,`title`,`date_written`,`date_uploaded`,`public`,`publication`,`text`,`userUploaded`) VALUES
 (1,'testUrl','testTitle','2022-01-31','2022-01-31',0,'NYT','text',1);
