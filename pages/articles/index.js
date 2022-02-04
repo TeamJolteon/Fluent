@@ -108,7 +108,7 @@ export default function Articles(props) {
       }
       fetchCommunityArticles();
       fetchUserArticles();
-  }, [])
+  }, [userID])
 
 
   return (
@@ -130,7 +130,8 @@ export default function Articles(props) {
       <div className={topBarStyles.topBar}>
         <div className={SortBarStyles.sortBar}>
           <SortBar
-            allCommunityArticles={allCommunityArticles}
+            originalCommunityArticles={originalCommunityArticles}
+            originalPersonalArticles={originalPersonalArticles}
             allPersonalArticles={allPersonalArticles}
             display={display}
             setAllCommunityArticles={setAllCommunityArticles}

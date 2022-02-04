@@ -44,7 +44,7 @@ export default function ArticleFeedItem(props) {
   let title = props.data.title ? props.data.title : '';
   let author = props.data.author ? props.data.author : '';
   let dateWritten = props.data.dateWritten ? props.data.dateWritten : '';
-  let dateUploaded = props.data.dateUploaded ? props.data.dateUploaded : '';
+  let dateUploaded = props.date_uploaded ? props.date_uploaded : '';
 
   return (
     <ArticleFeedItemContainer>
@@ -55,7 +55,7 @@ export default function ArticleFeedItem(props) {
       </ArticleTitleContainer>
       <ArticleInfoContainer>
         <Written>Written: {dateWritten}</Written>
-        <Written>Uploaded: {dateUploaded}</Written>
+        <Written>Uploaded: {props.date_uploaded}</Written>
       </ArticleInfoContainer>
       <ArticleModal
         show={showArticle}

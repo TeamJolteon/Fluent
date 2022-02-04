@@ -18,14 +18,16 @@ export default function SortBar(props) {
   };
 
   let sort = (status) => {
-    let copy = props.allArticles.slice();
+    let personalCopy = props.originalPersonalArticles.slice();
+    let communityCopy = props.originalCommunityArticles.slice();
+
     if (status === 'Newest' && props.display === 'personal') {
-      let newest = copy.sort((a, b) => b.dateWritten < a.dateWritten ? -1 : 1);
+      let newest = personalCopy.sort((a, b) => b.dateWritten < a.dateWritten ? -1 : 1);
       console.log('newest', newest);
       props.setAllPersonalArticles(newest);
     }
     if (status === 'Alphabetical' && props.display === 'personal') {
-      let alphabetical = copy.sort((a, b) => (b.title < a.title) ? -1 : 1);
+      let alphabetical = personalCopy.sort((a, b) => (b.title < a.title) ? -1 : 1);
       props.setAllPersonalArticles(alphabetical);
     }
     if (status === 'Favorited' && props.display === 'personal') {
@@ -33,22 +35,18 @@ export default function SortBar(props) {
       props.setAllPersonalArticles(favs);
     }
     if (status === 'Newest' && props.display === 'community') {
-      let newest = copy.sort((a, b) => b.dateWritten < a.dateWritten ? -1 : 1);
+      let newest = communityCopy.sort((a, b) => b.dateWritten < a.dateWritten ? -1 : 1);
       console.log('newest', newest);
-      props.setAllPersonalArticles(newest);
+      props.setAllCommunityArticles(newest);
     }
     if (status === 'Alphabetical' && props.display === 'community') {
-      let alphabetical = copy.sort((a, b) => (b.title < a.title) ? -1 : 1);
-      props.setAllPersonalArticles(alphabetical);
-    }
-    if (status === 'Favorited' && props.display === 'community') {
-      let favs = removeNonFavs();
-      props.setAllPersonalArticles(favs);
+      let alphabetical = communityCopy.sort((a, b) => (b.title < a.title) ? -1 : 1);
+      props.setAllCommunityArticles(alphabetical);
     }
   };
 
   let removeNonFavs = () => {
-    let copy = props.allArticles.slice();
+    let copy = props.allPersonalArticles.slice();
     copy.forEach((article, i) => {
       console.log(article);
       if (article.favorite === false) {

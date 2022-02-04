@@ -14,6 +14,7 @@ const getAllCommunityArticles = async () => {
 }
 
 const getUserArticles = async (userID) => {
+  console.log('userId in DB:', userID);
   try {
     var queryString = `select * from articles WHERE user_id = ${userID} and deleted = ${false}`;
     // var params = [userID];
