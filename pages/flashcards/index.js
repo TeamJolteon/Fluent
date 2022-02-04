@@ -16,7 +16,7 @@ export default function Flashcards(props) {
     if (language === null) {
       setLanguage(initialLanguage);
     }
-  }, [])
+  })
 
   useEffect(() => {
     const fetchUserVocab = () => {
@@ -35,7 +35,7 @@ export default function Flashcards(props) {
       })
     }
     fetchUserVocab();
-  }, []);
+  }, [initialLanguage]);
 
   return (
     <div>

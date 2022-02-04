@@ -140,12 +140,12 @@ INSERT INTO `sentences` (`sentence`,`vocab_id`,`article_id`) VALUES
 ('hello thi is a sentence','2','2');
 
 INSERT INTO `translations` (`language`,`word_id`,`translation`) VALUES
-('swedish','1','Hej');
+('sv','1','Hej');
 INSERT INTO `translations` (`language`,`word_id`,`translation`) VALUES
 ('japanese','1','シマウマ');
 
 INSERT INTO `translations` (`language`,`word_id`,`translation`) VALUES
-('swedish','2','Hej');
+('sv','2','Hej');
 INSERT INTO `translations` (`language`,`word_id`,`translation`) VALUES
 ('japanese','2','シマウマ');
 
