@@ -52,7 +52,7 @@ export default function Home(props) {
       {!currentSession && (
         <div className={styles.container}>
           <div className={styles.login}>
-            <div className={styles.title}>Language App</div>
+            <div className={styles.title}>Fluent</div>
             <div className={styles.flex}>
               <div
                 onClick={() => {
