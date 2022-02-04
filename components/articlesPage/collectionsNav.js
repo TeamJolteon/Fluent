@@ -5,7 +5,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-export default function SelectorNav() {
+export default function SelectorNav(props) {
   const [value, setValue] = React.useState(0);
 
   function a11yProps(index) {

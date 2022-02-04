@@ -40,16 +40,12 @@ const AddArticle = styled.button`
   }
 `;
 
-<<<<<<< HEAD
+export default function Articles(props) {
   // const userID = useAppContext().data[0].id;
   // console.log('user', userID);
 
   const userID = 1;
-=======
-export default function Articles(props) {
-  const userID = useAppContext().data[0].id;
-  console.log('user', userID);
->>>>>>> testing
+
 
   const [showAdd, setShowAdd] = useState(false);
   const [showArticle, setShowArticle] = useState(false);
@@ -118,15 +114,11 @@ export default function Articles(props) {
     // </div>
     <div>
       <Header loggedin={true} />
-<<<<<<< HEAD
       <SelectorNav
         setDisplay={setDisplay}
         // setPersonal={setAllPersonalArticles}
         // setCommunity={setAllCommunityArticles}
         />
-=======
-      <SelectorNav />
->>>>>>> testing
       <div className={topBarStyles.topBar}>
         <div className={SortBarStyles.sortBar}>
           <SortBar
@@ -137,7 +129,6 @@ export default function Articles(props) {
           />
         </div>
         <div className={searchBarStyles.searchBar}>
-<<<<<<< HEAD
             <SearchBar
               // derivedFeed={derivedFeed}
               setFeed={setFeedSelection}
@@ -154,19 +145,8 @@ export default function Articles(props) {
         {/* {display === 'personal' ? <PersonalFeed data={allPersonalArticles}/> : <CommunityFeed data={allCommunityArticles}/>} */}
         {display === 'community' ? <CommunityFeed data={allCommunityArticles}/> : <PersonalFeed data={allPersonalArticles}/> }
       <div className={addArticleButtonStyles.addButton}>
-        <button onClick={handleAddOpen}>Add Article</button>
+        <AddArticle onClick={handleAddOpen}>Add Article</AddArticle>
       </div>
-=======
-          <SearchBar
-            allArticles={allArticles}
-            articles={articles}
-            setArticles={setArticles}
-          />
-        </div>
-      </div>
-      <ArticlesFeed data={articles} />
-      <AddArticle onClick={handleAddOpen}>Add Article</AddArticle>
->>>>>>> testing
       <AddArticleModal
         show={showAdd}
         setShowAdd={setShowAdd}
