@@ -117,6 +117,7 @@ export default function FlashcardIndex (props) {
 
   useEffect(() => {
     setFlashcardData(props.data);
+    console.log(flashcardData);
   }, [props.data])
 
   function synthesizeSpeech() {
@@ -216,7 +217,7 @@ export default function FlashcardIndex (props) {
     <Complete className="flashcard-repeat" onClick={repeatOnClick}>{repeat?"Complete! Retry?":null}</Complete>
     <Card>
     <Inbord>
-      <Lang className="flashcard-word">{flashcardData[FL].word}</Lang>
+      <Lang className="flashcard-word">{flashcardData[FL]? flashcardData[FL].word:null}</Lang>
       <English onClick={() => {reveal? setReveal(false): setReveal(true)}}>{reveal? flashcardData[FL].translation:"Reveal Translation"}</English>
       <PronuciationButton onClick={() => synthesizeSpeech()}>
                     <VolumeUpIcon />

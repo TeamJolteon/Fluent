@@ -11,7 +11,7 @@ export default function Flashcards(props) {
   const [data, setData] = useState(props.data);
 
   useEffect(() => {
-    const fetchUserArticles = () => {
+    const fetchUserVocab = () => {
       axios.get('/api/vocabAPI/getVocalListCurrentInterval', {
         params: {
           language: "Swedish",
@@ -20,12 +20,13 @@ export default function Flashcards(props) {
       })
       .then((res) => {
         setData(res.data);
+        console.log(data);
       })
       .catch((err) => {
         console.log(err);
       })
     }
-    fetchUserArticles();
+    fetchUserVocab();
   }, []);
 
   return (
@@ -39,6 +40,8 @@ export default function Flashcards(props) {
 export async function getServerSideProps(context) {
 
   const session = await getSession({ req: context.req });
+  console.log(session);
+
 
   if (!session) {
     return {
