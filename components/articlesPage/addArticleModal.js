@@ -23,7 +23,7 @@ export default function AddArticleModal({ setShowAdd, show, handleClose, userID 
             left: '50%',
             transform: 'translate(-50%, -50%)',
             width: 700,
-            height: 600,
+            height: 750,
             bgcolor: '#F8F9F0',
             border: '2px solid #000',
             boxShadow: 24,

@@ -3,6 +3,7 @@ import axios from 'axios';
 import formStyles from '../../styles/ArticleStyles/textForm.module.css';
 import { extractorAPIKEY } from '../../config.js';
 import styled from 'styled-components';
+import { useAppContext } from '../../pages/state.js'
 
 const SubmitArticles = styled.div`
   display: flex;
@@ -68,6 +69,8 @@ export default function UrlForm({ userID }) {
   const [url, setUrl] = useState('');
   const [communitySharing, setCommunitySharing] = useState(true);
   const [urlText, setUrlText] = useState('');
+
+  const userID = useAppContext().data[0].id;
 
   let handleChange = (e) => {
     if (e.target.id === 'url') {

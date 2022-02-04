@@ -10,6 +10,3 @@ const handler = async (req, res) => {
 };
 
 export default handler;
-
-//after a user is created, the "insertId" is the [id] in user table
-//FE team can use this id to get articles and words
