@@ -41,10 +41,10 @@ const AddArticle = styled.button`
 `;
 
 export default function Articles(props) {
-  // const userID = useAppContext().data[0].id;
-  // console.log('user', userID);
+  const userID = useAppContext().data[0].id;
+  console.log('user', userID);
 
-  const userID = 1;
+  //const userID = 1;
 
 
   const [showAdd, setShowAdd] = useState(false);
