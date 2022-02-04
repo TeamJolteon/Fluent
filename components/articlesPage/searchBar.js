@@ -3,20 +3,23 @@ import searchBarStyles from '../../styles/ArticleStyles/searchBar.module.css';
 
 export default function SearchBar(props) {
   const [query, setQuery] = useState('');
-  // const [filtered, setFiltered] = useState([]);
+
+  let personalCopy = props.originalPersonalArticles;
+  let communityCopy = props.originalCommunityArticles;
 
   let handleSearch = (e) => {
     let filtered = filterArticles();
-    let personalsCopy = props.allPersonalArticles.slice();
-    let communityCopy = props.allCommunityArticles.slice();
-    console.log('', communityCopy);
+    console.log('personal copy', personalCopy);
     console.log('query', query);
     setQuery(e.target.value);
-    // props.setArticles(filtered);
-    if (filtered && query.length > 3 && props.display === 'personal') {
-      props.setAllPersonalArticles(filtered);
-    } else {
-      props.setAllPersonalArticles(personalsCopy);
+    if (props.display === 'personal') {
+      if (filtered && query.length > 3 ) {
+        props.setAllPersonalArticles(filtered);
+      }
+      if (query.length < 3) {
+        console.log('trigger');
+        props.setAllPersonalArticles(personalCopy);
+      }
     }
     if (filtered && query.length > 3 && props.display === 'community') {
       props.setAllCommunityArticles(filtered);

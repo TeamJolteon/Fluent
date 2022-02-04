@@ -33,7 +33,9 @@ export default function Articles(props) {
   const [showAdd, setShowAdd] = useState(false);
   const [showArticle, setShowArticle] = useState(false);
   const [allCommunityArticles, setAllCommunityArticles] = useState([]);
+  const [originalCommunityArticles, setOriginalCommunityArticles] = useState([]);
   const [allPersonalArticles, setAllPersonalArticles] = useState([]);
+  const [originalPersonalArticles, setOriginalPersonalArticles] = useState([]);
   const [feedSelection, setFeedSelection] = useState(true);
   const [feed, setFeed] = useState([]);
   const [display, setDisplay] = useState('personal');
@@ -54,6 +56,7 @@ export default function Articles(props) {
       .then((response) => {
         console.log('response within useEffect: ', response.data);
         setAllCommunityArticles(response.data);
+        setOriginalCommunityArticles(response.data);
       })
       .catch((e) => {
         console.log(e);
@@ -71,6 +74,7 @@ export default function Articles(props) {
         .then((response) => {
           console.log('response: ', response.data);
           setAllPersonalArticles(response.data);
+          setOriginalPersonalArticles(response.data);
           // setFeed(response.data);
         })
         .catch((e) => {
@@ -113,6 +117,8 @@ export default function Articles(props) {
               setFeed={setFeedSelection}
               allPersonalArticles={allPersonalArticles}
               allCommunityArticles={allCommunityArticles}
+              originalCommunityArticles={originalCommunityArticles}
+              originalPersonalArticles={originalPersonalArticles}
               display={display}
               setAllPersonalArticles={setAllPersonalArticles}
               setAllCommunityArticles={setAllCommunityArticles}
