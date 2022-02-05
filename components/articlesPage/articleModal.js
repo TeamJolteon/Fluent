@@ -39,13 +39,18 @@ const Translated = styled.div`
   left: 0;
 `;
 
-export default function ArticleModal({ show, handleClose, articleText, language, articleId }) {
+export default function ArticleModal({
+  show,
+  handleClose,
+  articleText,
+  language,
+  articleID,
+}) {
   const [wordSelected, setWordSelected] = useState(false);
   const [translatedWord, setTranslatedWord] = useState(null);
   const [wordHighlighted, setWordHighlighted] = useState(false);
   const [highlightedWords, setHighlightedWords] = useState(null);
   const [languageAbbrev, setLanguageAbbrev] = useState(null);
-
 
   const userID = useAppContext().data[0].id;
   console.log(language);
@@ -118,7 +123,7 @@ export default function ArticleModal({ show, handleClose, articleText, language,
     axios
       .post('http://localhost:3000/api/articlesAPI/postNewWord', {
         user_id: userID,
-        article_id: articleId,
+        article_id: articleID,
         word: word,
         definition: null,
         language: 'swedish',
@@ -167,12 +172,10 @@ export default function ArticleModal({ show, handleClose, articleText, language,
                             setWordHighlighted(!wordHighlighted);
                           }}
                         >
-                        {word}
+                          {word}
                           {word === highlightedWords && wordHighlighted ? (
                             <Translated>{translatedWord}</Translated>
-                          ) : (
-                            null
-                          )}
+                          ) : null}
                         </Words>
                       </>
                     );

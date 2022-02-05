@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import navStyles from '../../styles/ArticleStyles/collectionNav.module.css';
 import Tabs from '@mui/material/Tabs';

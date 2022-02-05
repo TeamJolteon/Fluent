@@ -5,9 +5,11 @@ import axios from 'axios';
 
 export const AppContext = createContext();
 
-export function AppWrapper({ children }) {
+export default function AppWrapper({ children }) {
   const [session, loadingSession] = useSession();
-  const [user, setuser] = useState({ data: [{ id: null, default_language: null }] });
+  const [user, setuser] = useState({
+    data: [{ id: null, default_language: null }],
+  });
 
   let sharedState = {};
 
@@ -22,12 +24,11 @@ export function AppWrapper({ children }) {
         },
       })
       .then((data) => {
-        console.log('data:', data)
+        console.log('data:', data);
         setuser(data);
       })
       .catch((err) => console.log(err));
   }, [session]);
-
 
   return <AppContext.Provider value={user}>{children}</AppContext.Provider>;
 }

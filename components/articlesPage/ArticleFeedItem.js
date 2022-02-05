@@ -65,20 +65,21 @@ export default function ArticleFeedItem(props) {
 
   let handleClick = () => {
     // e.preventDefault();
-    axios.put('http://localhost:3000/api/articlesAPI/deleteArticle', {
-      user_id: props.data.user_id,
-      title: title,
-      id: props.data.id
-    })
-    .then((result) => {
-      console.log('results from delete', result);
-      props.getFeed();
-      props.getCommunityFeed();
-    })
-    .catch ((error) => {
-      console.log('error', error);
-    })
-  }
+    axios
+      .put('http://localhost:3000/api/articlesAPI/deleteArticle', {
+        user_id: props.data.user_id,
+        title: title,
+        id: props.data.id,
+      })
+      .then((result) => {
+        console.log('results from delete', result);
+        props.getFeed();
+        props.getCommunityFeed();
+      })
+      .catch((error) => {
+        console.log('error', error);
+      });
+  };
 
   return (
     <ArticleFeedItemContainer>
@@ -89,7 +90,7 @@ export default function ArticleFeedItem(props) {
       </ArticleTitleContainer>
       <ArticleInfoContainer>
         {/* <Written>Written: {props.data.dateWritten}</Written> */}
-        <Written>Uploaded: {props.data.date_uploaded.slice(0,10)}</Written>
+        <Written>Uploaded: {props.data.date_uploaded.slice(0, 10)}</Written>
         <DeleteArticle onClick={handleClick}>Delete</DeleteArticle>
       </ArticleInfoContainer>
       <ArticleModal
@@ -97,7 +98,7 @@ export default function ArticleFeedItem(props) {
         show={showArticle}
         handleClose={handleArticleClose}
         articleText={text}
-        articleId={props.data.id}
+        articleID={props.data.id}
       />
     </ArticleFeedItemContainer>
   );

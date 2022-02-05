@@ -5,7 +5,7 @@ import formStyles from '../../styles/ArticleStyles/textForm.module.css';
 import styled from 'styled-components';
 import { useAppContext } from '../../pages/state.js';
 import { TramRounded } from '@material-ui/icons';
-import { extractorAPIKEY } from '../../config.js';
+import extractorAPIKEY from '../../anotherOne.js';
 
 const SubmitArticles = styled.div`
   display: flex;

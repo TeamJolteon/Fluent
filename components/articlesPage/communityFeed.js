@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import ArticleFeedItem from './ArticleFeedItem.js';
 import styled from 'styled-components';
-const feedContainerStyle = {
-  width: '50%',
-  display: 'flex',
-  flexDirection: 'column',
-  marginLeft: '25%',
-  justifyContent: 'center',
-};
+
+const FeedContainerStyle = styled.div`
+  max-width: 1200px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  overflow-y: scroll;
+`;
+
 const NothingFound = styled.div`
   display: block;
   margin: 0 auto;
@@ -19,7 +22,7 @@ const NothingFound = styled.div`
 export default function CommunityFeed(props) {
   return (
     <div>
-      <div className='feedContainer' style={feedContainerStyle}>
+      <FeedContainerStyle>
         {props.data.length ? (
           props.data.map((item) => (
             <ArticleFeedItem
@@ -32,7 +35,7 @@ export default function CommunityFeed(props) {
         ) : (
           <NothingFound>Nothing Found</NothingFound>
         )}
-      </div>
+      </FeedContainerStyle>
     </div>
   );
 }

@@ -45,12 +45,14 @@ const Title = styled.h1`
 const Lang = styled.div`
   font-size: 3em;
   letter-spacing: 2px;
+  text-transform: capitalize;
 `
 const English = styled.div `
   margin: 15px;
   font-size: 1.5em;
   margin-top: 25px;
   letter-spacing: 1px;
+  text-transform: capitalize;
   cursor: pointer;
   &:hover {
     color: #A5B5B6;
@@ -111,7 +113,7 @@ export default function FlashcardIndex (props) {
     const speechConfig = sdk.SpeechConfig.fromSubscription(AZURE, 'westus');
     const synthesizer = new sdk.SpeechSynthesizer(speechConfig);
     synthesizer.speakTextAsync(
-      flashcardData[FL].translation,
+      flashcardData[FL].word,
       (result) => {
         synthesizer.close();
         return result.audioData;
@@ -143,11 +145,7 @@ export default function FlashcardIndex (props) {
       nextRepetition = 0;
     }
 
-    nextEfactor = efactor + (0.1 - (5 - grade) * (0.08 + (5 - grade) * 0.02));
-
-    if (nextEfactor < 1.3) {
-      nextEfactor = 1.3;
-    }
+    nextEfactor = grade;
 
     return {
       currentInterval: nextInterval,

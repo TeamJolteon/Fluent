@@ -8,6 +8,7 @@ import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
 import AZURE from '../../config';
 import axios from 'axios';
+import Link from 'next/link';
 
 const Form = styled.form`
   display: flex;
@@ -42,10 +43,12 @@ const PronuciationButton2 = styled.button`
   background-color: #9cbfa7;
   margin-right: 8px;
   color: #413a3e;
+  cursor: pointer;
 `;
 const PronuciationButton = styled.button`
   border-radius: 45%;
   border: none;
+  cursor: pointer;
   background-color: #d2d9da;
   margin-right: 8px;
   color: #413a3e;
@@ -62,6 +65,7 @@ const PhraseRow = styled.div`
   padding: 0 10px;
   background-color: #d2d9da;
   flex-flow: row nowrap;
+  text-transform: capitalize;
 `;
 const PhraseRow2 = styled.div`
   width: 100%;
@@ -70,6 +74,7 @@ const PhraseRow2 = styled.div`
   flex-flow: row nowrap;
   background-color: #9cbfa7;
   color: #413a3e;
+  text-transform: capitalize;
 `;
 const PhraseTitles = styled.div`
   width: 100%;
@@ -82,6 +87,7 @@ const PhraseTitles = styled.div`
   font-size: 19px;
   font-weight: 500;
   letter-spacing: 1.5px;
+  text-transform: capitalize;
 `;
 const PhraseHeaders = styled.div`
   display: flex;
@@ -108,6 +114,20 @@ const PhraseData = styled.div`
   font-weight: 550;
   letter-spacing: 0.5px;
 `;
+const ArticleLink1 = styled.a`
+  text-decoration: underline;
+  cursor: pointer;
+  &:hover {
+    color: #d2d9da;
+  }
+`;
+const ArticleLink = styled.a`
+  text-decoration: underline;
+  cursor: pointer;
+  &:hover {
+    color: #9cbfa7;
+  }
+`;
 const Title = styled.h1`
   display: flex;
   justify-content: center;
@@ -130,7 +150,8 @@ const SortMenu = styled.select`
   box-shadow: 0 2px 3px 0 #413a3e;
   border-radius: 4px;
   background-color: #9cbfa7;
-  color: #413a3e; ;
+  color: #413a3e;
+  outline: none;
 `;
 
 export default function VocabList({ userID, language }) {
@@ -169,15 +190,25 @@ export default function VocabList({ userID, language }) {
     };
     getList();
   }, [currentLang]);
+
   useEffect(() => {
-    if (sorted === 'A-Z') {
-      setCurrentList(listData);
-    } else if (sorted === 'Difficulty 📈') {
-      setCurrentList(listEasyfirst);
+    setCurrentList(listEasyfirst);
+  }, [listEasyfirst]);
+  useEffect(() => {
+    setCurrentList(listHardfirst);
+  }, [listHardfirst]);
+  useEffect(() => {
+    setCurrentList(listRecent);
+  }, [listRecent]);
+  useEffect(() => {
+    // difficultyHardFirst();
+    // sortRecent();
+    if (sorted === 'Difficulty 📈') {
+      difficultyEasyFirst();
     } else if (sorted === 'Difficulty 📉') {
-      setCurrentList(listHardfirst);
+      difficultyHardFirst();
     } else if (sorted === 'Recent') {
-      setCurrentList(listRecent);
+      sortRecent();
     } else {
       setCurrentList(listData);
     }
@@ -212,24 +243,24 @@ export default function VocabList({ userID, language }) {
       return word.efactor === 5;
     });
     const filteredMedium = listData.filter((word) => {
-      return word.efactor > 3 && word.efactor < 5;
+      return word.efactor === 3;
     });
     const filteredHard = listData.filter((word) => {
       return word.efactor < 3;
     });
-    setListEasyFirst(filteredEasy.concat(filteredMedium).concat(filteredHard));
+    setListEasyFirst(filteredEasy.concat(filteredMedium, filteredHard));
   };
   const difficultyHardFirst = () => {
     const filteredEasy = listData.filter((word) => {
       return word.efactor === 5;
     });
     const filteredMedium = listData.filter((word) => {
-      return word.efactor > 3 && word.efactor < 5;
+      return word.efactor === 3 && word.efactor < 5;
     });
     const filteredHard = listData.filter((word) => {
       return word.efactor < 3;
     });
-    setListHardFirst(filteredHard.concat(filteredMedium).concat(filteredEasy));
+    setListHardFirst(filteredHard.concat(filteredMedium, filteredEasy));
   };
 
   const handleSortChange = (e) => {
@@ -254,25 +285,6 @@ export default function VocabList({ userID, language }) {
   useEffect(() => {
     searching ? setCurrentList(searchList) : setCurrentList(listData);
   }, [searching]);
-
-  useEffect(() => {
-    sortRecent();
-    difficultyHardFirst();
-    difficultyEasyFirst();
-  }, []);
-
-  useEffect(() => {
-    const getArticles = async () => {
-      try {
-        const res = await axios.get('/api/articlesAPI/getAllArticles');
-        setArticleData(res.data);
-        console.log('responseArticles: ', res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getArticles();
-  }, []);
 
   return (
     <Body>
@@ -322,7 +334,11 @@ export default function VocabList({ userID, language }) {
                     ) : (
                       <PhraseData>Almost</PhraseData>
                     )}
-                    <PhraseData>Link</PhraseData>
+                    <PhraseData>
+                      <ArticleLink href={word.url} target='_blank'>
+                        Link to Article
+                      </ArticleLink>
+                    </PhraseData>
                   </PhraseRow>
                 );
               } else {
@@ -339,13 +355,18 @@ export default function VocabList({ userID, language }) {
                     </PhraseData>
                     {word.efactor === 5 ? (
                       <PhraseData>Got It</PhraseData>
-                    ) : word.efactor < 3 ? (
-                      <PhraseData>Not Yet</PhraseData>
-                    ) : (
+                    ) : word.efactor === 3 ? (
                       <PhraseData>Almost</PhraseData>
+                    ) : (
+                      <PhraseData>Not Yet</PhraseData>
                     )}
 
-                    <PhraseData>link</PhraseData>
+                    <PhraseData>
+                      {' '}
+                      <ArticleLink1 href={word.url} target='_blank'>
+                        Link to Article
+                      </ArticleLink1>
+                    </PhraseData>
                   </PhraseRow2>
                 );
               }
