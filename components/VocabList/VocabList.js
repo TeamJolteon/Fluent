@@ -65,6 +65,7 @@ const PhraseRow = styled.div`
   padding: 0 10px;
   background-color: #d2d9da;
   flex-flow: row nowrap;
+  text-transform: capitalize;
 `;
 const PhraseRow2 = styled.div`
   width: 100%;
@@ -73,6 +74,7 @@ const PhraseRow2 = styled.div`
   flex-flow: row nowrap;
   background-color: #9cbfa7;
   color: #413a3e;
+  text-transform: capitalize;
 `;
 const PhraseTitles = styled.div`
   width: 100%;
@@ -85,6 +87,7 @@ const PhraseTitles = styled.div`
   font-size: 19px;
   font-weight: 500;
   letter-spacing: 1.5px;
+  text-transform: capitalize;
 `;
 const PhraseHeaders = styled.div`
   display: flex;

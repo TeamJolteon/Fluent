@@ -45,12 +45,14 @@ const Title = styled.h1`
 const Lang = styled.div`
   font-size: 3em;
   letter-spacing: 2px;
+  text-transform: capitalize;
 `
 const English = styled.div `
   margin: 15px;
   font-size: 1.5em;
   margin-top: 25px;
   letter-spacing: 1px;
+  text-transform: capitalize;
   cursor: pointer;
   &:hover {
     color: #A5B5B6;

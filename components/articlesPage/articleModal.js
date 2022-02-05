@@ -44,7 +44,7 @@ export default function ArticleModal({
   handleClose,
   articleText,
   language,
-  articleId,
+  articleID,
 }) {
   const [wordSelected, setWordSelected] = useState(false);
   const [translatedWord, setTranslatedWord] = useState(null);
@@ -123,7 +123,7 @@ export default function ArticleModal({
     axios
       .post('http://localhost:3000/api/articlesAPI/postNewWord', {
         user_id: userID,
-        article_id: articleId,
+        article_id: articleID,
         word: word,
         definition: null,
         language: 'swedish',
