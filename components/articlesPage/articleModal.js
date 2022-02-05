@@ -13,8 +13,6 @@ const axios = require('axios').default;
 const { v4: uuidv4 } = require('uuid');
 const azureToken = require('../../otherconfig.js');
 
-// import article from './fakeArticle.js';
-// White : #F8F9F0 coffee: #413A3E grey: #D2D9DA blue: #9CBFA7
 const Body = styled.div`
   font-family: 'Roboto', sans-serif;
   color: #f8f9f0;
@@ -53,7 +51,6 @@ export default function ArticleModal({
   const [languageAbbrev, setLanguageAbbrev] = useState(null);
 
   const userID = useAppContext().data[0].id;
-  console.log(language);
 
   function languageConverter(languageName) {
     if (languageName === 'Swedish') {
@@ -69,7 +66,6 @@ export default function ArticleModal({
     }
   }
 
-  // console.log(languageConverter(language));
   // Translator Function
   function translator(word) {
     var subscriptionKey = azureToken;
@@ -104,7 +100,7 @@ export default function ArticleModal({
     return null;
   }
 
-  // define word function
+  // Define word function
   function defineWord(word) {
     axios({
       url: `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`,
@@ -162,7 +158,6 @@ export default function ArticleModal({
                 <div>
                   {articleText.split(' ').map((word, index) => {
                     return (
-                      // <ArticleWord word={word} key={index}/>
                       <>
                         <Words
                           selected={highlightedWords === word}

@@ -3,16 +3,13 @@ const { postNewWord, checkExistence } = require('/db/controllers/articles.js');
 const handler = async (req, res) => {
   try {
     var results = await checkExistence(req.body);
-    console.log('what is results', results);
     res.status(200).send(results);
   } catch (error) {
-    console.log('error to add new word', error)
     res.status(500).send(error);
   }
 };
 
 export default handler;
-
 
 //API - POST:
 //localhost:3000/api/articlesAPI/postNewWord

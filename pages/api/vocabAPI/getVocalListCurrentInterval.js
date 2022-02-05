@@ -1,4 +1,6 @@
-const { getVocalListCurrentInterval } = require('/db/controllers/flashcards.js');
+const {
+  getVocalListCurrentInterval,
+} = require('/db/controllers/flashcards.js');
 
 const handler = async (req, res) => {
   try {

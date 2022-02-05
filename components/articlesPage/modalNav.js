@@ -41,9 +41,9 @@ export default function ModalNav(props) {
         </Box>
       </div>
       {value === 'text' ? (
-        <TextForm setShowAdd={props.setShowAdd} userID={props.userID}/>
+        <TextForm setShowAdd={props.setShowAdd} userID={props.userID} />
       ) : (
-        <UrlForm setShowAdd={props.setShowAdd} userID={props.userID}/>
+        <UrlForm setShowAdd={props.setShowAdd} userID={props.userID} />
       )}
     </div>
   );

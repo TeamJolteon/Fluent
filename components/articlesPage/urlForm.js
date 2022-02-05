@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import formStyles from '../../styles/ArticleStyles/textForm.module.css';
-// import extractorAPIKEY from '../../anotherOne.js';
 import styled from 'styled-components';
 import { useAppContext } from '../../pages/state.js';
 import { TramRounded } from '@material-ui/icons';
@@ -13,7 +12,9 @@ const SubmitArticles = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
 const Form = styled.form``;
+
 const Label = styled.label`
   display: flex;
   flex-direction: column;
@@ -22,6 +23,7 @@ const Label = styled.label`
   letter-spacing: 1px;
   padding-top: 6px;
 `;
+
 const Button = styled.button`
   padding: 10px;
   display: block;
@@ -37,6 +39,7 @@ const Button = styled.button`
     background-color: #d2d9da;
   }
 `;
+
 const Input = styled.input`
   background-color: #d2d9da;
   border: none;
@@ -54,11 +57,13 @@ const Select = styled.select`
   margin: 0px 10px;
   letter-spacing: 1px;
 `;
+
 const ShareForm = styled.form`
   display: flex;
   flex-direction: row;
   padding: 10px;
 `;
+
 const ShareLabel = styled.label`
   display: flex;
   flex-direction: row;
@@ -67,12 +72,11 @@ const ShareLabel = styled.label`
   padding: 10px 0;
   justify-content: center;
 `;
+
 export default function UrlForm({ userID, setShowAdd }) {
   const [url, setUrl] = useState('');
   const [communitySharing, setCommunitySharing] = useState(true);
   const [urlText, setUrlText] = useState('');
-
-  // const userID = useAppContext().data[0].id;
 
   let handleChange = (e) => {
     if (e.target.id === 'url') {
@@ -91,9 +95,6 @@ export default function UrlForm({ userID, setShowAdd }) {
     axios({
       url: 'https://extractorapi.com/api/v1/extractor/',
       method: 'get',
-      // headers: {
-      //   'Access-Control-Allow-Origin' : "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-      // },
       params: {
         apikey: extractorAPIKEY,
         url: url,
@@ -101,9 +102,6 @@ export default function UrlForm({ userID, setShowAdd }) {
       responseType: 'json',
     })
       .then((result) => {
-        console.log('urlFORM', result.data);
-        console.log('Text type: ', typeof result.data.text);
-        // setUrlText(result.data.text);
         let newDate = new Date().toISOString().slice(0, 10);
         let publishDate = result.data.date_published
           ? result.data.date_published.toString().slice(0, 10)
@@ -121,7 +119,7 @@ export default function UrlForm({ userID, setShowAdd }) {
             userUploaded: true,
           })
           .then((results) => {
-            console.log('results', results);
+            console.log('submitted results: ', results);
           })
           .catch((error) => {
             console.error(error);

@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+
 const SortMenu = styled.select`
   border: white;
   margin-left: 15px;
@@ -13,7 +14,6 @@ const SortMenu = styled.select`
   color: #f8f9f0;
 `;
 export default function SortBar(props) {
-
   let handleSortChange = (e) => {
     sort(e.target.value);
   };
@@ -23,12 +23,15 @@ export default function SortBar(props) {
     let communityCopy = props.originalCommunityArticles.slice();
 
     if (status === 'Newest' && props.display === 'personal') {
-      let newest = personalCopy.sort((a, b) => b.dateWritten < a.dateWritten ? -1 : 1);
-      console.log('newest', newest);
+      let newest = personalCopy.sort((a, b) =>
+        b.dateWritten < a.dateWritten ? -1 : 1
+      );
       props.setAllPersonalArticles(newest);
     }
     if (status === 'Alphabetical' && props.display === 'personal') {
-      let alphabetical = personalCopy.sort((a, b) => (a.title < b.title) ? -1 : 1);
+      let alphabetical = personalCopy.sort((a, b) =>
+        a.title < b.title ? -1 : 1
+      );
       props.setAllPersonalArticles(alphabetical);
     }
     if (status === 'Favorited' && props.display === 'personal') {
@@ -36,12 +39,15 @@ export default function SortBar(props) {
       props.setAllPersonalArticles(favs);
     }
     if (status === 'Newest' && props.display === 'community') {
-      let newest = communityCopy.sort((a, b) => b.dateWritten < a.dateWritten ? -1 : 1);
-      console.log('newest', newest);
+      let newest = communityCopy.sort((a, b) =>
+        b.dateWritten < a.dateWritten ? -1 : 1
+      );
       props.setAllCommunityArticles(newest);
     }
     if (status === 'Alphabetical' && props.display === 'community') {
-      let alphabetical = communityCopy.sort((a, b) => (b.title < a.title) ? -1 : 1);
+      let alphabetical = communityCopy.sort((a, b) =>
+        b.title < a.title ? -1 : 1
+      );
       props.setAllCommunityArticles(alphabetical);
     }
   };
@@ -49,19 +55,15 @@ export default function SortBar(props) {
   let removeNonFavs = () => {
     let copy = props.allPersonalArticles.slice();
     copy.forEach((article, i) => {
-      console.log(article);
       if (article.favorite === false) {
         copy.splice(i, 1);
       }
     });
-    // props.setArticles(copy);
-    console.log('favs', copy);
     return copy;
   };
 
   useEffect(() => {
     removeNonFavs();
-    // sort();
   }, []);
 
   return (

@@ -1,19 +1,18 @@
-.articleContainer{
-  /* display: flex; */
+.articleContainer {
   background-color: black;
   width: 70%;
   height: 104%;
 }
 
-.aside{
+.aside {
   width: 25%;
   height: 100vh;
   padding: 30px 20px;
   background-color: beige;
 }
 
-.selectedWord{
-  display:flex;
+.selectedWord {
+  display: flex;
   justify-content: flex-end;
   background-color: burlywood;
   height: 10%;
@@ -26,12 +25,12 @@
   display: flex;
 }
 
-.selected{
+.selected {
   margin-top: 20px;
   font-size: 20px;
 }
 
-.main{
+.main {
   position: relative;
   width: 75%;
   height: 100vh;
@@ -40,11 +39,11 @@
   padding: 40px 100px;
 }
 
-.modal{
+.modal {
   overflow-y: scroll;
 }
 
-.vocabList{
+.vocabList {
   margin-top: 10px;
   cursor: pointer;
 }

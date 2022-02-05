@@ -17,10 +17,6 @@ export default function SelectorNav(props) {
   }
   const handleChange = (e, newValue) => {
     setValue(newValue);
-    // console.log('before', value);
-    // console.log('after', newValue);
-    // const mode = newValue ? true : false;
-    // props.setFeed(mode)
   };
 
   useEffect(() => {
@@ -31,20 +27,8 @@ export default function SelectorNav(props) {
       props.setDisplay('community');
     }
   }, [value]);
-  // const handleTabClick = (e) => {
-  //   if (e.target.value === "personal") {
-  //     props.setFeed(props.personalArticles);
-  //   }
-  //   if (e.target.value === "community") {
-  //     props.setFeed(props.communityArticles)
-  //   }
-  // }
 
   return (
-    // <div>
-    //   <div onClick={() => { props.setDisplay('personal') }}>Personal</div>
-    //   <div onClick={() => { props.setDisplay('community') }}>Community</div>
-    // </div>
     <div className={navStyles.navbar}>
       <Box sx={{ width: '25%' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>

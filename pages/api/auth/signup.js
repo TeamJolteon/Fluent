@@ -7,8 +7,13 @@ async function handler(req, res) {
 
   const { email, password } = data;
 
-  if (!email || !email.includes('@') || !password || password.trim().length < 7) {
-    res.status(422).json({message: 'Invalid Input'});
+  if (
+    !email ||
+    !email.includes('@') ||
+    !password ||
+    password.trim().length < 7
+  ) {
+    res.status(422).json({ message: 'Invalid Input' });
     return;
   }
 
@@ -19,10 +24,10 @@ async function handler(req, res) {
 
   const result = await db.collection('users').insertOne({
     email: email,
-    password: hashedPassword
+    password: hashedPassword,
   });
 
-  res.status(201).json({message: 'Created user!'});
+  res.status(201).json({ message: 'Created user!' });
 }
 
 export default handler;

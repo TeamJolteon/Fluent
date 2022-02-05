@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Header from '../../components/header.js';
 import FlashcardIndex from '../../components/flashcards/flashcardindex.jsx';
 import { getSession } from 'next-auth/client';
-import {useAppContext} from '../state.js';
+import { useAppContext } from '../state.js';
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 
@@ -16,39 +17,37 @@ export default function Flashcards(props) {
     if (language === null) {
       setLanguage(initialLanguage);
     }
-  })
+  });
 
   useEffect(() => {
     const fetchUserVocab = () => {
-      axios.get('/api/vocabAPI/getVocalListCurrentInterval', {
-        params: {
-          language: initialLanguage,
-          userID: userID
-        }
-      })
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-    }
+      axios
+        .get('/api/vocabAPI/getVocalListCurrentInterval', {
+          params: {
+            language: initialLanguage,
+            userID: userID,
+          },
+        })
+        .then((res) => {
+          setData(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
     fetchUserVocab();
-  },[]);
+  }, []);
 
   return (
     <div>
       <Header loggedin={true} language={language} setLanguage={setLanguage} />
-      <FlashcardIndex data={data} userID={userID} language={language}/>
+      <FlashcardIndex data={data} userID={userID} language={language} />
     </div>
   );
 }
 
 export async function getServerSideProps(context) {
-
   const session = await getSession({ req: context.req });
-  console.log(session);
-
 
   if (!session) {
     return {
@@ -103,11 +102,3 @@ export async function getServerSideProps(context) {
     },
   };
 }
-
-// {
-//   word: word,
-//   word_id: interger,
-//   currentInterval: nextInterval,
-//   repetition: nextRepetition,
-//   efactor: nextEfactor
-// };

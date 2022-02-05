@@ -39,11 +39,6 @@ anotherOne.js
 
 
 package-lock.json
-<<<<<<< HEAD
 
 node_modules
 anotherOne.js
-=======
-.gitignore
-node_modules
->>>>>>> testing

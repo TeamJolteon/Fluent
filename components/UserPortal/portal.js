@@ -6,21 +6,25 @@ const Title = styled.h1`
   justify-content: center;
   padding-top: 2rem;
 `;
+
 const Body = styled.div`
   font-family: 'Roboto', sans-serif;
   color: #413a3e;
 `;
+
 const RoutesDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 50px;
 `;
+
 const Subheader = styled.h2`
   display: flex;
   justify-content: center;
   padding-top: 2rem;
 `;
+
 const RouteButton = styled.button`
   width: 400px;
   padding: 20px 0px;

@@ -13,5 +13,4 @@ const handler = async (req, res) => {
 
 export default handler;
 
-//localhost:3000/api/vocabAPI/getVocabListAlphabetically?language=Japanese
 //localhost:3000/api/vocabAPI/getVocabListAlphabetically?language=Swedish

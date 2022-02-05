@@ -22,15 +22,12 @@ export default function SearchBar(props) {
 
   let handleSearch = (e) => {
     let filtered = filterArticles();
-    console.log('personal copy', personalCopy);
-    console.log('query', query);
     setQuery(e.target.value);
     if (props.display === 'personal') {
-      if (filtered && query.length > 3 ) {
+      if (filtered && query.length > 3) {
         props.setAllPersonalArticles(filtered);
       }
       if (query.length < 3) {
-        console.log('trigger');
         props.setAllPersonalArticles(personalCopy);
       }
     }
@@ -45,17 +42,18 @@ export default function SearchBar(props) {
     var term = query.toLowerCase();
     if (props.display === 'personal') {
       if (query) {
-        var filteredArticles = props.allPersonalArticles.filter(article =>
-          article.title.toLowerCase().includes(term));
+        var filteredArticles = props.allPersonalArticles.filter((article) =>
+          article.title.toLowerCase().includes(term)
+        );
       }
     }
     if (props.display === 'community') {
       if (query) {
-        var filteredArticles = props.allCommunityArticles.filter(article =>
-          article.title.toLowerCase().includes(term));
+        var filteredArticles = props.allCommunityArticles.filter((article) =>
+          article.title.toLowerCase().includes(term)
+        );
       }
     }
-    console.log(filteredArticles);
     return filteredArticles;
   };
 

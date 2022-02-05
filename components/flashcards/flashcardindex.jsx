@@ -31,22 +31,26 @@ const Card = styled.div `
   background-color: #413A3E;
   border: 1px solid #413A3E;
 `;
+
 const Inbord = styled.div `
   background-color: #413A3E;
   border: 10px double #A5B5B6;
   padding: 30px;
-`
+`;
+
 const Title = styled.h1`
   display: flex;
   justify-content: center;
   letter-spacing: 1px;
   font-size: 36px;
 `;
+
 const Lang = styled.div`
   font-size: 3em;
   letter-spacing: 2px;
   text-transform: capitalize;
-`
+`;
+
 const English = styled.div `
   margin: 15px;
   font-size: 1.5em;
@@ -70,8 +74,8 @@ const Grade = styled.div`
   display: flex;
   justify-content: space-around;
   margin-top: 25px;
-
 `;
+
 const Complete = styled.div`
     display: flex;
     justify-content: center;
@@ -80,6 +84,7 @@ const Complete = styled.div`
     font-size: x-large;
     margin-bottom: 50px;
 `;
+
 const Body = styled.div`
   font-family: 'Roboto', sans-serif;
   color: #413a3e;
@@ -87,6 +92,7 @@ const Body = styled.div`
   margin: 0 auto;
   padding-top: 2rem;
 `;
+
 const PronuciationButton = styled.button`
   border: none;
   background-color: #413A3E;
@@ -106,7 +112,6 @@ export default function FlashcardIndex (props) {
 
   useEffect(() => {
     setFlashcardData(props.data);
-    console.log(flashcardData);
   }, [props.data])
 
   function synthesizeSpeech() {
@@ -158,7 +163,6 @@ export default function FlashcardIndex (props) {
     if (FL + 1 > flashcardData.length) {
       return;
     }
-    console.log(props.userID);
     var grade = e.target.id[9];
     var data = superMemo(flashcardData[FL].currentInterval, flashcardData[FL].repetition, flashcardData[FL].efactor, grade);
     data.word = flashcardData[FL].word;

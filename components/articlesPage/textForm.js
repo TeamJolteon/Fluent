@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { useAppContext } from '../../pages/state.js'
+import { useAppContext } from '../../pages/state.js';
 
 const SubmitArticles = styled.div`
   display: flex;
@@ -10,6 +10,7 @@ const SubmitArticles = styled.div`
   align-items: center;
 `;
 const Form = styled.form``;
+
 const Label = styled.label`
   display: flex;
   flex-direction: column;
@@ -18,6 +19,7 @@ const Label = styled.label`
   letter-spacing: 1px;
   padding-top: 6px;
 `;
+
 const Button = styled.button`
   padding: 10px;
   display: block;
@@ -33,6 +35,7 @@ const Button = styled.button`
     background-color: #d2d9da;
   }
 `;
+
 const Input = styled.input`
   background-color: #d2d9da;
   border: none;
@@ -42,6 +45,7 @@ const Input = styled.input`
   margin: 3px 15px;
   width: 300px;
 `;
+
 const TextArea = styled.textarea`
   background-color: #d2d9da;
   border: none;
@@ -51,6 +55,7 @@ const TextArea = styled.textarea`
   width: 300px;
   margin: 3px 34px;
 `;
+
 const Select = styled.select`
   background-color: #413a3e;
   color: #f8f9f0;
@@ -58,17 +63,20 @@ const Select = styled.select`
   margin: 0px 10px;
   letter-spacing: 1px;
 `;
+
 const ShareForm = styled.form`
   display: flex;
   flex-direction: row;
   padding: 10px;
 `;
+
 const ShareLabel = styled.label`
   display: flex;
   flex-direction: row;
   margin: 3px 15px;
   letter-spacing: 1px;
 `;
+
 export default function TextForm(props) {
   const [articleTitle, setArticleTitle] = useState('');
   const [source, setSource] = useState('');
@@ -110,7 +118,6 @@ export default function TextForm(props) {
         userUploaded: true,
       })
       .then((response) => {
-        console.log('response', response);
         props.setShowAdd(false);
       });
   };

@@ -61,10 +61,8 @@ export default function ArticleFeedItem(props) {
   let author = props.data.author ? props.data.author : '';
   let dateWritten = props.data.dateWritten;
   let dateUploaded = props.data.date_uploaded;
-  console.log('date written', props.dateWritten);
 
   let handleClick = () => {
-    // e.preventDefault();
     axios
       .put('http://localhost:3000/api/articlesAPI/deleteArticle', {
         user_id: props.data.user_id,
@@ -72,7 +70,6 @@ export default function ArticleFeedItem(props) {
         id: props.data.id,
       })
       .then((result) => {
-        console.log('results from delete', result);
         props.getFeed();
         props.getCommunityFeed();
       })
@@ -89,7 +86,6 @@ export default function ArticleFeedItem(props) {
         <Link href={url}>Link</Link>
       </ArticleTitleContainer>
       <ArticleInfoContainer>
-        {/* <Written>Written: {props.data.dateWritten}</Written> */}
         <Written>Uploaded: {props.data.date_uploaded.slice(0, 10)}</Written>
         <DeleteArticle onClick={handleClick}>Delete</DeleteArticle>
       </ArticleInfoContainer>

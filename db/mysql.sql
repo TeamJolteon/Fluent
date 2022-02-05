@@ -151,8 +151,6 @@ INSERT INTO `translations` (`language`,`word_id`,`translation`) VALUES
 INSERT INTO `translations` (`language`,`word_id`,`translation`) VALUES
 ('jp','2','シマウマ');
 
-
-
 -- To run this mySQL file type the following command in your terminal: mysql -u root < db/mysql.sql
 
 -- drop foreign key commands

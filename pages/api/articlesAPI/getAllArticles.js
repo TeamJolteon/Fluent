@@ -1,6 +1,8 @@
-const { getAllCommunityArticles } = require('../../../db/controllers/articles.js');
+const {
+  getAllCommunityArticles,
+} = require('../../../db/controllers/articles.js');
 
- const handler = async (req, res) => {
+const handler = async (req, res) => {
   try {
     var results = await getAllCommunityArticles();
     res.status(200).send(results);
@@ -10,6 +12,5 @@ const { getAllCommunityArticles } = require('../../../db/controllers/articles.js
 };
 
 export default handler;
-
 
 //localhost:3000/api/articlesAPI/getAllArticles

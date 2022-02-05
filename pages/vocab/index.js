@@ -8,7 +8,6 @@ import { useState, useEffect } from 'react';
 
 export default function Vocab(props) {
   const userID = useAppContext().data[0].id;
-  console.log('user', userID);
   const initialLanguage = useAppContext().data[0].default_language;
   const [language, setLanguage] = useState(null);
 
@@ -28,7 +27,6 @@ export default function Vocab(props) {
 
 export async function getServerSideProps(context) {
   const session = await getSession({ req: context.req });
-  console.log(session);
   if (!session) {
     return {
       redirect: {

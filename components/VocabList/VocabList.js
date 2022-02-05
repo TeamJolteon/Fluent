@@ -15,6 +15,7 @@ const Form = styled.form`
   justify-content: center;
   margin-top: 20px;
 `;
+
 const Input = styled.input`
   background-color: #d2d9da;
   color: #413a3e;
@@ -28,6 +29,7 @@ const SpeakerImg = styled.div``;
 const Phrases = styled.div`
   margin: 20px;
 `;
+
 const PhraseTable = styled.div`
   display: flex;
   flex-flow: column nowrap;
@@ -37,6 +39,7 @@ const PhraseTable = styled.div`
   border: 1px solid #413a3e;
   border-radius: 4px;
 `;
+
 const PronuciationButton2 = styled.button`
   border-radius: 45%;
   border: none;
@@ -45,6 +48,7 @@ const PronuciationButton2 = styled.button`
   color: #413a3e;
   cursor: pointer;
 `;
+
 const PronuciationButton = styled.button`
   border-radius: 45%;
   border: none;
@@ -53,12 +57,14 @@ const PronuciationButton = styled.button`
   margin-right: 8px;
   color: #413a3e;
 `;
+
 const PhraseHeader = styled.div`
   display: none;
   font-weight: 700;
   font-size: 1.1em;
   background-color: #f2f2f2;
 `;
+
 const PhraseRow = styled.div`
   width: 100%;
   display: flex;
@@ -67,6 +73,7 @@ const PhraseRow = styled.div`
   flex-flow: row nowrap;
   text-transform: capitalize;
 `;
+
 const PhraseRow2 = styled.div`
   width: 100%;
   display: flex;
@@ -76,6 +83,7 @@ const PhraseRow2 = styled.div`
   color: #413a3e;
   text-transform: capitalize;
 `;
+
 const PhraseTitles = styled.div`
   width: 100%;
   box-sizing: border-box;
@@ -89,6 +97,7 @@ const PhraseTitles = styled.div`
   letter-spacing: 1.5px;
   text-transform: capitalize;
 `;
+
 const PhraseHeaders = styled.div`
   display: flex;
   flex-flow: row nowrap;
@@ -99,6 +108,7 @@ const PhraseHeaders = styled.div`
   min-width: 0px;
   white-space: nowrap;
 `;
+
 const PhraseData = styled.div`
   display: flex;
   flex-flow: row nowrap;
@@ -114,6 +124,7 @@ const PhraseData = styled.div`
   font-weight: 550;
   letter-spacing: 0.5px;
 `;
+
 const ArticleLink1 = styled.a`
   text-decoration: underline;
   cursor: pointer;
@@ -121,6 +132,7 @@ const ArticleLink1 = styled.a`
     color: #d2d9da;
   }
 `;
+
 const ArticleLink = styled.a`
   text-decoration: underline;
   cursor: pointer;
@@ -128,12 +140,14 @@ const ArticleLink = styled.a`
     color: #9cbfa7;
   }
 `;
+
 const Title = styled.h1`
   display: flex;
   justify-content: center;
   letter-spacing: 1px;
   font-size: 36px;
 `;
+
 const Body = styled.div`
   font-family: 'Roboto', sans-serif;
   color: #413a3e;
@@ -141,6 +155,7 @@ const Body = styled.div`
   margin: 0 auto;
   padding-top: 2rem;
 `;
+
 const SortMenu = styled.select`
   border: white;
   margin-left: 15px;
@@ -168,7 +183,7 @@ export default function VocabList({ userID, language }) {
   const [listRecent, setListRecent] = useState([]);
 
   const currentLang = language;
-  console.log(currentLang === 'Swedish');
+
   useEffect(() => {
     const getList = async () => {
       try {
@@ -183,7 +198,6 @@ export default function VocabList({ userID, language }) {
         );
         setCurrentList(res.data);
         setListData(res.data);
-        console.log('response: ', res.data);
       } catch (err) {
         console.log(err);
       }
@@ -200,9 +214,8 @@ export default function VocabList({ userID, language }) {
   useEffect(() => {
     setCurrentList(listRecent);
   }, [listRecent]);
+
   useEffect(() => {
-    // difficultyHardFirst();
-    // sortRecent();
     if (sorted === 'Difficulty 📈') {
       difficultyEasyFirst();
     } else if (sorted === 'Difficulty 📉') {
@@ -213,12 +226,13 @@ export default function VocabList({ userID, language }) {
       setCurrentList(listData);
     }
   }, [sorted]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setCurrentValue('');
     setSearching(false);
   };
-  // const handleChange = (e) => {};
+
   const search = (e) => {
     setCurrentValue(e.target.value);
     setSearching(true);
@@ -238,6 +252,7 @@ export default function VocabList({ userID, language }) {
     );
     setListRecent(sortedByInterval);
   };
+
   const difficultyEasyFirst = () => {
     const filteredEasy = listData.filter((word) => {
       return word.efactor === 5;
@@ -250,6 +265,7 @@ export default function VocabList({ userID, language }) {
     });
     setListEasyFirst(filteredEasy.concat(filteredMedium, filteredHard));
   };
+
   const difficultyHardFirst = () => {
     const filteredEasy = listData.filter((word) => {
       return word.efactor === 5;
@@ -266,6 +282,7 @@ export default function VocabList({ userID, language }) {
   const handleSortChange = (e) => {
     setSorted(e.target.value);
   };
+
   function synthesizeSpeech(str) {
     const speechConfig = sdk.SpeechConfig.fromSubscription(AZURE, 'westus');
     const synthesizer = new sdk.SpeechSynthesizer(speechConfig);
@@ -377,10 +394,3 @@ export default function VocabList({ userID, language }) {
     </Body>
   );
 }
-// {
-//   articleData.map((article) =>
-//     word.article_id === article.id ? (
-//       <PhraseData>{article.url}</PhraseData>
-//     ) : null
-//   );
-// }

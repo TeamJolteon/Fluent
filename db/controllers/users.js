@@ -1,8 +1,6 @@
 import db from '../../db/index.js';
-// post request to add a new user
-// need to test all of these.
 
-const getUser = async ( email ) => {
+const getUser = async (email) => {
   try {
     var queryString = 'SELECT id, default_language FROM users WHERE email=?';
     var params = [email];
@@ -58,14 +56,10 @@ const deleteUser = async ({ email }) => {
   }
 };
 
-//GET: check if an user exists: "email" "password", if exists, return error?
-
-// get user_id from users where email === ${email}
-
 module.exports = {
   deleteUser,
   signOut,
   updateUserLanguage,
   createUser,
-  getUser
+  getUser,
 };
