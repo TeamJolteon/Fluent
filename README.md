@@ -3,11 +3,21 @@
 ## Overview
 Our team has been tasked with creating a web application for a client who is looking to improve their English.
 
+![](https://media.giphy.com/media/CFhvxXrLoE0YJNLf0L/giphy.gif)
+
 ## Articles
+
+![](https://media.giphy.com/media/Uq6J6CogKmItJchTW0/giphy.gif)
+
+![](https://media.giphy.com/media/MJw9ibS7Kb7r6nZeB8/giphy.gif)
 
 ## Vocab List
 
+![](https://media.giphy.com/media/v40KXs9uO9hOUAeuaQ/giphy.gif)
+
 ## Flashcards
+
+![](https://media.giphy.com/media/5VZnP4Znw5ndhZJz3C/giphy.gif)
 
 ## How to Install and Run the Project
 
