@@ -6,6 +6,7 @@ Our team has been tasked with creating a web application for a client who is loo
 ![](https://media.giphy.com/media/CFhvxXrLoE0YJNLf0L/giphy.gif)
 
 ## Articles
+This page is our client’s portal to all of the articles uploaded to Fluent. Articles on Fluent are separated into the user’s specific articles and community-shared articles. Articles are also able to be sorted alphabetically, by upload date, and favorite. Fluent users have the ability to add an article via the add article button, the add article modal allows the user to choose whether they’d like to submit their own text as an article or if they’d rather submit a url to an existing article. We’ve also enabled community sharing which a user can opt-out of if they’d rather not have their articles made public. The Articles page also allows the user to access a specific article. The single article view allows the user to click on a word and recieve the translation for that word in their language.  
 
 ![](https://media.giphy.com/media/Uq6J6CogKmItJchTW0/giphy.gif)
 
